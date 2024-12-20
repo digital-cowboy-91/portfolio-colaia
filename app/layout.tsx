@@ -4,9 +4,12 @@ import "./globals.css";
 
 const redHat = Red_Hat_Display({
   weight: ["300", "600", "900"],
+  style: "normal",
   variable: "--font-red-hat",
   subsets: ["latin"],
-  fallback: ["system-ui", "arial"],
+  // display: "swap",
+  // fallback: ["system-ui", "arial"],
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -21,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${redHat.variable} antialiased`}>{children}</body>
+      <body
+        className={`${redHat.variable} antialiased max-w-screen-xl mx-auto`}
+      >
+        <main className="min-h-screen">{children}</main>
+      </body>
     </html>
   );
 }
