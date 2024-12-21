@@ -1,58 +1,61 @@
 "use client";
 
-import { useAnimate } from "motion/react";
-import { useEffect } from "react";
+import {
+  AnimationPlaybackControls,
+  animate,
+  useInView,
+  useScroll,
+} from "motion/react";
+import { useEffect, useRef } from "react";
 
 export default function () {
-  const [scope, animate] = useAnimate();
+  const scope = useRef<AnimationPlaybackControls>(null);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
 
-  const play = {
-    onMount: async () => {
-      ["#name-1", "#name-3"].forEach((id, index) => {
-        animate(id, {
-          y: index ? "-6rem" : "6rem",
-        }).then(() =>
-          animate(id, {
-            x: index ? "-2.5rem" : "2.5rem",
-          })
-        );
-      });
-    },
+  useScroll().scrollYProgress.on("change", (progress) => {
+    if (!scope.current) return;
+    scope.current.time = progress * scope.current.duration;
+  });
 
-    onNavigate: async () => {
-      ["#name-1", "#name-3"].forEach((id, index) => {
-        animate(
-          id,
-          {
-            x: index ? "50%" : "-50%",
-            opacity: 0,
-          },
-          {
-            ease: "backOut",
-            duration: 0.4,
-          }
-        );
-      });
-    },
-  };
+  const onMount = () =>
+    animate([
+      ["#name-1", { y: "-6rem" }, { ease: "backOut", at: 0 }],
+      ["#name-3", { y: "6rem" }, { ease: "backOut", at: 0 }],
+      ["#name-1", { x: "-2.5rem" }, { ease: "backInOut", at: 0.5 }],
+      ["#name-3", { x: "2.5rem" }, { ease: "backInOut", at: 0.5 }],
+    ]);
+
+  const onScroll = () =>
+    animate([
+      [
+        "#name-1",
+        { x: ["-2.5rem", "10rem"], opacity: 0 },
+        { ease: "backOut", at: 0.5 },
+      ],
+      [
+        "#name-3",
+        { x: ["2.5rem", "-10rem"], opacity: 0 },
+        { ease: "backOut", at: 0.5 },
+      ],
+    ]);
 
   useEffect(() => {
-    play.onMount();
-  }, []);
+    onMount().play();
+
+    scope.current = onScroll();
+
+    scope.current.pause();
+  }, [inView]);
 
   return (
-    <>
-      <div
-        ref={scope}
-        className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute"
-      >
-        <span id="name-1">COLAIA</span>
-        <span id="name-2">COLAIA</span>
-        <span id="name-3">COLAIA</span>
-      </div>
-      <div className="absolute bg-white">
-        <button onClick={play.onNavigate}>onNavigate</button>
-      </div>
-    </>
+    <div
+      ref={ref}
+      className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute"
+    >
+      <span id="name-1">COLAIA</span>
+      <span id="name-2">COLAIA</span>
+      <span id="name-3">COLAIA</span>
+    </div>
   );
 }
