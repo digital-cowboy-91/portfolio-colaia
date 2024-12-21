@@ -27,7 +27,7 @@ export default function RootLayout({
       <body
         className={`${redHat.variable} antialiased max-w-screen-xl mx-auto`}
       >
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
       </body>
     </html>
   );
