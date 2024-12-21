@@ -1,12 +1,10 @@
+import TripleName from "@/components/hero/TripleName";
+
 export default function Home() {
   return (
     <section className="h-screen flex justify-center items-center">
       <div className="flex gap-8">
-        <div className="text-9xl leading-[0.75] font-black flex flex-col">
-          <span>COLAIA</span>
-          <span className="pl-10">COLAIA</span>
-          <span className="pl-20">COLAIA</span>
-        </div>
+        <TripleName />
         <div className="grid grid-rows-[1fr_min-content_1fr] gap-5 items-baseline">
           <span aria-hidden></span>
           <span className="text-5xl" aria-label="your future developer">
