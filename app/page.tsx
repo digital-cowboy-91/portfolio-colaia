@@ -99,7 +99,7 @@ export default function Home() {
       </div>
       <span>Section 1</span>
       <div className="h-screen flex items-center justify-center">
-        <div className="flex gap-8 fixed justify-center">
+        <div className="flex gap-8 fixed justify-center items-center">
           <div
             id="hero-col1"
             className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
@@ -108,33 +108,15 @@ export default function Home() {
             <span id="name-2">COLAIA</span>
             <span id="name-3">COLAIA</span>
           </div>
-          <div
-            ref={col2Ref}
-            id="hero-col2"
-            className="grid grid-rows-[1fr_min-content_1fr] gap-5 items-baseline w-0"
-          >
-            <span aria-hidden></span>
+          <div ref={col2Ref} id="hero-col2" className="w-0">
             <div
               id="subheading"
-              className="text-5xl flex [&>span]:opacity-0"
-              aria-label="your future developer"
+              className="grid grid-cols-[max_content,max_content] text-5xl [&>span]:opacity-0 whitespace-pre"
             >
-              <span>your_</span>
-              <span>future_</span>
-              <span>developer</span>
+              <span className="col-span-2">SELF-TAUGHT</span>
+              <span>FULLSTACK </span>
+              <span>CODER</span>
             </div>
-            <menu id="nav-bar" className="opacity-0 mx-auto">
-              <nav className="text-xl font-semibold tracking-wider flex items-center gap-8 px-8 py-2 bg-gradient-to-r from-[#B3FFAB] to-[#12FFF7] skew-x-[22deg] [&>*]:skew-x-[-22deg]">
-                {/* <nav className="text-xl font-semibold tracking-wider flex items-center gap-8 px-8 py-2 bg-gradient-to-r from-[#B3FFAB] to-[#12FFF7] skew-x-[22deg] [&>*]:skew-x-[-22deg] outline outline-2 outline-offset-2"> */}
-                <span>experience</span>
-                <span aria-label="about me">about_me</span>
-                <span>contact</span>
-                {/* <span>CV</span>
-                <span>DM</span>
-                <Icon icon="entypo-social:github-with-circle" width="32" />
-                <Icon icon="entypo-social:linkedin-with-circle" width="32" /> */}
-              </nav>
-            </menu>
           </div>
         </div>
       </div>
