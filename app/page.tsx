@@ -64,10 +64,11 @@ export default function Home() {
         { x: "2.5rem" },
         { ease: "backOut", duration: 0.75, at: "<" },
       ],
+      ["#stripe", { width: "60vw" }, { duration: 0.5, at: "-0.2" }],
       [
         "#hero-col2",
         { width: col2Ref.current.scrollWidth + "px" },
-        { ease: "easeInOut", duration: 0.5, at: "-0.2" },
+        { ease: "easeInOut", duration: 0.5, at: "<" },
       ],
       [
         "#subheading>span",
@@ -107,6 +108,7 @@ export default function Home() {
             <span id="name-1">COLAIA</span>
             <span id="name-2">COLAIA</span>
             <span id="name-3">COLAIA</span>
+            <div id="stripe" />
           </div>
           <div ref={col2Ref} id="hero-col2" className="w-0">
             <div
