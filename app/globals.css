@@ -19,3 +19,18 @@ body {
   background: var(--background);
   font-family: var(--font-red-hat);
 }
+
+#hero-col1::before {
+  z-index: -10;
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #b3ffab, #12fff7);
+  width: calc(100% + 35vw);
+  /* width: 83%; */
+  height: 172%;
+  transform: skew(22deg, -22deg);
+  transform-origin: bottom right;
+  bottom: -1.125rem;
+  right: -2.625rem;
+  /* border: solid 2rem; */
+}
