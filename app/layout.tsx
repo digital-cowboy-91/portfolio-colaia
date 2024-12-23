@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
+import SocialButtons from "./components/SocialButtons";
 import "./globals.css";
 
 const redHat = Red_Hat_Display({
   weight: ["300", "600", "900"],
+  style: "normal",
   variable: "--font-red-hat",
   subsets: ["latin"],
-  fallback: ["system-ui", "arial"],
+  // display: "swap",
+  // fallback: ["system-ui", "arial"],
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -21,7 +25,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${redHat.variable} antialiased`}>{children}</body>
+      <body
+        className={`${redHat.variable} antialiased max-w-screen-xl mx-auto p-8`}
+      >
+        <div className="fixed left-0 right-0">
+          <div className="max-w-screen-xl mx-auto flex justify-end">
+            <SocialButtons />
+          </div>
+        </div>
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

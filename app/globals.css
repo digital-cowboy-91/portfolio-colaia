@@ -17,4 +17,18 @@
 body {
   color: var(--foreground);
   background: var(--background);
+  font-family: var(--font-red-hat);
+}
+
+#stripe {
+  z-index: -10;
+  position: absolute;
+  background: linear-gradient(to right, #b3ffab, #12fff7);
+  width: 0;
+  height: 172%;
+  transform: skew(22deg, -22deg);
+  transform-origin: bottom right;
+  bottom: -1.125rem;
+  right: -2.625rem;
+  /* border: solid 2rem; */
 }
