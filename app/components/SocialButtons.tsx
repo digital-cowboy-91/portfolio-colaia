@@ -1,4 +1,3 @@
-import "iconify-icon";
 import GithubIcon from "./icons/GithubIcon";
 import LinkdInIcon from "./icons/LinkdInIcon";
 
