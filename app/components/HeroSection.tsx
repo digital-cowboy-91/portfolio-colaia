@@ -11,14 +11,14 @@ export default function () {
 
   // Non Reactive State
   const column1Ref = useRef<null | HTMLDivElement>(null);
-  const column2Ref = useRef<null | HTMLDivElement>(null);
+  const subheadingRef = useRef<null | HTMLDivElement>(null);
   const stripeRef = useRef<null | HTMLDivElement>(null);
 
   const layoutType = useRef<"vertical" | "horizontal">("vertical");
   const hasPlayed = useRef(false);
 
   useEffect(() => {
-    if (!column1Ref.current || !column2Ref.current) return;
+    if (!column1Ref.current || !subheadingRef.current) return;
 
     const newLayout =
       scope.current.clientWidth >= 768 ? "horizontal" : "vertical";
@@ -28,11 +28,11 @@ export default function () {
 
     const innerScopeWidth = scope.current.clientWidth - oneRem * 4; // simulate horizontal padding
     const col1Width = column1Ref.current.scrollWidth;
-    const col2Width = column2Ref.current.scrollWidth;
+    const col2Width = subheadingRef.current.scrollWidth;
 
     const computedScale =
       innerScopeWidth /
-      (col1Width + (newLayout === "horizontal" ? col2Width : 0));
+      (col1Width + (newLayout === "horizontal" ? col2Width + oneRem * 2 : 0));
     const newScale = computedScale < 1 ? computedScale : 1;
 
     // Update states
@@ -72,8 +72,8 @@ export default function () {
         { duration: 0.5, at: "-0.2" },
       ],
       [
-        "#hero-col2",
-        { width: column2Ref.current.scrollWidth + "px" },
+        "#subheading",
+        { width: subheadingRef.current.scrollWidth + "px" },
         {
           ease: "easeInOut",
           duration: layoutType.current === "horizontal" ? 0.5 : 0,
@@ -120,18 +120,13 @@ export default function () {
           <div ref={stripeRef} id="stripe" />
         </div>
         <div
-          ref={column2Ref}
-          id="hero-col2"
-          className="w-0 my-8 overflow-hidden"
+          ref={subheadingRef}
+          id="subheading"
+          className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
         >
-          <div
-            id="subheading"
-            className="grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
-          >
-            <span className="col-span-2">SELF-TAUGHT</span>
-            <span>FULLSTACK </span>
-            <span>CODER</span>
-          </div>
+          <span className="col-span-2">SELF-TAUGHT</span>
+          <span>FULLSTACK </span>
+          <span>CODER</span>
         </div>
       </div>
     </section>
