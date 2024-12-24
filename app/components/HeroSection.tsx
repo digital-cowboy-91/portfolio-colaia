@@ -1,20 +1,50 @@
 "use client";
 import { stagger, useAnimate } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import useWindowSize from "../hooks/useWindowSize";
 
 export default function () {
+  // Reactive States
   const [scope, animate] = useAnimate();
-  const col2Ref = useRef<null | HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const { width } = useWindowSize();
+
+  // Non Reactive State
+  const column1Ref = useRef<null | HTMLDivElement>(null);
+  const column2Ref = useRef<null | HTMLDivElement>(null);
+  const stripeRef = useRef<null | HTMLDivElement>(null);
+
+  const layoutType = useRef<"vertical" | "horizontal">("vertical");
+  const hasPlayed = useRef(false);
 
   useEffect(() => {
-    if (!col2Ref.current) return;
+    if (!column1Ref.current || !column2Ref.current) return;
 
-    const onMount = animate([
-      [
-        "#hero-col1",
-        { opacity: [0, 1], scale: [1.2, 1] },
-        { delay: 0.3, duration: 1 },
-      ],
+    const newLayout =
+      scope.current.clientWidth >= 768 ? "horizontal" : "vertical";
+    const oneRem = parseFloat(
+      window.getComputedStyle(document.documentElement).fontSize
+    );
+
+    const innerScopeWidth = scope.current.clientWidth - oneRem * 4; // simulate horizontal padding
+    const col1Width = column1Ref.current.scrollWidth;
+    const col2Width = column2Ref.current.scrollWidth;
+
+    const computedScale =
+      innerScopeWidth /
+      (col1Width + (newLayout === "horizontal" ? col2Width : 0));
+    const newScale = computedScale < 1 ? computedScale : 1;
+
+    // Update states
+    setScale(newScale);
+    layoutType.current = newLayout;
+
+    // Animate
+    if (hasPlayed.current) return;
+
+    animate([
+      ["#hero-col1", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
+      ["#name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
       [
         "#name-1",
         { y: "-6rem", opacity: [0, 1] },
@@ -31,11 +61,24 @@ export default function () {
         { x: "2.5rem" },
         { ease: "backOut", duration: 0.75, at: "<" },
       ],
-      ["#stripe", { width: "60vw" }, { duration: 0.5, at: "-0.2" }],
+      [
+        "#stripe",
+        {
+          width:
+            stripeRef.current?.getBoundingClientRect().right! /
+            newScale /
+            Math.cos(22 * (Math.PI / 180)),
+        },
+        { duration: 0.5, at: "-0.2" },
+      ],
       [
         "#hero-col2",
-        { width: col2Ref.current.scrollWidth + "px" },
-        { ease: "easeInOut", duration: 0.5, at: "<" },
+        { width: column2Ref.current.scrollWidth + "px" },
+        {
+          ease: "easeInOut",
+          duration: layoutType.current === "horizontal" ? 0.5 : 0,
+          at: "<",
+        },
       ],
       [
         "#subheading>span",
@@ -48,10 +91,10 @@ export default function () {
         { y: ["1rem", "0rem"] },
         { type: "spring", stiffness: 500, damping: 10, velocity: 2, at: "<" },
       ],
-    ]);
-
-    return onMount.stop;
-  }, [col2Ref]);
+    ]).then(() => {
+      hasPlayed.current = true;
+    });
+  }, [width]);
 
   return (
     <section
@@ -59,20 +102,31 @@ export default function () {
       id="hero"
       className="flex flex-col items-center justify-center h-screen max-h-[800px]"
     >
-      <div className="flex justify-center items-center gap-8">
+      <div
+        id="hero-wrapper"
+        className="flex flex-col md:flex-row justify-center items-center gap-8"
+        style={{
+          scale,
+        }}
+      >
         <div
+          ref={column1Ref}
           id="hero-col1"
           className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
         >
           <span id="name-1">COLAIA</span>
           <span id="name-2">COLAIA</span>
           <span id="name-3">COLAIA</span>
-          <div id="stripe" />
+          <div ref={stripeRef} id="stripe" />
         </div>
-        <div ref={col2Ref} id="hero-col2" className="w-0">
+        <div
+          ref={column2Ref}
+          id="hero-col2"
+          className="w-0 my-8 overflow-hidden"
+        >
           <div
             id="subheading"
-            className="grid grid-cols-[max_content,max_content] text-5xl [&>span]:opacity-0 whitespace-pre"
+            className="grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
           >
             <span className="col-span-2">SELF-TAUGHT</span>
             <span>FULLSTACK </span>

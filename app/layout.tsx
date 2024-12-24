@@ -25,15 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${redHat.variable} antialiased max-w-screen-xl mx-auto p-8`}
-      >
-        <div className="fixed left-0 right-0">
-          <div className="max-w-screen-xl mx-auto flex justify-end">
+      <body className={`${redHat.variable} antialiased`}>
+        <header className="fixed left-0 right-0">
+          <div className="max-w-screen-xl mx-auto flex justify-end p-4 md:p-8">
             <SocialButtons />
           </div>
-        </div>
-        <main>{children}</main>
+        </header>
+        <main className="max-w-screen-xl mx-auto">{children}</main>
       </body>
     </html>
   );
