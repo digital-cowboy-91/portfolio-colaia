@@ -10,7 +10,7 @@ export default function () {
   const { width } = useWindowSize();
 
   // Non Reactive State
-  const column1Ref = useRef<null | HTMLDivElement>(null);
+  const tripleNameRef = useRef<null | HTMLDivElement>(null);
   const subheadingRef = useRef<null | HTMLDivElement>(null);
   const stripeRef = useRef<null | HTMLDivElement>(null);
 
@@ -18,7 +18,7 @@ export default function () {
   const hasPlayed = useRef(false);
 
   useEffect(() => {
-    if (!column1Ref.current || !subheadingRef.current) return;
+    if (!tripleNameRef.current || !subheadingRef.current) return;
 
     const newLayout =
       scope.current.clientWidth >= 768 ? "horizontal" : "vertical";
@@ -27,7 +27,7 @@ export default function () {
     );
 
     const innerScopeWidth = scope.current.clientWidth - oneRem * 4; // simulate horizontal padding
-    const col1Width = column1Ref.current.scrollWidth;
+    const col1Width = tripleNameRef.current.scrollWidth;
     const col2Width = subheadingRef.current.scrollWidth;
 
     const computedScale =
@@ -43,7 +43,7 @@ export default function () {
     if (hasPlayed.current) return;
 
     animate([
-      ["#hero-col1", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
+      ["#triple-name", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
       ["#name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
       [
         "#name-1",
@@ -110,8 +110,8 @@ export default function () {
         }}
       >
         <div
-          ref={column1Ref}
-          id="hero-col1"
+          ref={tripleNameRef}
+          id="triple-name"
           className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
         >
           <span id="name-1">COLAIA</span>
