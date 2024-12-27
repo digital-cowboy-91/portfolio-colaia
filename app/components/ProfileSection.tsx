@@ -1,11 +1,13 @@
 "use client";
 
+import crop from "@/app/assets/profile-photo.jpg";
 import {
   useAnimate,
   useInView,
   useMotionValueEvent,
   useScroll,
 } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Code from "./Code";
 
@@ -77,9 +79,10 @@ export default function () {
       >
         <Code snippet={snippet} />
 
-        <img
+        <Image
           className="rounded-full max-w-[250px] max-h-[250px]"
-          src="https://placehold.co/250x250"
+          src={crop}
+          alt="Portrait photo of young man looking straight to the camera"
         />
       </div>
     </section>
