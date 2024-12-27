@@ -11,11 +11,11 @@ export default function ({ horizontal = false }: { horizontal?: boolean }) {
       {[
         {
           Icon: LinkdInIcon,
-          url: "linkdin.com",
+          url: "https://www.linkedin.com/in/dkolaja/",
         },
         {
           Icon: GithubIcon,
-          url: "github.com",
+          url: "https://github.com/digital-cowboy-91",
         },
       ].map(({ Icon, url }) => (
         <a key={url} href={url}>
