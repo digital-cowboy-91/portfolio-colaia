@@ -31,7 +31,7 @@ export default function RootLayout({
             <SocialButtons />
           </div>
         </header>
-        <main className="max-w-screen-xl mx-auto">{children}</main>
+        <main className="max-w-screen-xl mx-auto h-[300vh]">{children}</main>
       </body>
     </html>
   );
