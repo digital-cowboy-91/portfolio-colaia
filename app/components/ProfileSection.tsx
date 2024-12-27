@@ -1,12 +1,9 @@
 "use client";
 
-import hljs from "highlight.js";
-import "highlight.js/styles/vs2015.min.css";
-import { useEffect, useRef } from "react";
+import Code from "./Code";
 
 export default function () {
-  const codeRef = useRef<HTMLElement | null>(null);
-  const jsData = `
+  const snippet = `
 const profile = {
   username: "colaia",
   full_name: "David Kolaja",
@@ -23,20 +20,18 @@ A self-taught JavaScript Software Developer with passion for innovation and expl
 };
   `;
 
-  useEffect(() => {
-    if (!codeRef.current) return;
-
-    codeRef.current.innerHTML = hljs.highlight(jsData, {
-      language: "javascript",
-    }).value;
-  }, []);
-
   return (
     <section>
-      <div className="bg-foreground w-[900px] h-[500px] rounded-[3rem] mx-auto">
-        <pre>
-          <code ref={codeRef} />
-        </pre>
+      <div
+        className="bg-foreground w-[900px] h-[500px] rounded-[3rem] mx-auto p-8 flex gap-8 items-center"
+        style={{
+          filter: `drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))`,
+        }}
+      >
+        <Code snippet={snippet} />
+        <div className="rounded-full overflow-hidden">
+          <img src="https://placehold.co/500x500" />
+        </div>
       </div>
     </section>
   );
