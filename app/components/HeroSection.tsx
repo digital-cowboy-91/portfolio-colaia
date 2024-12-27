@@ -3,7 +3,7 @@ import { stagger, useAnimate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
 
-export default function () {
+export default function ({ onReady }: { onReady: () => void }) {
   // Reactive States
   const [scope, animate] = useAnimate();
   const [scale, setScale] = useState(1);
@@ -15,7 +15,7 @@ export default function () {
   const stripeRef = useRef<null | HTMLDivElement>(null);
 
   const layoutType = useRef<"vertical" | "horizontal">("vertical");
-  const hasPlayed = useRef(false);
+  const isReady = useRef(false);
 
   useEffect(() => {
     if (!tripleNameRef.current || !subheadingRef.current) return;
@@ -40,7 +40,7 @@ export default function () {
     layoutType.current = newLayout;
 
     // Animate
-    if (hasPlayed.current) return;
+    if (isReady.current) return;
 
     animate([
       ["#triple-name", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
@@ -92,7 +92,8 @@ export default function () {
         { type: "spring", stiffness: 500, damping: 10, velocity: 2, at: "<" },
       ],
     ]).then(() => {
-      hasPlayed.current = true;
+      isReady.current = true;
+      onReady();
     });
   }, [width]);
 

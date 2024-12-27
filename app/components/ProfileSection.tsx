@@ -1,29 +1,78 @@
 "use client";
 
+import {
+  useAnimate,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+} from "motion/react";
+import { useEffect, useRef } from "react";
 import Code from "./Code";
 
 export default function () {
+  const [scope, animate] = useAnimate();
+  const isReady = useRef(false);
+  const isInView = useInView(scope, { once: true });
+  const { scrollYProgress } = useScroll({
+    target: scope,
+    offset: ["end center", "start center"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (position) => {
+    if (!isReady.current) return;
+
+    animate("#profile-card", {
+      rotateY: 10 + -20 * position,
+      rotateX: -10 + 20 * position,
+    });
+  });
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    const position = scrollYProgress.get();
+
+    animate(
+      "#profile-card",
+      {
+        opacity: 1,
+        rotateY: 10 + -20 * position,
+        rotateX: [90, -10 + 20 * position],
+      },
+      {
+        duration: 0.5,
+        ease: "backOut",
+      }
+    ).then(() => (isReady.current = true));
+  }, [isInView]);
+
   const snippet = `
-const profile = {
-  username: "colaia",
-  full_name: "David Kolaja",
-  age: 33,
-  address: "**REDUCTED**",
-  city: "Warrington",
-  nationality: "Czech",
-  has_right_to_work: true,
-  open_for_work: true,
-  bio: \`
-A self-taught JavaScript Software Developer with passion for innovation and exploring new technologies.
-  \`,
-  img: "https://colaia.dev/me-myself-and-i.jpg",
-};
-  `;
+  const profile = {
+    username: "colaia",
+    full_name: "David Kolaja",
+    age: 33,
+    address: "**REDUCTED**",
+    city: "Warrington",
+    nationality: "Czech",
+    has_right_to_work: true,
+    open_for_work: true,
+    bio: \`
+  A self-taught JavaScript Software Developer with passion for innovation and exploring new technologies.
+    \`,
+    img: "https://colaia.dev/me-myself-and-i.jpg",
+  };
+    `;
 
   return (
-    <section className="-mt-32 p-8">
+    <section
+      className="-mt-32 p-8"
+      ref={scope}
+      id="profile"
+      style={{ perspective: "1200px" }}
+    >
       <div
-        className="bg-foreground rounded-[3rem] max-w-[900px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
+        id="profile-card"
+        className="opacity-0 bg-foreground rounded-[3rem] max-w-[900px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
         style={{
           filter: `drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))`,
         }}
