@@ -84,15 +84,13 @@ const tools = [
     title: "Vue",
     alt: "Vue Logo",
   },
-];
+].sort((a, b) => 0.5 - Math.random());
 
 export default function () {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
     if (!scope.current) return;
-
-    console.log(scope.current.scrollWidth);
 
     animate(
       "#tool-list",
