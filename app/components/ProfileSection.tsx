@@ -51,15 +51,13 @@ export default function () {
     username: "colaia",
     full_name: "David Kolaja",
     age: 33,
-    address: "**REDUCTED**",
-    city: "Warrington",
     nationality: "Czech",
+    location: "Warrington, UK",
     has_right_to_work: true,
     open_for_work: true,
     bio: \`
   A self-taught JavaScript Software Developer with passion for innovation and exploring new technologies.
     \`,
-    img: "https://colaia.dev/me-myself-and-i.jpg",
   };
     `;
 
