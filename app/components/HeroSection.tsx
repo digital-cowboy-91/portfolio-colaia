@@ -9,7 +9,7 @@ export default function () {
   const [scale, setScale] = useState(1);
   const { width } = useWindowSize();
 
-  // Non Reactive State
+  // Non Reactive States
   const tripleNameRef = useRef<null | HTMLDivElement>(null);
   const subheadingRef = useRef<null | HTMLDivElement>(null);
   const stripeRef = useRef<null | HTMLDivElement>(null);
