@@ -63,7 +63,7 @@ export default function () {
 
   return (
     <section
-      className="-mt-32 p-8"
+      className="-mt-32 mb-32 p-8"
       ref={scope}
       id="profile"
       style={{ perspective: "1200px" }}
