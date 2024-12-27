@@ -3,6 +3,7 @@
 import { useState } from "react";
 import HeroSection from "./components/HeroSection";
 import ProfileSection from "./components/ProfileSection";
+import ToolsSection from "./components/ToolsSection";
 
 export default function Home() {
   const [renderContent, setRenderContent] = useState(false);
@@ -10,7 +11,12 @@ export default function Home() {
   return (
     <>
       <HeroSection onReady={() => setRenderContent(true)} />
-      {renderContent && <ProfileSection />}
+      {renderContent && (
+        <>
+          <ProfileSection />
+          <ToolsSection />
+        </>
+      )}
     </>
   );
 }
