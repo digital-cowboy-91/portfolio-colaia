@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import digitalOceanLogo from "@/app/assets/logos/digitalocean.svg";
@@ -13,8 +15,10 @@ import reactLogo from "@/app/assets/logos/react.svg";
 import tailwindCSSLogo from "@/app/assets/logos/tailwindcss.svg";
 import typeScriptLogo from "@/app/assets/logos/typescript.svg";
 import vueLogo from "@/app/assets/logos/vue.svg";
+import { useAnimate } from "motion/react";
+import { useEffect } from "react";
 
-const images = [
+const tools = [
   {
     src: digitalOceanLogo,
     title: "DigitalOcean",
@@ -83,12 +87,35 @@ const images = [
 ];
 
 export default function () {
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    if (!scope.current) return;
+
+    console.log(scope.current.scrollWidth);
+
+    animate(
+      "#tool-list",
+      {
+        x: -(scope.current.scrollWidth + 96) / 2,
+      },
+      {
+        duration: tools.length * 2 * 2,
+        ease: "linear",
+        repeatType: "loop",
+        repeat: Infinity,
+      }
+    );
+  }, []);
+
   return (
-    <section id="tools">
-      <ul className="flex flex-row gap-32">
-        {images.map(({ src, title, alt }) => (
-          <li key={title} className="shrink-0 grow-0 size-32 flex items-center">
-            <Image src={src} alt={alt} className="max-w-32 max-h-32" />
+    <section ref={scope} id="tools" className="relative h-24 overflow-hidden">
+      <div className="absolute left-0 w-[25%] inset-y-0 bg-gradient-to-r from-background to-transparent" />
+      <div className="absolute right-0 w-[25%] inset-y-0 bg-gradient-to-l from-background to-transparent" />
+      <ul id="tool-list" className="flex flex-row gap-24 absolute -z-10">
+        {[...tools, ...tools].map(({ src, title, alt }, index) => (
+          <li key={index} className="shrink-0 grow-0 size-24 flex items-center">
+            <Image src={src} alt={alt} className="max-w-24 max-h-24" />
           </li>
         ))}
       </ul>
