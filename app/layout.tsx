@@ -14,8 +14,9 @@ const redHat = Red_Hat_Display({
 });
 
 export const metadata: Metadata = {
-  title: "DEV: Colaia.dev",
-  description: "",
+  title: "Colaia DEV",
+  description:
+    "Personal presentation of self-taught fullstack coder based in the Warrington, UK.",
 };
 
 export default function RootLayout({
