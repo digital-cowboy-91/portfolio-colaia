@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import HeroSection from "./components/HeroSection";
+import InterestSection from "./components/InterestSection";
 import ProfileSection from "./components/ProfileSection";
 import ToolsSection from "./components/ToolsSection";
 
@@ -15,6 +16,7 @@ export default function Home() {
         <>
           <ProfileSection />
           <ToolsSection />
+          <InterestSection />
         </>
       )}
     </>
