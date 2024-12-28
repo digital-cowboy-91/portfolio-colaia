@@ -107,7 +107,11 @@ export default function () {
   }, []);
 
   return (
-    <section ref={scope} id="tools" className="relative h-24 overflow-hidden">
+    <section
+      ref={scope}
+      id="tools"
+      className="relative h-24 overflow-hidden mb-32"
+    >
       <div className="absolute left-0 w-[25%] inset-y-0 bg-gradient-to-r from-background to-transparent" />
       <div className="absolute right-0 w-[25%] inset-y-0 bg-gradient-to-l from-background to-transparent" />
       <ul id="tool-list" className="flex flex-row gap-24 absolute -z-10">
