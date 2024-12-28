@@ -39,7 +39,7 @@ export default function () {
       {
         opacity: 1,
         rotateY: 10 + -20 * position,
-        rotateX: [90, -10 + 20 * position],
+        rotateX: [90, -5 + 10 * position],
       },
       {
         duration: 0.5,
@@ -72,13 +72,12 @@ export default function () {
     >
       <div
         id="profile-card"
-        className="opacity-0 bg-foreground rounded-[3rem] max-w-[900px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
+        className="opacity-0 bg-foreground rounded-[3rem] max-w-[800px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
         style={{
           filter: `drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))`,
         }}
       >
         <Code snippet={snippet} />
-
         <Image
           className="rounded-full max-w-[250px] max-h-[250px]"
           src={crop}
