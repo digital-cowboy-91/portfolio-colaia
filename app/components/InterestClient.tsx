@@ -22,8 +22,8 @@ export default function ({ data }) {
                   <h3 className="font-black">{title}</h3>
                   <p>{description}</p>
                   <ul className="flex flex-row gap-4 justify-start flex-shrink">
-                    {usedTools.map(({ title, src, alt }) => (
-                      <li key={title}>
+                    {usedTools.map(({ slug, src, alt }, index) => (
+                      <li key={slug + index}>
                         <Image
                           className="w-auto h-6"
                           width={128}

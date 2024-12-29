@@ -10,8 +10,6 @@ type Props = {
 };
 
 export default function ({ data }: Props) {
-  const tools = data.sort((a, b) => 0.5 - Math.random());
-
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
@@ -23,7 +21,7 @@ export default function ({ data }: Props) {
         x: -(scope.current.scrollWidth + 96) / 2,
       },
       {
-        duration: tools.length * 2 * 2,
+        duration: data.length * 2 * 2,
         ease: "linear",
         repeatType: "loop",
         repeat: Infinity,
@@ -40,7 +38,7 @@ export default function ({ data }: Props) {
       }}
     >
       <ul id="tool-list" className="flex flex-row gap-24 absolute -z-10">
-        {[...tools, ...tools].map(({ src, title, alt }, index) => (
+        {[...data, ...data].map(({ src, title, alt }, index) => (
           <li key={index} className="shrink-0 grow-0 size-24 relative">
             <Image
               src={src}
