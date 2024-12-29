@@ -1,16 +1,16 @@
-import fs from "node:fs/promises";
+"use server";
+
 import ProfileClient from "./ProfileClient";
 import SectionWrapper from "./SectionWrapper";
 
 export default async function () {
-  const data = await fs
-    .readFile(process.env.LOCAL_STORAGE + "/profile.json", { encoding: "utf8" })
-    .then((res) => JSON.parse(res));
+  const res = await fetch("http://localhost:3000/api/interests");
+  const data = await res.json();
 
   if (!data.length) return;
 
   return (
-    <SectionWrapper id="profile" className="">
+    <SectionWrapper id="profile">
       <ProfileClient data={data} />
     </SectionWrapper>
   );

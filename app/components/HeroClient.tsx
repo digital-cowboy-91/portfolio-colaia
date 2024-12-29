@@ -4,7 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
 import SectionWrapper from "./SectionWrapper";
 
-export default function () {
+type Props = {
+  onReady: () => void;
+};
+
+export default function ({ onReady }: Props) {
   // Reactive States
   const [scope, animate] = useAnimate();
   const [scale, setScale] = useState(1);
@@ -94,6 +98,7 @@ export default function () {
       ],
     ]).then(() => {
       isReady.current = true;
+      onReady();
     });
   }, [width]);
 

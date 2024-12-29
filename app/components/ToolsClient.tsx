@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { useAnimate } from "motion/react";
+import { useAnimate, useInView } from "motion/react";
 import { useEffect } from "react";
 
 type Props = {
@@ -11,9 +11,14 @@ type Props = {
 
 export default function ({ data }: Props) {
   const [scope, animate] = useAnimate();
+  const isInView = useInView(scope, { once: true });
 
   useEffect(() => {
-    if (!scope.current) return;
+    if (!scope.current || !isInView) return;
+
+    animate("#tool-list", {
+      opacity: 1,
+    });
 
     animate(
       "#tool-list",
@@ -27,7 +32,7 @@ export default function ({ data }: Props) {
         repeat: Infinity,
       }
     );
-  }, []);
+  }, [isInView]);
 
   return (
     <div
@@ -37,7 +42,10 @@ export default function ({ data }: Props) {
         mask: "linear-gradient(90deg, transparent, white 20%, white 80%, transparent)",
       }}
     >
-      <ul id="tool-list" className="flex flex-row gap-24 absolute -z-10">
+      <ul
+        id="tool-list"
+        className="opacity-0 flex flex-row gap-24 absolute -z-10"
+      >
         {[...data, ...data].map(({ src, title, alt }, index) => (
           <li key={index} className="shrink-0 grow-0 size-24 relative">
             <Image

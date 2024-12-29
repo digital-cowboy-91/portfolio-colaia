@@ -1,17 +1,14 @@
-import dynamic from "next/dynamic";
-import HeroClient from "./components/HeroClient";
-
-const InterestsServer = dynamic(() => import("./components/InterestsServer"));
-const ProfileServer = dynamic(() => import("./components/ProfileServer"));
-const ToolsServer = dynamic(() => import("./components/ToolsServer"));
+import InterestsServer from "./components/InterestsServer";
+import ProfileServer from "./components/ProfileServer";
+import RootPageOrchestration from "./components/RootPageOrchestration";
+import ToolsServer from "./components/ToolsServer";
 
 export default function Home() {
   return (
-    <>
-      <HeroClient />
+    <RootPageOrchestration>
       <ProfileServer />
       <ToolsServer />
       <InterestsServer />
-    </>
+    </RootPageOrchestration>
   );
 }

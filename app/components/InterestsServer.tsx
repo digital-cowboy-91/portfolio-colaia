@@ -1,5 +1,5 @@
 import fs from "node:fs/promises";
-import InterestClient from "./InterestClient";
+import InterestClient from "./InterestsClient";
 import SectionWrapper from "./SectionWrapper";
 
 export default async function () {
