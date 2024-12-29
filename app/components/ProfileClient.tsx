@@ -11,7 +11,9 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import Code from "./Code";
 
-export default function () {
+export default function ({ data }) {
+  const { snippet } = data[0];
+
   const [scope, animate] = useAnimate();
   const isReady = useRef(false);
   const isInView = useInView(scope, { once: true });
@@ -48,28 +50,8 @@ export default function () {
     ).then(() => (isReady.current = true));
   }, [isInView]);
 
-  const snippet = `
-  const profile = {
-    username: "colaia",
-    full_name: "David Kolaja",
-    age: 33,
-    nationality: "Czech",
-    location: "Warrington, UK",
-    has_right_to_work: true,
-    open_for_work: true,
-    bio: \`
-  A self-taught JavaScript Software Developer with passion for innovation and exploring new technologies.
-    \`,
-  };
-    `;
-
   return (
-    <section
-      className="-mt-32 mb-32 p-8"
-      ref={scope}
-      id="profile"
-      style={{ perspective: "1200px" }}
-    >
+    <div ref={scope} style={{ perspective: "1200px" }}>
       <div
         id="profile-card"
         className="opacity-0 bg-foreground rounded-[3rem] max-w-[800px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
@@ -84,6 +66,6 @@ export default function () {
           alt="Portrait photo of young man looking straight to the camera"
         />
       </div>
-    </section>
+    </div>
   );
 }

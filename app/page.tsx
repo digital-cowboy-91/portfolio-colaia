@@ -1,24 +1,15 @@
-"use client";
-
-import { useState } from "react";
-import HeroSection from "./components/HeroSection";
-import InterestSection from "./components/InterestSection";
-import ProfileSection from "./components/ProfileSection";
-import ToolsSection from "./components/ToolsSection";
+import HeroClient from "./components/HeroClient";
+import InterestsServer from "./components/InterestsServer";
+import ProfileServer from "./components/ProfileServer";
+import ToolsServer from "./components/ToolsServer";
 
 export default function Home() {
-  const [renderContent, setRenderContent] = useState(false);
-
   return (
     <>
-      <HeroSection onReady={() => setRenderContent(true)} />
-      {renderContent && (
-        <>
-          <ProfileSection />
-          <ToolsSection />
-          <InterestSection />
-        </>
-      )}
+      <HeroClient />
+      <ProfileServer />
+      <ToolsServer />
+      <InterestsServer />
     </>
   );
 }
