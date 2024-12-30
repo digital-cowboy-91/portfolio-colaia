@@ -14,7 +14,7 @@ export default function InterestItem({ data }: Props) {
   const jsDate = new Date(date);
 
   const [scope, animate] = useAnimate();
-  const isInView = useInView(scope, { amount: "all", once: true });
+  const isInView = useInView(scope, { amount: 0.5, once: true });
 
   useEffect(() => {
     if (!isInView) return;
@@ -42,10 +42,14 @@ export default function InterestItem({ data }: Props) {
 
   return (
     <li ref={scope} className="opacity-0 grid grid-cols-subgrid col-span-2">
-      <h2 className="text-right">
-        {jsDate.getFullYear()}
-        <br />
-        {jsDate.toLocaleDateString("en-GB", { month: "long" }).toUpperCase()}
+      <h2 className="flex flex-col text-right">
+        <span>{jsDate.getFullYear()}</span>
+        <span className="max-md:hidden">
+          {jsDate.toLocaleDateString("en-GB", { month: "long" }).toUpperCase()}
+        </span>
+        <span className="md:hidden">
+          {jsDate.toLocaleDateString("en-GB", { month: "short" }).toUpperCase()}
+        </span>
       </h2>
       <div className="flex flex-col gap-4 origin-top">
         <h3>{title}</h3>
