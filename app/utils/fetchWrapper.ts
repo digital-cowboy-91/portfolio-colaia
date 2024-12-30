@@ -1,14 +1,13 @@
 const base = process.env.SERVER_BASE_URL;
 
-export async function fetcher(endpoint: string, options?: RequestInit) {
+export async function fetcher<T>(
+  endpoint: string,
+  options?: RequestInit
+): Promise<T> {
   try {
     const res = await fetch(base + endpoint, options);
 
-    try {
-      return await res.json();
-    } catch (jsonError) {
-      return await res.text();
-    }
+    return await res.json();
   } catch (error) {
     throw error;
   }

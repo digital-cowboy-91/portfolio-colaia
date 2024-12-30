@@ -4,12 +4,13 @@ import Image from "next/image";
 
 import { useAnimate, useInView } from "motion/react";
 import { useEffect } from "react";
+import { Tool } from "../types/tools";
 
 type Props = {
-  data: any[];
+  data: Tool[];
 };
 
-export default function ({ data }: Props) {
+export default function ToolsClient({ data }: Props) {
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope, { once: true });
 
@@ -46,7 +47,7 @@ export default function ({ data }: Props) {
         id="tool-list"
         className="opacity-0 flex flex-row gap-24 absolute -z-10"
       >
-        {[...data, ...data].map(({ src, title, alt }, index) => (
+        {[...data, ...data].map(({ src, alt }, index) => (
           <li key={index} className="shrink-0 grow-0 size-24 relative">
             <Image
               src={src}

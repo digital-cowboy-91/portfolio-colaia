@@ -1,6 +1,11 @@
+import { InterestsWithRefs } from "../types/interests";
 import InterestItem from "./InterestItem";
 
-export default function ({ data }) {
+type Props = {
+  data: InterestsWithRefs[];
+};
+
+export default function InterestsClient({ data }: Props) {
   return (
     <section className="mb-32">
       <div className="max-w-[800px] mx-auto">

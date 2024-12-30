@@ -5,7 +5,7 @@ import DOMPurify from "isomorphic-dompurify";
 
 hljs.configure({ languages: ["javascript"] });
 
-export default function ({ snippet }: { snippet: string }) {
+export default function Code({ snippet }: { snippet: string }) {
   const html = hljs.highlightAuto(snippet, ["javascript"]).value;
   const sanitizedHtml = DOMPurify.sanitize(html);
 

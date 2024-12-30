@@ -9,9 +9,14 @@ import {
 } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import { Profile } from "../types/profile";
 import Code from "./Code";
 
-export default function ({ data }) {
+type Props = {
+  data: Profile[];
+};
+
+export default function ProfileClient({ data }: Props) {
   const { snippet } = data[0];
 
   const [scope, animate] = useAnimate();

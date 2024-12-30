@@ -8,7 +8,7 @@ type Props = {
   onReady: () => void;
 };
 
-export default function ({ onReady }: Props) {
+export default function HeroClient({ onReady }: Props) {
   // Reactive States
   const [scope, animate] = useAnimate();
   const [scale, setScale] = useState(1);
@@ -23,7 +23,8 @@ export default function ({ onReady }: Props) {
   const isReady = useRef(false);
 
   useEffect(() => {
-    if (!tripleNameRef.current || !subheadingRef.current) return;
+    if (!tripleNameRef.current || !subheadingRef.current || !stripeRef.current)
+      return;
 
     const newLayout =
       scope.current.clientWidth >= 768 ? "horizontal" : "vertical";
@@ -70,7 +71,7 @@ export default function ({ onReady }: Props) {
         "#stripe",
         {
           width:
-            stripeRef.current?.getBoundingClientRect().right! /
+            stripeRef.current.getBoundingClientRect().right! /
             newScale /
             Math.cos(22 * (Math.PI / 180)),
         },
