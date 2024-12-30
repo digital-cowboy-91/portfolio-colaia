@@ -126,7 +126,7 @@ export default function HeroClient({ onReady }: Props) {
           <div
             ref={subheadingRef}
             id="subheading"
-            className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
+            className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl font-[300]"
           >
             <span className="col-span-2">SELF-TAUGHT</span>
             <span>FULLSTACK </span>

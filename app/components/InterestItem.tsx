@@ -42,13 +42,13 @@ export default function InterestItem({ data }: Props) {
 
   return (
     <li ref={scope} className="opacity-0 grid grid-cols-subgrid col-span-2">
-      <h2 className="text-3xl text-right">
+      <h2 className="text-right">
         {jsDate.getFullYear()}
         <br />
         {jsDate.toLocaleDateString("en-GB", { month: "long" }).toUpperCase()}
       </h2>
       <div className="flex flex-col gap-4 origin-top">
-        <h3 className="font-black">{title}</h3>
+        <h3>{title}</h3>
         <p>{description}</p>
         <ul className="flex flex-row gap-4 justify-start flex-shrink">
           {usedTools.map(({ slug, src, alt }) => (

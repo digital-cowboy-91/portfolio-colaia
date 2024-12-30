@@ -4,7 +4,7 @@ import SocialButtons from "./components/SocialButtons";
 import "./globals.css";
 
 const redHat = Red_Hat_Display({
-  weight: ["300", "600", "900"],
+  weight: ["300", "400", "600", "900"],
   style: "normal",
   variable: "--font-red-hat",
   subsets: ["latin"],
