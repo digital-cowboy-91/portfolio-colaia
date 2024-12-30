@@ -10,7 +10,7 @@ export default function SocialButtons({ horizontal = false }: Props) {
     <nav
       className={`bg-foreground flex ${
         horizontal ? "" : "flex-col"
-      } gap-1 p-1 rounded-full w-fit`}
+      } gap-1 p-1 rounded-full w-fit border-background border-[.25rem]`}
     >
       {[
         {
