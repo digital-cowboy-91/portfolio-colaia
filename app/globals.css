@@ -47,16 +47,3 @@ h3 {
   font-weight: 900;
   letter-spacing: 0.02rem;
 }
-
-#stripe {
-  z-index: -10;
-  position: absolute;
-  background: linear-gradient(to right, #b3ffab, #12fff7);
-  width: 0;
-  height: 172%;
-  transform: skew(22deg, -22deg);
-  transform-origin: bottom right;
-  bottom: -1.125rem;
-  right: -2.625rem;
-  /* border: solid 2rem; */
-}

@@ -104,34 +104,47 @@ export default function HeroClient({ onReady }: Props) {
   }, [width]);
 
   return (
-    <SectionWrapper id="hero" className="mt-0 pt-32">
-      <div ref={scope}>
+    <SectionWrapper
+      ref={scope}
+      id="hero"
+      className="mt-0 max-md:mb-0 max-md:h-screen max-md:flex justify-center items-center md:pt-32"
+    >
+      <div
+        id="hero-wrapper"
+        className="flex flex-col md:flex-row justify-center items-center gap-8"
+        style={{
+          scale,
+        }}
+      >
         <div
-          id="hero-wrapper"
-          className="flex flex-col md:flex-row justify-center items-center gap-8"
-          style={{
-            scale,
-          }}
+          ref={tripleNameRef}
+          id="triple-name"
+          className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
         >
+          <span id="name-1">COLAIA</span>
+          <span id="name-2">COLAIA</span>
+          <span id="name-3">COLAIA</span>
           <div
-            ref={tripleNameRef}
-            id="triple-name"
-            className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
-          >
-            <span id="name-1">COLAIA</span>
-            <span id="name-2">COLAIA</span>
-            <span id="name-3">COLAIA</span>
-            <div ref={stripeRef} id="stripe" />
-          </div>
-          <div
-            ref={subheadingRef}
-            id="subheading"
-            className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl font-[300]"
-          >
-            <span className="col-span-2">SELF-TAUGHT</span>
-            <span>FULLSTACK </span>
-            <span>CODER</span>
-          </div>
+            ref={stripeRef}
+            id="stripe"
+            className="absolute -z-10 w-0 h-[172%] bg"
+            style={{
+              background: "linear-gradient(to right, #b3ffab, #12fff7)",
+              transform: "skew(22deg, -22deg)",
+              transformOrigin: "bottom right",
+              bottom: "-1.125rem",
+              right: "-2.625rem",
+            }}
+          />
+        </div>
+        <div
+          ref={subheadingRef}
+          id="subheading"
+          className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl font-[300]"
+        >
+          <span className="col-span-2">SELF-TAUGHT</span>
+          <span>FULLSTACK </span>
+          <span>CODER</span>
         </div>
       </div>
     </SectionWrapper>
