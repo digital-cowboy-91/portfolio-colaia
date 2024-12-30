@@ -1,11 +1,9 @@
-import fs from "node:fs/promises";
+import { fetcher } from "../utils/fetchWrapper";
 import SectionWrapper from "./SectionWrapper";
 import ToolsClient from "./ToolsClient";
 
 export default async function () {
-  const data = await fs
-    .readFile(process.env.LOCAL_STORAGE + "/tools.json", { encoding: "utf8" })
-    .then((res) => JSON.parse(res).sort((a, b) => 0.5 - Math.random()));
+  const data = await fetcher("/api/tools");
 
   if (!data.length) return;
 

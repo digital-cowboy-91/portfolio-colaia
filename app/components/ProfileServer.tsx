@@ -1,11 +1,11 @@
 "use server";
 
+import { fetcher } from "../utils/fetchWrapper";
 import ProfileClient from "./ProfileClient";
 import SectionWrapper from "./SectionWrapper";
 
 export default async function () {
-  const res = await fetch("http://localhost:3000/api/interests");
-  const data = await res.json();
+  const data = await fetcher("/api/profile");
 
   if (!data.length) return;
 

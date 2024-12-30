@@ -1,9 +1,17 @@
-import fs from "node:fs/promises";
+import { fetcher } from "@/app/utils/fetchWrapper";
+import { readFile } from "@/app/utils/persistantJSON";
 
-export async function GET(req: Request) {
-  const data = await fs
-    .readFile(process.env.LOCAL_STORAGE + "/profile.json", { encoding: "utf8" })
-    .then((res) => JSON.parse(res));
+export async function GET() {
+  const tools = await fetcher("/api/tools");
+  const toolMap = new Map(tools.map((item) => [item.slug, item]));
 
-  return Response.json(data);
+  const interests = await readFile("interests").then((data) =>
+    data.map((item) => {
+      item.usedTools = item.usedTools.map((slug) => toolMap.get(slug));
+
+      return item;
+    })
+  );
+
+  return Response.json(interests);
 }
