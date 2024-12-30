@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${redHat.variable} antialiased`}>
-        <header className="fixed left-0 right-0">
+        <header className="fixed left-0 right-0 z-10">
           <div className="max-w-screen-xl mx-auto flex justify-end p-4 md:p-8">
             <SocialButtons />
           </div>
