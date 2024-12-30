@@ -2,8 +2,13 @@
 import { stagger, useAnimate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
+import SectionWrapper from "./SectionWrapper";
 
-export default function ({ onReady }: { onReady: () => void }) {
+type Props = {
+  onReady: () => void;
+};
+
+export default function ({ onReady }: Props) {
   // Reactive States
   const [scope, animate] = useAnimate();
   const [scale, setScale] = useState(1);
@@ -98,38 +103,36 @@ export default function ({ onReady }: { onReady: () => void }) {
   }, [width]);
 
   return (
-    <section
-      ref={scope}
-      id="hero"
-      className="flex flex-col items-center justify-center h-screen max-h-[800px]"
-    >
-      <div
-        id="hero-wrapper"
-        className="flex flex-col md:flex-row justify-center items-center gap-8"
-        style={{
-          scale,
-        }}
-      >
+    <SectionWrapper id="hero" className="mt-0 pt-32">
+      <div ref={scope}>
         <div
-          ref={tripleNameRef}
-          id="triple-name"
-          className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
+          id="hero-wrapper"
+          className="flex flex-col md:flex-row justify-center items-center gap-8"
+          style={{
+            scale,
+          }}
         >
-          <span id="name-1">COLAIA</span>
-          <span id="name-2">COLAIA</span>
-          <span id="name-3">COLAIA</span>
-          <div ref={stripeRef} id="stripe" />
-        </div>
-        <div
-          ref={subheadingRef}
-          id="subheading"
-          className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
-        >
-          <span className="col-span-2">SELF-TAUGHT</span>
-          <span>FULLSTACK </span>
-          <span>CODER</span>
+          <div
+            ref={tripleNameRef}
+            id="triple-name"
+            className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
+          >
+            <span id="name-1">COLAIA</span>
+            <span id="name-2">COLAIA</span>
+            <span id="name-3">COLAIA</span>
+            <div ref={stripeRef} id="stripe" />
+          </div>
+          <div
+            ref={subheadingRef}
+            id="subheading"
+            className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
+          >
+            <span className="col-span-2">SELF-TAUGHT</span>
+            <span>FULLSTACK </span>
+            <span>CODER</span>
+          </div>
         </div>
       </div>
-    </section>
+    </SectionWrapper>
   );
 }

@@ -12,6 +12,8 @@ export default function () {
   });
 
   useEffect(() => {
+    if (!window) return;
+
     const updater = () =>
       setDimensions({
         width: window.innerWidth,
