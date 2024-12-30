@@ -1,18 +1,17 @@
 "use server";
 
-import { Profile } from "../types/profile";
-import { fetcher } from "../utils/fetchWrapper";
+import { readFile } from "../utils/persistantJSON";
 import ProfileClient from "./ProfileClient";
 import SectionWrapper from "./SectionWrapper";
 
 export default async function ProfileServer() {
-  const data = await fetcher<Profile[]>("/api/profile");
+  const profile = await readFile("profile");
 
-  if (!data.length) return;
+  if (!profile.length) return;
 
   return (
     <SectionWrapper id="profile">
-      <ProfileClient data={data} />
+      <ProfileClient data={profile} />
     </SectionWrapper>
   );
 }
