@@ -5,7 +5,7 @@ interface Props extends PropsWithChildren {
   className?: string;
 }
 
-export default function ({ id, className, children }: Props) {
+export default function SectionWrapper({ id, className, children }: Props) {
   return (
     <section className={`my-32 px-8 ${className}`} id={id}>
       <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>

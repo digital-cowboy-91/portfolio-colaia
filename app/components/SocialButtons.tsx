@@ -1,7 +1,11 @@
-import GithubIcon from "./icons/GithubIcon";
+import GitHubIcon from "./icons/GitHubIcon";
 import LinkdInIcon from "./icons/LinkdInIcon";
 
-export default function ({ horizontal = false }: { horizontal?: boolean }) {
+type Props = {
+  horizontal?: boolean;
+};
+
+export default function SocialButtons({ horizontal = false }: Props) {
   return (
     <nav
       className={`bg-foreground flex ${
@@ -14,7 +18,7 @@ export default function ({ horizontal = false }: { horizontal?: boolean }) {
           url: "https://www.linkedin.com/in/dkolaja/",
         },
         {
-          Icon: GithubIcon,
+          Icon: GitHubIcon,
           url: "https://github.com/digital-cowboy-91",
         },
       ].map(({ Icon, url }) => (

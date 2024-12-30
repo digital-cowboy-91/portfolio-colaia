@@ -3,8 +3,13 @@
 import { useAnimate, useInView } from "motion/react";
 import Image from "next/image";
 import { useEffect } from "react";
+import { InterestsWithRefs } from "../types/interests";
 
-export default function ({ data }) {
+type Props = {
+  data: InterestsWithRefs;
+};
+
+export default function InterestItem({ data }: Props) {
   const { date, title, description, usedTools } = data;
   const jsDate = new Date(date);
 

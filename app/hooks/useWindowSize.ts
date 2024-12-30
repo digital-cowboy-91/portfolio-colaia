@@ -5,7 +5,7 @@ type Dimensions = {
   height: null | number;
 };
 
-export default function () {
+export default function useWindowSize() {
   const [dimensions, setDimensions] = useState<Dimensions>({
     width: null,
     height: null,

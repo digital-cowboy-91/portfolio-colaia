@@ -3,7 +3,7 @@
 import { PropsWithChildren, useState } from "react";
 import HeroClient from "./HeroClient";
 
-export default function ({ children }: PropsWithChildren) {
+export default function RootPageOrchestration({ children }: PropsWithChildren) {
   const [isReady, setIsReady] = useState(false);
 
   return (
