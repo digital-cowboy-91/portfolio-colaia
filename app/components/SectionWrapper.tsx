@@ -1,6 +1,7 @@
-import { PropsWithChildren, Suspense } from "react";
+import { PropsWithChildren, Ref, Suspense } from "react";
 
 interface Props extends PropsWithChildren {
+  ref?: Ref<HTMLElement>;
   id: string;
   className?: string;
 }
