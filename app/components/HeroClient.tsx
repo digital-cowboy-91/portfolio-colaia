@@ -19,31 +19,31 @@ export default function HeroClient({ onReady }: Props) {
   const subheadingRef = useRef<null | HTMLDivElement>(null);
   const stripeRef = useRef<null | HTMLDivElement>(null);
 
-  const layoutType = useRef<"vertical" | "horizontal">("vertical");
+  const isVertical = useRef(true);
   const isReady = useRef(false);
 
   useEffect(() => {
     if (!tripleNameRef.current || !subheadingRef.current || !stripeRef.current)
       return;
 
-    const newLayout =
-      scope.current.clientWidth >= 768 ? "horizontal" : "vertical";
+    const isVerticalNew = scope.current.clientWidth < 768;
     const oneRem = parseFloat(
       window.getComputedStyle(document.documentElement).fontSize
     );
 
-    const innerScopeWidth = scope.current.clientWidth - oneRem * 4; // simulate horizontal padding
+    const innerScopeWidth =
+      scope.current.clientWidth - oneRem * (isVerticalNew ? 2 : 4); // simulate horizontal padding
     const col1Width = tripleNameRef.current.scrollWidth;
     const col2Width = subheadingRef.current.scrollWidth;
 
     const computedScale =
       innerScopeWidth /
-      (col1Width + (newLayout === "horizontal" ? col2Width + oneRem * 2 : 0));
+      (col1Width + (isVerticalNew ? 0 : col2Width + oneRem * 2));
     const newScale = computedScale < 1 ? computedScale : 1;
 
     // Update states
     setScale(newScale);
-    layoutType.current = newLayout;
+    isVertical.current = isVerticalNew;
 
     // Animate
     if (isReady.current) return;
@@ -82,7 +82,7 @@ export default function HeroClient({ onReady }: Props) {
         { width: subheadingRef.current.scrollWidth + "px" },
         {
           ease: "easeInOut",
-          duration: layoutType.current === "horizontal" ? 0.5 : 0,
+          duration: isVertical.current ? 0 : 0.5,
           at: "<",
         },
       ],
@@ -104,11 +104,7 @@ export default function HeroClient({ onReady }: Props) {
   }, [width]);
 
   return (
-    <SectionWrapper
-      ref={scope}
-      id="hero"
-      className="mt-0 max-md:mb-0 max-md:h-screen max-md:flex justify-center items-center md:pt-32"
-    >
+    <SectionWrapper ref={scope} id="hero" className="mt-0 pt-32">
       <div
         id="hero-wrapper"
         className="flex flex-col md:flex-row justify-center items-center gap-8"
