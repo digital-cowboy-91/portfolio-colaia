@@ -19,31 +19,31 @@ export default function HeroClient({ onReady }: Props) {
   const subheadingRef = useRef<null | HTMLDivElement>(null);
   const stripeRef = useRef<null | HTMLDivElement>(null);
 
-  const layoutType = useRef<"vertical" | "horizontal">("vertical");
+  const isVertical = useRef(true);
   const isReady = useRef(false);
 
   useEffect(() => {
     if (!tripleNameRef.current || !subheadingRef.current || !stripeRef.current)
       return;
 
-    const newLayout =
-      scope.current.clientWidth >= 768 ? "horizontal" : "vertical";
+    const isVerticalNew = scope.current.clientWidth < 768;
     const oneRem = parseFloat(
       window.getComputedStyle(document.documentElement).fontSize
     );
 
-    const innerScopeWidth = scope.current.clientWidth - oneRem * 4; // simulate horizontal padding
+    const innerScopeWidth =
+      scope.current.clientWidth - oneRem * (isVerticalNew ? 2 : 4); // simulate horizontal padding
     const col1Width = tripleNameRef.current.scrollWidth;
     const col2Width = subheadingRef.current.scrollWidth;
 
     const computedScale =
       innerScopeWidth /
-      (col1Width + (newLayout === "horizontal" ? col2Width + oneRem * 2 : 0));
+      (col1Width + (isVerticalNew ? 0 : col2Width + oneRem * 2));
     const newScale = computedScale < 1 ? computedScale : 1;
 
     // Update states
     setScale(newScale);
-    layoutType.current = newLayout;
+    isVertical.current = isVerticalNew;
 
     // Animate
     if (isReady.current) return;
@@ -82,7 +82,7 @@ export default function HeroClient({ onReady }: Props) {
         { width: subheadingRef.current.scrollWidth + "px" },
         {
           ease: "easeInOut",
-          duration: layoutType.current === "horizontal" ? 0.5 : 0,
+          duration: isVertical.current ? 0 : 0.5,
           at: "<",
         },
       ],
@@ -104,34 +104,43 @@ export default function HeroClient({ onReady }: Props) {
   }, [width]);
 
   return (
-    <SectionWrapper id="hero" className="mt-0 pt-32">
-      <div ref={scope}>
+    <SectionWrapper ref={scope} id="hero" className="mt-0 pt-32">
+      <div
+        id="hero-wrapper"
+        className="flex flex-col md:flex-row justify-center items-center gap-8"
+        style={{
+          scale,
+        }}
+      >
         <div
-          id="hero-wrapper"
-          className="flex flex-col md:flex-row justify-center items-center gap-8"
-          style={{
-            scale,
-          }}
+          ref={tripleNameRef}
+          id="triple-name"
+          className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
         >
+          <span id="name-1">COLAIA</span>
+          <span id="name-2">COLAIA</span>
+          <span id="name-3">COLAIA</span>
           <div
-            ref={tripleNameRef}
-            id="triple-name"
-            className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
-          >
-            <span id="name-1">COLAIA</span>
-            <span id="name-2">COLAIA</span>
-            <span id="name-3">COLAIA</span>
-            <div ref={stripeRef} id="stripe" />
-          </div>
-          <div
-            ref={subheadingRef}
-            id="subheading"
-            className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl"
-          >
-            <span className="col-span-2">SELF-TAUGHT</span>
-            <span>FULLSTACK </span>
-            <span>CODER</span>
-          </div>
+            ref={stripeRef}
+            id="stripe"
+            className="absolute -z-10 w-0 h-[172%] bg"
+            style={{
+              background: "linear-gradient(to right, #b3ffab, #12fff7)",
+              transform: "skew(22deg, -22deg)",
+              transformOrigin: "bottom right",
+              bottom: "-1.125rem",
+              right: "-2.625rem",
+            }}
+          />
+        </div>
+        <div
+          ref={subheadingRef}
+          id="subheading"
+          className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl font-[300]"
+        >
+          <span className="col-span-2">SELF-TAUGHT</span>
+          <span>FULLSTACK </span>
+          <span>CODER</span>
         </div>
       </div>
     </SectionWrapper>
