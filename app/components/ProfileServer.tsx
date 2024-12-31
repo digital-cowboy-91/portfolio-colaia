@@ -10,7 +10,7 @@ export default async function ProfileServer() {
   if (!profile.length) return;
 
   return (
-    <SectionWrapper id="profile">
+    <SectionWrapper id="profile" style={{ perspective: "1200px" }}>
       <ProfileClient data={profile} />
     </SectionWrapper>
   );
