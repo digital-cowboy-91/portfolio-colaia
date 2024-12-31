@@ -1,19 +1,16 @@
-import { PropsWithChildren, Ref, Suspense } from "react";
+import { HTMLAttributes, Suspense } from "react";
 
-interface Props extends PropsWithChildren {
-  ref?: Ref<HTMLElement>;
-  id: string;
+interface Props extends HTMLAttributes<HTMLElement> {
   className?: string;
 }
 
 export default function SectionWrapper({
-  ref,
-  id,
   className,
   children,
+  ...props
 }: Props) {
   return (
-    <section ref={ref} className={`my-32 px-4 md:px-8 ${className}`} id={id}>
+    <section className={`my-32 px-4 md:px-8 ${className}`} {...props}>
       <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
     </section>
   );

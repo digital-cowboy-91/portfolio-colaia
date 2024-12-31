@@ -61,7 +61,6 @@ export default function ProfileClient({ data }: Props) {
       className="opacity-0 bg-foreground rounded-[3rem] max-w-[800px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
       style={{
         filter: `drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))`,
-        perspective: "1200px",
       }}
     >
       <Code snippet={snippet} />
