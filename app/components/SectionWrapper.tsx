@@ -1,6 +1,8 @@
-import { HTMLAttributes, Suspense } from "react";
+import { HTMLAttributes, Ref, Suspense } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
+  id: string;
+  ref?: Ref<HTMLElement>;
   className?: string;
 }
 
