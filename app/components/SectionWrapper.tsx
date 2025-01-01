@@ -12,7 +12,7 @@ export default function SectionWrapper({
   ...props
 }: Props) {
   return (
-    <section className={`my-32 px-4 md:px-8 ${className}`} {...props}>
+    <section className={`m-8 rounded-[2rem] bg-white ${className}`} {...props}>
       <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
     </section>
   );

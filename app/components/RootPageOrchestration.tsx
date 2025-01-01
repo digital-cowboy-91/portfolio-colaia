@@ -9,7 +9,7 @@ export default function RootPageOrchestration({ children }: PropsWithChildren) {
   return (
     <>
       <HeroClient onReady={() => setIsReady(true)} />
-      {isReady && children}
+      {/* {isReady && children} */}
     </>
   );
 }
