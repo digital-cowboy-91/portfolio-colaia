@@ -9,12 +9,15 @@ import ContainerWrapper from "./ContainerWrapper";
 export default function HeroClient() {
   // Reactive States
   const [scope, animate] = useAnimate();
-  const [scale, setScale] = useState(1);
+  const [scaleNames, setScaleNames] = useState(1);
+  const [scaleSubheading, setScaleSubheading] = useState(1);
   const { width } = useWindowSize();
 
   // Non Reactive States
+  const wrapperRef = useRef<null | HTMLDivElement>(null);
   const namesRef = useRef<null | HTMLDivElement>(null);
   const subheadingRef = useRef<null | HTMLDivElement>(null);
+  const imageRef = useRef<null | HTMLImageElement>(null);
 
   const isVertical = useRef(true);
   const isReady = useRef(false);
@@ -23,21 +26,45 @@ export default function HeroClient() {
     if (!namesRef.current || !subheadingRef.current) return;
 
     const isVerticalNew = scope.current.clientWidth < 768;
+
     const oneRem = parseFloat(
       window.getComputedStyle(document.documentElement).fontSize
     );
 
     const innerScopeWidth = scope.current.clientWidth - oneRem * 2; // simulate horizontal padding
-    const col1Width = namesRef.current.scrollWidth;
-    const col2Width = subheadingRef.current.scrollWidth;
 
-    const computedScale =
-      innerScopeWidth /
-      (col1Width + (isVerticalNew ? 0 : col2Width + oneRem * 2));
-    const newScale = computedScale < 1 ? computedScale : 1;
+    const col1Width = namesRef.current.clientWidth;
+    const col2Width = subheadingRef.current.clientWidth;
+
+    const newScaleNames = innerScopeWidth / col1Width;
+    const newScaleSubheading = innerScopeWidth / col2Width;
+
+    // const func = (el) => {
+    //   const offsetLeft = el.current?.offsetLeft || 0;
+    //   const clientWidth = el.current?.clientWidth || 0;
+
+    //   if (offsetLeft > clientWidth) {
+    //     return clientWidth / offsetLeft;
+    //   }
+
+    //   if (offsetLeft < 0) {
+    //     return (clientWidth + offsetLeft) / clientWidth;
+    //   }
+
+    //   return 1;
+    // };
+
+    const func = (el) => {
+      const childWidth = el.current?.clientWidth || 0;
+      const parentWidth = el.current?.parentElement.clientWidth || 0;
+
+      return parentWidth < childWidth ? parentWidth / childWidth : 1;
+    };
 
     // Update states
-    setScale(newScale);
+    setScaleNames(func(namesRef));
+    setScaleSubheading(func(subheadingRef));
+
     isVertical.current = isVerticalNew;
 
     // Animate
@@ -73,47 +100,64 @@ export default function HeroClient() {
   }, [width]);
 
   return (
-    <ContainerWrapper ref={scope} id="hero" className="flex items-center">
-      <div
+    <ContainerWrapper ref={scope} id="hero" className="relative">
+      <Image
+        ref={imageRef}
+        src={portraitPic}
+        alt=""
         className={`
-          w-full
-          h-3/4
-          mb-[20vh]
+            object-contain
+            h-[100%] portrait:h-[60%] landscape:max-w-[30%]
+            absolute left-1/2 -translate-x-1/2 mx-auto
+          `}
+      />
+      <div
+        ref={wrapperRef}
+        className={`
+          top-[50%] portrait:top-[60%]
+          -translate-y-1/2
           relative text-white
-          flex
-          justify-end xl:justify-center
-          items-center xl:items-end 2xl:items-center
-          xl:gap-8
-          max-xl:flex-col
+          flex justify-center items-center max-md:flex-col
+          max-md:flex-col
+          gap-8
         `}
       >
         <div
-          ref={namesRef}
-          id="hero__names"
-          className={`
+          className="w-full md:w-max h-max overflow-hidden flex justify-center 2xl:justify-end items-center flex-1"
+          // style={{ overflow: "unset" }}
+        >
+          <div
+            ref={namesRef}
+            id="hero__names"
+            className={`
             opacity-0
-            h-[24rem]
             text-9xl leading-[0.75] font-black
             flex flex-col justify-center
             relative px-10
+            overflow-x-clip
           `}
-          style={{ scale }}
-        >
-          <span id="hero__name-1" className="absolute">
-            COLAIA
-          </span>
-          <span id="hero__name-2" className="z-10">
-            <span>COLAIA</span>
-          </span>
-          <span id="hero__name-3" className="absolute">
-            COLAIA
-          </span>
-          <div
-            className={`
+            style={{
+              scale: scaleNames,
+              margin: `${
+                (namesRef.current?.clientHeight || 1) * scaleNames
+              }px 0`,
+            }}
+          >
+            <span id="hero__name-1" className="absolute">
+              COLAIA
+            </span>
+            <span id="hero__name-2" className="z-10">
+              COLAIA
+            </span>
+            <span id="hero__name-3" className="absolute">
+              COLAIA
+            </span>
+            <div
+              className={`
               absolute -z-10 w-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square
             `}
-            style={{
-              background: `
+              style={{
+                background: `
                   radial-gradient(
                     50% 50% at 50% 50%,
                     hsl(273deg 71% 38% / 60%),
@@ -121,39 +165,33 @@ export default function HeroClient() {
                     transparent
                   )
                 `,
-            }}
-          />
+              }}
+            />
+          </div>
         </div>
+
         <div
-          className={`
-            h-full max-w-max flex items-center
-            max-2xl:absolute max-2xl:-z-20 max-2xl:bottom-[12rem] max-2xl:h-[calc(100%-12rem)]
-          `}
-        >
-          <Image
-            src={portraitPic}
-            alt=""
+          className="portrait:hidden"
+          style={{ width: imageRef.current?.clientWidth || 0 }}
+        />
+
+        <div className="w-full md:w-max h-max overflow-hidden flex justify-center 2xl:justify-start items-center flex-1">
+          <div
+            ref={subheadingRef}
+            id="hero__subheading"
             className={`
-            max-h-full w-auto object-contain
-          `}
-          />
-        </div>
-        <div
-          ref={subheadingRef}
-          id="hero__subheading"
-          className={`
-            xl:h-[24rem]
+            justify-self-start
             text-5xl font-[300]
             grid grid-cols[auto_auto] gap-x-4
-            content-start xl:content-center
-            max-xl:text-center
+            max-md:text-center
             [&>span]:opacity-0
           `}
-          style={{ scale }}
-        >
-          <span className="col-span-2">SELF-TAUGHT</span>
-          <span>FULLSTACK</span>
-          <span>CODER</span>
+            style={{ scale: scaleSubheading }}
+          >
+            <span className="col-span-2">SELF-TAUGHT</span>
+            <span>FULLSTACK</span>
+            <span>CODER</span>
+          </div>
         </div>
       </div>
       <div
