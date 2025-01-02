@@ -1,39 +1,34 @@
 "use client";
+import portraitPic from "@/app/assets/profile-turtle-neck-v3.webp";
 import { stagger, useAnimate } from "motion/react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
-import SectionWrapper from "./SectionWrapper";
+import ContainerWrapper from "./ContainerWrapper";
 
-type Props = {
-  onReady: () => void;
-};
-
-export default function HeroClient({ onReady }: Props) {
+export default function HeroClient() {
   // Reactive States
   const [scope, animate] = useAnimate();
   const [scale, setScale] = useState(1);
   const { width } = useWindowSize();
 
   // Non Reactive States
-  const tripleNameRef = useRef<null | HTMLDivElement>(null);
+  const namesRef = useRef<null | HTMLDivElement>(null);
   const subheadingRef = useRef<null | HTMLDivElement>(null);
-  const stripeRef = useRef<null | HTMLDivElement>(null);
 
   const isVertical = useRef(true);
   const isReady = useRef(false);
 
   useEffect(() => {
-    if (!tripleNameRef.current || !subheadingRef.current || !stripeRef.current)
-      return;
+    if (!namesRef.current || !subheadingRef.current) return;
 
     const isVerticalNew = scope.current.clientWidth < 768;
     const oneRem = parseFloat(
       window.getComputedStyle(document.documentElement).fontSize
     );
 
-    const innerScopeWidth =
-      scope.current.clientWidth - oneRem * (isVerticalNew ? 2 : 4); // simulate horizontal padding
-    const col1Width = tripleNameRef.current.scrollWidth;
+    const innerScopeWidth = scope.current.clientWidth - oneRem * 2; // simulate horizontal padding
+    const col1Width = namesRef.current.scrollWidth;
     const col2Width = subheadingRef.current.scrollWidth;
 
     const computedScale =
@@ -49,100 +44,171 @@ export default function HeroClient({ onReady }: Props) {
     if (isReady.current) return;
 
     animate([
-      ["#triple-name", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
-      ["#name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
+      ["#hero__names", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
+      ["#hero__name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
       [
-        "#name-1",
+        "#hero__name-1",
         { y: "-6rem", opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "-0.5" },
       ],
       [
-        "#name-3",
+        "#hero__name-3",
         { y: "6rem", opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "<" },
       ],
-      ["#name-1", { x: "-2.5rem" }, { ease: "backOut", duration: 0.75 }],
+      ["#hero__name-1", { x: "-2.5rem" }, { ease: "backOut", duration: 0.75 }],
       [
-        "#name-3",
+        "#hero__name-3",
         { x: "2.5rem" },
         { ease: "backOut", duration: 0.75, at: "<" },
       ],
       [
-        "#stripe",
-        {
-          width:
-            stripeRef.current.getBoundingClientRect().right! /
-            newScale /
-            Math.cos(22 * (Math.PI / 180)),
-        },
-        { duration: 0.5, at: "-0.2" },
-      ],
-      [
-        "#subheading",
-        { width: subheadingRef.current.scrollWidth + "px" },
-        {
-          ease: "easeInOut",
-          duration: isVertical.current ? 0 : 0.5,
-          at: "<",
-        },
-      ],
-      [
-        "#subheading>span",
+        "#hero__subheading>span",
         { y: [80, 0], opacity: 1 },
-        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "<" },
-      ],
-      ["#nav-bar", { opacity: 1 }],
-      [
-        "#nav-bar",
-        { y: ["1rem", "0rem"] },
-        { type: "spring", stiffness: 500, damping: 10, velocity: 2, at: "<" },
+        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "-0.2" },
       ],
     ]).then(() => {
       isReady.current = true;
-      onReady();
     });
   }, [width]);
 
   return (
-    <SectionWrapper ref={scope} id="hero" className="mt-0 pt-32">
+    <ContainerWrapper ref={scope} id="hero" className="flex items-center">
       <div
-        id="hero-wrapper"
-        className="flex flex-col md:flex-row justify-center items-center gap-8"
-        style={{
-          scale,
-        }}
+        className={`
+          w-full
+          h-3/4
+          mb-[20vh]
+          relative text-white
+          flex
+          justify-end xl:justify-center
+          items-center xl:items-end 2xl:items-center
+          xl:gap-8
+          max-xl:flex-col
+        `}
       >
         <div
-          ref={tripleNameRef}
-          id="triple-name"
-          className="text-9xl leading-[0.75] font-black flex relative [&>span]:my-24 [&>span]:mx-10 [&>:nth-child(odd)]:absolute opacity-0"
+          ref={namesRef}
+          id="hero__names"
+          className={`
+            opacity-0
+            h-[24rem]
+            text-9xl leading-[0.75] font-black
+            flex flex-col justify-center
+            relative px-10
+          `}
+          style={{ scale }}
         >
-          <span id="name-1">COLAIA</span>
-          <span id="name-2">COLAIA</span>
-          <span id="name-3">COLAIA</span>
+          <span id="hero__name-1" className="absolute">
+            COLAIA
+          </span>
+          <span id="hero__name-2" className="z-10">
+            <span>COLAIA</span>
+          </span>
+          <span id="hero__name-3" className="absolute">
+            COLAIA
+          </span>
           <div
-            ref={stripeRef}
-            id="stripe"
-            className="absolute -z-10 w-0 h-[172%] bg"
+            className={`
+              absolute -z-10 w-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square
+            `}
             style={{
-              background: "linear-gradient(to right, #b3ffab, #12fff7)",
-              transform: "skew(22deg, -22deg)",
-              transformOrigin: "bottom right",
-              bottom: "-1.125rem",
-              right: "-2.625rem",
+              background: `
+                  radial-gradient(
+                    50% 50% at 50% 50%,
+                    hsl(273deg 71% 38% / 60%),
+                    hsl(273deg 71% 38% / 20%),
+                    transparent
+                  )
+                `,
             }}
           />
         </div>
         <div
+          className={`
+            h-full max-w-max flex items-center
+            max-2xl:absolute max-2xl:-z-20 max-2xl:bottom-[12rem] max-2xl:h-[calc(100%-12rem)]
+          `}
+        >
+          <Image
+            src={portraitPic}
+            alt=""
+            className={`
+            max-h-full w-auto object-contain
+          `}
+          />
+        </div>
+        <div
           ref={subheadingRef}
-          id="subheading"
-          className="w-0 py-8 overflow-x-clip grid grid-cols-[max_content,max_content] [&>span]:opacity-0 whitespace-pre text-5xl font-[300]"
+          id="hero__subheading"
+          className={`
+            xl:h-[24rem]
+            text-5xl font-[300]
+            grid grid-cols[auto_auto] gap-x-4
+            content-start xl:content-center
+            max-xl:text-center
+            [&>span]:opacity-0
+          `}
+          style={{ scale }}
         >
           <span className="col-span-2">SELF-TAUGHT</span>
-          <span>FULLSTACK </span>
+          <span>FULLSTACK</span>
           <span>CODER</span>
         </div>
       </div>
-    </SectionWrapper>
+      <div
+        id="hero__top-gradient"
+        className="absolute inset-y-0 left-1/2 -translate-x-1/2 z-10"
+      >
+        <svg
+          height="100%"
+          viewBox="0 0 3600 1222"
+          version="1.1"
+          style={{
+            fillRule: "evenodd",
+            clipRule: "evenodd",
+            strokeLinejoin: "round",
+            strokeMiterlimit: 2,
+          }}
+        >
+          <g transform="matrix(4.37894,0,0,2.09141,-12191.2,-80.9845)">
+            <rect
+              x="2784.05"
+              y="38.723"
+              width="822.118"
+              height="584.162"
+              style={{ fill: "url(#_Radial1)" }}
+            />
+          </g>
+          <defs>
+            <radialGradient
+              id="_Radial1"
+              cx="0"
+              cy="0"
+              r="1"
+              gradientUnits="userSpaceOnUse"
+              gradientTransform="matrix(-760.057,2.59852e-13,-2.51043e-14,-572.276,3195.11,167.862)"
+            >
+              <stop
+                offset="0"
+                style={{ stopColor: "rgb(11,13,18)", stopOpacity: 0 }}
+              />
+              <stop
+                offset="0.4"
+                style={{ stopColor: "rgb(24,12,49)", stopOpacity: 0.22 }}
+              />
+              <stop
+                offset="0.7"
+                style={{ stopColor: "rgb(209,2,58)", stopOpacity: 1 }}
+              />
+              <stop
+                offset="1"
+                style={{ stopColor: "rgb(20,0,163)", stopOpacity: 0 }}
+              />
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+    </ContainerWrapper>
   );
 }
