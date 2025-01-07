@@ -1,6 +1,7 @@
 "use client";
 import portraitPic from "@/app/assets/profile-turtle-neck-v3.webp";
-import { stagger, useAnimate } from "motion/react";
+import { stagger } from "motion";
+import { useAnimate } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
@@ -10,11 +11,10 @@ export default function HeroClient() {
   // Reactive States
   const [scope, animate] = useAnimate();
   const [scaleNames, setScaleNames] = useState(1);
-  const [scaleSubheading, setScaleSubheading] = useState(1);
   const { width } = useWindowSize();
 
   // Non Reactive States
-  const wrapperRef = useRef<null | HTMLDivElement>(null);
+  const nameWrapperRef = useRef<null | HTMLDivElement>(null);
   const namesRef = useRef<null | HTMLDivElement>(null);
   const subheadingRef = useRef<null | HTMLDivElement>(null);
   const imageRef = useRef<null | HTMLImageElement>(null);
@@ -27,43 +27,15 @@ export default function HeroClient() {
 
     const isVerticalNew = scope.current.clientWidth < 768;
 
-    const oneRem = parseFloat(
-      window.getComputedStyle(document.documentElement).fontSize
-    );
-
-    const innerScopeWidth = scope.current.clientWidth - oneRem * 2; // simulate horizontal padding
-
-    const col1Width = namesRef.current.clientWidth;
-    const col2Width = subheadingRef.current.clientWidth;
-
-    const newScaleNames = innerScopeWidth / col1Width;
-    const newScaleSubheading = innerScopeWidth / col2Width;
-
-    // const func = (el) => {
-    //   const offsetLeft = el.current?.offsetLeft || 0;
-    //   const clientWidth = el.current?.clientWidth || 0;
-
-    //   if (offsetLeft > clientWidth) {
-    //     return clientWidth / offsetLeft;
-    //   }
-
-    //   if (offsetLeft < 0) {
-    //     return (clientWidth + offsetLeft) / clientWidth;
-    //   }
-
-    //   return 1;
-    // };
-
     const func = (el) => {
       const childWidth = el.current?.clientWidth || 0;
       const parentWidth = el.current?.parentElement.clientWidth || 0;
 
-      return parentWidth < childWidth ? parentWidth / childWidth : 1;
+      return parentWidth / childWidth;
     };
 
     // Update states
     setScaleNames(func(namesRef));
-    setScaleSubheading(func(subheadingRef));
 
     isVertical.current = isVerticalNew;
 
@@ -100,152 +72,85 @@ export default function HeroClient() {
   }, [width]);
 
   return (
-    <ContainerWrapper ref={scope} id="hero" className="relative">
+    <ContainerWrapper
+      ref={scope}
+      id="hero"
+      className={`
+        relative
+        grid place-items-center
+        grid-cols-[minmax(2rem,1fr)_minmax(300px,576px)_minmax(2rem,1fr)]
+          lg:grid-cols-[minmax(0,1fr)_repeat(2,minmax(480px,960px))_minmax(0,1fr)]
+        grid-rows-[50%_max-content_auto]
+          lg:grid-rows-[1fr_minmax(100px,max-content)_1fr]
+        gap-4
+        text-white
+      `}
+    >
       <Image
         ref={imageRef}
         src={portraitPic}
         alt=""
         className={`
-            object-contain
-            h-[100%] portrait:h-[60%] landscape:max-w-[30%]
-            absolute left-1/2 -translate-x-1/2 mx-auto
+          col-start-2
+          lg:col-start-3
+          lg:row-span-3
+          object-contain
+          h-max
+          w-full
+          max-lg:self-end
           `}
       />
       <div
-        ref={wrapperRef}
+        ref={nameWrapperRef}
         className={`
-          top-[50%] portrait:top-[60%]
-          -translate-y-1/2
-          relative text-white
-          flex justify-center items-center max-md:flex-col
-          max-md:flex-col
-          gap-8
+          col-row-2
+          col-start-2
+          w-full h-full
+          flex place-content-center
+          relative
         `}
       >
         <div
-          className="w-full md:w-max h-max overflow-hidden flex justify-center 2xl:justify-end items-center flex-1"
-          // style={{ overflow: "unset" }}
-        >
-          <div
-            ref={namesRef}
-            id="hero__names"
-            className={`
-            opacity-0
+          ref={namesRef}
+          id="hero__names"
+          className={`
             text-9xl leading-[0.75] font-black
             flex flex-col justify-center
             relative px-10
             overflow-x-clip
           `}
-            style={{
-              scale: scaleNames,
-              margin: `${
-                (namesRef.current?.clientHeight || 1) * scaleNames
-              }px 0`,
-            }}
-          >
-            <span id="hero__name-1" className="absolute">
-              COLAIA
-            </span>
-            <span id="hero__name-2" className="z-10">
-              COLAIA
-            </span>
-            <span id="hero__name-3" className="absolute">
-              COLAIA
-            </span>
-            <div
-              className={`
-              absolute -z-10 w-[150%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 aspect-square
-            `}
-              style={{
-                background: `
-                  radial-gradient(
-                    50% 50% at 50% 50%,
-                    hsl(273deg 71% 38% / 60%),
-                    hsl(273deg 71% 38% / 20%),
-                    transparent
-                  )
-                `,
-              }}
-            />
-          </div>
-        </div>
-
-        <div
-          className="portrait:hidden"
-          style={{ width: imageRef.current?.clientWidth || 0 }}
-        />
-
-        <div className="w-full md:w-max h-max overflow-hidden flex justify-center 2xl:justify-start items-center flex-1">
-          <div
-            ref={subheadingRef}
-            id="hero__subheading"
-            className={`
-            justify-self-start
-            text-5xl font-[300]
-            grid grid-cols[auto_auto] gap-x-4
-            max-md:text-center
-            [&>span]:opacity-0
-          `}
-            style={{ scale: scaleSubheading }}
-          >
-            <span className="col-span-2">SELF-TAUGHT</span>
-            <span>FULLSTACK</span>
-            <span>CODER</span>
-          </div>
+          style={{
+            scale: scaleNames,
+            margin: `${(namesRef.current?.clientHeight || 1) * scaleNames}px 0`,
+          }}
+        >
+          <span id="hero__name-1" className="absolute">
+            COLAIA
+          </span>
+          <span id="hero__name-2" className="z-10">
+            COLAIA
+          </span>
+          <span id="hero__name-3" className="absolute">
+            COLAIA
+          </span>
         </div>
       </div>
       <div
-        id="hero__top-gradient"
-        className="absolute inset-y-0 left-1/2 -translate-x-1/2 z-10"
+        ref={subheadingRef}
+        id="hero__subheading"
+        className={`
+            col-start-2
+            row-start-3
+            self-start
+            text-4xl font-[300]
+            w-full
+            flex justify-end gap-x-3 flex-wrap
+            [&>span]:opacity-0
+          `}
       >
-        <svg
-          height="100%"
-          viewBox="0 0 3600 1222"
-          version="1.1"
-          style={{
-            fillRule: "evenodd",
-            clipRule: "evenodd",
-            strokeLinejoin: "round",
-            strokeMiterlimit: 2,
-          }}
-        >
-          <g transform="matrix(4.37894,0,0,2.09141,-12191.2,-80.9845)">
-            <rect
-              x="2784.05"
-              y="38.723"
-              width="822.118"
-              height="584.162"
-              style={{ fill: "url(#_Radial1)" }}
-            />
-          </g>
-          <defs>
-            <radialGradient
-              id="_Radial1"
-              cx="0"
-              cy="0"
-              r="1"
-              gradientUnits="userSpaceOnUse"
-              gradientTransform="matrix(-760.057,2.59852e-13,-2.51043e-14,-572.276,3195.11,167.862)"
-            >
-              <stop
-                offset="0"
-                style={{ stopColor: "rgb(11,13,18)", stopOpacity: 0 }}
-              />
-              <stop
-                offset="0.4"
-                style={{ stopColor: "rgb(24,12,49)", stopOpacity: 0.22 }}
-              />
-              <stop
-                offset="0.7"
-                style={{ stopColor: "rgb(209,2,58)", stopOpacity: 1 }}
-              />
-              <stop
-                offset="1"
-                style={{ stopColor: "rgb(20,0,163)", stopOpacity: 0 }}
-              />
-            </radialGradient>
-          </defs>
-        </svg>
+        <span>THE</span>
+        <span>FULLSTACK</span>
+        <span>CODER</span>
       </div>
     </ContainerWrapper>
   );
