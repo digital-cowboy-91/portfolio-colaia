@@ -1,9 +1,9 @@
 "use client";
-import portraitPic from "@/app/assets/profile-turtle-neck-v3.webp";
+import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import { stagger } from "motion";
 import { useAnimate } from "motion/react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
 import ContainerWrapper from "./ContainerWrapper";
 
@@ -42,17 +42,19 @@ export default function HeroClient() {
     // Animate
     if (isReady.current) return;
 
+    // if (true) return;
+
     animate([
       ["#hero__names", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
       ["#hero__name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
       [
         "#hero__name-1",
-        { y: "-6rem", opacity: [0, 1] },
+        { y: ["6rem", 0], opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "-0.5" },
       ],
       [
         "#hero__name-3",
-        { y: "6rem", opacity: [0, 1] },
+        { y: ["-6rem", 0], opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "<" },
       ],
       ["#hero__name-1", { x: "-2.5rem" }, { ease: "backOut", duration: 0.75 }],
@@ -78,26 +80,35 @@ export default function HeroClient() {
       className={`
         relative
         grid place-items-center
-        grid-cols-[minmax(2rem,1fr)_minmax(300px,576px)_minmax(2rem,1fr)]
-          lg:grid-cols-[minmax(0,1fr)_repeat(2,minmax(480px,960px))_minmax(0,1fr)]
+        grid-cols-[minmax(0,1fr)_minmax(300px,max-content)_minmax(0,1fr)]
+          landscape:grid-cols-[minmax(0,1fr)_repeat(2,minmax(480px,960px))_minmax(0,1fr)]
         grid-rows-[50%_max-content_auto]
-          lg:grid-rows-[1fr_minmax(100px,max-content)_1fr]
-        gap-4
+          landscape:grid-rows-[1fr_max-content_1fr]
+        gap-y-4
+        gap-x-8
         text-white
       `}
+      style={{
+        backgroundImage: `
+          radial-gradient(circle at 0 0, #891736, transparent 75%)
+        `,
+      }}
     >
       <Image
         ref={imageRef}
         src={portraitPic}
         alt=""
+        quality={100}
+        priority
         className={`
           col-start-2
-          lg:col-start-3
-          lg:row-span-3
+          landscape:col-start-3
+          landscape:row-span-3
           object-contain
-          h-max
+          h-full
           w-full
-          max-lg:self-end
+          portrait:self-end
+          portrait:translate-y-[10rem]
           `}
       />
       <div
@@ -105,7 +116,7 @@ export default function HeroClient() {
         className={`
           col-row-2
           col-start-2
-          w-full h-full
+          w-full
           flex place-content-center
           relative
         `}
@@ -114,23 +125,22 @@ export default function HeroClient() {
           ref={namesRef}
           id="hero__names"
           className={`
+            opacity-0
             text-9xl leading-[0.75] font-black
             flex flex-col justify-center
-            relative px-10
+            px-10
             overflow-x-clip
           `}
           style={{
             scale: scaleNames,
-            margin: `${(namesRef.current?.clientHeight || 1) * scaleNames}px 0`,
+            margin: `${calculateMargin(namesRef, scaleNames)}px 0`,
           }}
         >
-          <span id="hero__name-1" className="absolute">
+          <span id="hero__name-1" className="-translate-x-[2.5rem]">
             COLAIA
           </span>
-          <span id="hero__name-2" className="z-10">
-            COLAIA
-          </span>
-          <span id="hero__name-3" className="absolute">
+          <span id="hero__name-2">COLAIA</span>
+          <span id="hero__name-3" className="translate-x-[2.5rem]">
             COLAIA
           </span>
         </div>
@@ -154,4 +164,17 @@ export default function HeroClient() {
       </div>
     </ContainerWrapper>
   );
+}
+
+// Helpers
+function calculateMargin(
+  element: RefObject<any>,
+  scale: number,
+  defaultValue: number = 0
+) {
+  const height = element?.current?.clientHeight;
+
+  if (!height) return defaultValue;
+
+  return (height * scale - height) / 2;
 }
