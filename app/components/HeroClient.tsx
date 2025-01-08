@@ -1,4 +1,5 @@
 "use client";
+
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import { stagger } from "motion";
 import { useAnimate } from "motion/react";
@@ -10,39 +11,25 @@ import ContainerWrapper from "./ContainerWrapper";
 export default function HeroClient() {
   // Reactive States
   const [scope, animate] = useAnimate();
-  const [scaleNames, setScaleNames] = useState(1);
+  const [namesScale, setNamesScale] = useState(1);
   const { width } = useWindowSize();
 
   // Non Reactive States
-  const nameWrapperRef = useRef<null | HTMLDivElement>(null);
+  const namesWrapperRef = useRef<null | HTMLDivElement>(null);
   const namesRef = useRef<null | HTMLDivElement>(null);
   const subheadingRef = useRef<null | HTMLDivElement>(null);
   const imageRef = useRef<null | HTMLImageElement>(null);
-
-  const isVertical = useRef(true);
   const isReady = useRef(false);
 
+  // Window width effect
   useEffect(() => {
     if (!namesRef.current || !subheadingRef.current) return;
 
-    const isVerticalNew = scope.current.clientWidth < 768;
-
-    const func = (el) => {
-      const childWidth = el.current?.clientWidth || 0;
-      const parentWidth = el.current?.parentElement.clientWidth || 0;
-
-      return parentWidth / childWidth;
-    };
-
-    // Update states
-    setScaleNames(func(namesRef));
-
-    isVertical.current = isVerticalNew;
+    // Rescale
+    setNamesScale(scaleToParent(namesRef));
 
     // Animate
     if (isReady.current) return;
-
-    // if (true) return;
 
     animate([
       ["#hero__names", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
@@ -112,7 +99,7 @@ export default function HeroClient() {
           `}
       />
       <div
-        ref={nameWrapperRef}
+        ref={namesWrapperRef}
         className={`
           col-row-2
           col-start-2
@@ -132,8 +119,8 @@ export default function HeroClient() {
             overflow-x-clip
           `}
           style={{
-            scale: scaleNames,
-            margin: `${calculateMargin(namesRef, scaleNames)}px 0`,
+            scale: namesScale,
+            margin: `${calculateMargin(namesRef, namesScale)}px 0`,
           }}
         >
           <span id="hero__name-1" className="-translate-x-[2.5rem]">
@@ -167,6 +154,13 @@ export default function HeroClient() {
 }
 
 // Helpers
+function scaleToParent(element: RefObject<any>) {
+  const childWidth = element.current?.clientWidth || 0;
+  const parentWidth = element.current?.parentElement.clientWidth || 0;
+
+  return parentWidth / childWidth;
+}
+
 function calculateMargin(
   element: RefObject<any>,
   scale: number,
