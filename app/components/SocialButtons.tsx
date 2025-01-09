@@ -40,6 +40,7 @@ export default function SocialButtons({ horizontal = false }: Props) {
               className={`
                 w-0 group-hover:w-[calc-size(max-content,size)]
                 transition-all
+                duration-500
               `}
             >
               <span
