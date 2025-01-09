@@ -1,5 +1,5 @@
 import { readFile } from "../utils/persistantJSON";
-import SectionWrapper from "./SectionWrapper";
+import ContainerWrapper from "./ContainerWrapper";
 import ToolsClient from "./ToolsClient";
 
 export default async function ToolsServer() {
@@ -10,8 +10,8 @@ export default async function ToolsServer() {
   if (!tools.length) return;
 
   return (
-    <SectionWrapper id="tools">
+    <ContainerWrapper id="tools" className="bg-white h-full p-4">
       <ToolsClient data={tools} />
-    </SectionWrapper>
+    </ContainerWrapper>
   );
 }
