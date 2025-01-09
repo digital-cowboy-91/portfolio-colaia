@@ -29,7 +29,7 @@ export default function RootLayout({
       <head>
         <script src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"></script>
       </head>
-      <body className={`${redHat.variable} antialiased bg-black`}>
+      <body className={`${redHat.variable} antialiased`}>
         <header className="fixed left-0 right-0 z-10">
           <div className="max-w-screen-xl mx-auto flex justify-end p-4 md:p-8">
             <SocialButtons />

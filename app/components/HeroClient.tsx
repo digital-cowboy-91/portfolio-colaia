@@ -76,7 +76,6 @@ export default function HeroClient() {
           landscape:grid-rows-[1fr_max-content_1fr]
         gap-y-4
         gap-x-8
-        text-white
       `}
     >
       <Image

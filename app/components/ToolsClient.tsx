@@ -59,7 +59,7 @@ export default function ToolsClient({ data }: Props) {
     <div ref={listRef} className="h-8">
       {visibleRef.current.length > 0 && (
         <motion.ul
-          className="flex justify-center items-center gap-8 mx-auto"
+          className="flex justify-center items-center gap-8 mx-auto text-background"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
