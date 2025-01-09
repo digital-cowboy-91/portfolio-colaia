@@ -1,5 +1,4 @@
-import GitHubIcon from "./icons/GitHubIcon";
-import LinkdInIcon from "./icons/LinkdInIcon";
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 
 type Props = {
   horizontal?: boolean;
@@ -8,23 +7,51 @@ type Props = {
 export default function SocialButtons({ horizontal = false }: Props) {
   return (
     <nav
-      className={`bg-foreground flex ${
+      className={`bg-background flex ${
         horizontal ? "" : "flex-col"
-      } gap-1 p-1 rounded-full w-fit border-background border-[.25rem]`}
+      } gap-1 p-1 rounded-full w-fit`}
     >
       {[
         {
-          Icon: LinkdInIcon,
+          icon: "entypo-social:linkedin-with-circle",
           url: "https://www.linkedin.com/in/dkolaja/",
+          text: "@dkolaja",
         },
         {
-          Icon: GitHubIcon,
+          icon: "entypo-social:github-with-circle",
           url: "https://github.com/digital-cowboy-91",
+          text: "@digital-cowboy-91",
         },
-      ].map(({ Icon, url }) => (
-        <a key={url} href={url}>
-          <Icon className="text-background w-8 h-8" />
-        </a>
+      ].map(({ icon, url, text }) => (
+        <div className="size-8 relative">
+          <a
+            key={url}
+            href={url}
+            className={`
+              bg-background rounded-full
+              flex items-center
+              absolute right-0
+              group
+              overflow-hidden
+            `}
+          >
+            <Icon icon={icon} width="2rem" />
+            <div
+              className={`
+                w-0 group-hover:w-[calc-size(max-content,size)]
+                transition-all
+              `}
+            >
+              <span
+                className={`
+                ps-2 pe-4 text-nowrap
+              `}
+              >
+                {text}
+              </span>
+            </div>
+          </a>
+        </div>
       ))}
     </nav>
   );
