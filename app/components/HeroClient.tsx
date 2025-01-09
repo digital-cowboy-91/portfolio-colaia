@@ -36,15 +36,15 @@ export default function HeroClient() {
     animate([
       ["#portrait", { opacity: [0, 1] }, { duration: 1 }],
       ["#hero__names", { opacity: [0, 1] }, { duration: 1, at: "-0.5" }],
-      ["#hero__name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
+      ["#hero__name-1", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
       [
-        "#hero__name-1",
-        { y: ["6rem", 0], opacity: [0, 1] },
+        "#hero__name-2",
+        { y: ["-6rem", 0], opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "-0.5" },
       ],
       [
         "#hero__name-3",
-        { y: ["-6rem", 0], opacity: [0, 1] },
+        { y: ["-12rem", 0], opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "<" },
       ],
       ["#hero__name-1", { x: "-2.5rem" }, { ease: "backOut", duration: 0.75 }],
@@ -53,10 +53,12 @@ export default function HeroClient() {
         { x: "2.5rem" },
         { ease: "backOut", duration: 0.75, at: "<" },
       ],
+      ["#hero__name-2", { filter: "blur(3px)", opacity: 0.5 }, { at: "<" }],
+      ["#hero__name-3", { filter: "blur(6px)", opacity: 0.25 }, { at: "<" }],
       [
         "#hero__subheading>span",
-        { y: [80, 0], opacity: 1 },
-        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "-0.2" },
+        { y: ["3rem", 0], opacity: 1 },
+        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "+.2" },
       ],
     ]).then(() => {
       isReady.current = true;
