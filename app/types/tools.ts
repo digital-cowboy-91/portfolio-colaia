@@ -3,4 +3,5 @@ export interface Tool {
   src: string;
   title: string;
   alt: string;
+  icon: string;
 }

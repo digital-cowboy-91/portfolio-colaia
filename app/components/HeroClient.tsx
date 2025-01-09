@@ -25,8 +25,6 @@ export default function HeroClient() {
   useEffect(() => {
     if (!namesRef.current || !subheadingRef.current) return;
 
-    console.log(namesWrapperRef.current?.getBoundingClientRect());
-
     // Rescale
     setNamesScale(scaleToParent(namesRef));
 
