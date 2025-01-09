@@ -25,6 +25,8 @@ export default function HeroClient() {
   useEffect(() => {
     if (!namesRef.current || !subheadingRef.current) return;
 
+    console.log(namesWrapperRef.current?.getBoundingClientRect());
+
     // Rescale
     setNamesScale(scaleToParent(namesRef));
 
@@ -32,16 +34,17 @@ export default function HeroClient() {
     if (isReady.current) return;
 
     animate([
-      ["#hero__names", { opacity: [0, 1] }, { delay: 0.3, duration: 1 }],
-      ["#hero__name-2", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
+      ["#portrait", { opacity: [0, 1] }, { duration: 1 }],
+      ["#hero__names", { opacity: [0, 1] }, { duration: 1, at: "-0.5" }],
+      ["#hero__name-1", { scale: [1.2, 1] }, { duration: 1, at: "<" }],
       [
-        "#hero__name-1",
-        { y: ["6rem", 0], opacity: [0, 1] },
+        "#hero__name-2",
+        { y: ["-6rem", 0], opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "-0.5" },
       ],
       [
         "#hero__name-3",
-        { y: ["-6rem", 0], opacity: [0, 1] },
+        { y: ["-12rem", 0], opacity: [0, 1] },
         { ease: "backOut", duration: 0.5, at: "<" },
       ],
       ["#hero__name-1", { x: "-2.5rem" }, { ease: "backOut", duration: 0.75 }],
@@ -50,10 +53,12 @@ export default function HeroClient() {
         { x: "2.5rem" },
         { ease: "backOut", duration: 0.75, at: "<" },
       ],
+      ["#hero__name-2", { filter: "blur(3px)", opacity: 0.5 }, { at: "<" }],
+      ["#hero__name-3", { filter: "blur(6px)", opacity: 0.25 }, { at: "<" }],
       [
         "#hero__subheading>span",
-        { y: [80, 0], opacity: 1 },
-        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "-0.2" },
+        { y: ["3rem", 0], opacity: 1 },
+        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "+.2" },
       ],
     ]).then(() => {
       isReady.current = true;
@@ -75,19 +80,16 @@ export default function HeroClient() {
         gap-x-8
         text-white
       `}
-      style={{
-        backgroundImage: `
-          radial-gradient(circle at 0 0, #891736, transparent 75%)
-        `,
-      }}
     >
       <Image
+        id="portrait"
         ref={imageRef}
         src={portraitPic}
         alt=""
         quality={100}
         priority
         className={`
+          opacity-0
           col-start-2
           landscape:col-start-3
           landscape:row-span-3
@@ -95,8 +97,12 @@ export default function HeroClient() {
           h-full
           w-full
           portrait:self-end
-          portrait:translate-y-[10rem]
+          portrait:translate-y-[5rem]
+          landscape:z-10
           `}
+        style={{
+          filter: "drop-shadow(20px 20px 30px rgba(0, 0, 0, 0.5))",
+        }}
       />
       <div
         ref={namesWrapperRef}
@@ -116,7 +122,7 @@ export default function HeroClient() {
             text-9xl leading-[0.75] font-black
             flex flex-col justify-center
             px-10
-            overflow-x-clip
+            relative
           `}
           style={{
             scale: namesScale,
@@ -143,12 +149,39 @@ export default function HeroClient() {
             w-full
             flex justify-end gap-x-3 flex-wrap
             [&>span]:opacity-0
+            relative
           `}
       >
         <span>THE</span>
         <span>FULLSTACK</span>
         <span>CODER</span>
       </div>
+      <svg
+        width="100%"
+        height="100%"
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute inset-0 -z-10"
+      >
+        <rect
+          width="100%"
+          height="100%"
+          x="0"
+          y="0"
+          style={{ fill: "url(#_Radial1)" }}
+        />
+        <defs>
+          <radialGradient id="_Radial1" cx="0" cy="0" r="1">
+            <stop
+              offset="0"
+              style={{ stopColor: "rgb(0,191,255)", stopOpacity: 1 }}
+            />
+            <stop
+              offset="1"
+              style={{ stopColor: "rgb(255,0,126)", stopOpacity: 0 }}
+            />
+          </radialGradient>
+        </defs>
+      </svg>
     </ContainerWrapper>
   );
 }
