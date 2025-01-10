@@ -1,8 +1,6 @@
-import { HTMLAttributes, Ref, Suspense } from "react";
+import { HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  id: string;
-  ref?: Ref<HTMLElement>;
   className?: string;
 }
 
@@ -12,8 +10,8 @@ export default function SectionWrapper({
   ...props
 }: Props) {
   return (
-    <section className={`m-8 rounded-[2rem] bg-white ${className}`} {...props}>
-      <Suspense fallback={<p>Loading...</p>}>{children}</Suspense>
+    <section className={`h-screen p-4 ${className}`} {...props}>
+      {children}
     </section>
   );
 }

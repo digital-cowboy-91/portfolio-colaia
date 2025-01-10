@@ -1,14 +1,8 @@
 "use client";
 
-import crop from "@/app/assets/profile-photo.jpg";
-import {
-  useAnimate,
-  useInView,
-  useMotionValueEvent,
-  useScroll,
-} from "motion/react";
-import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { useAnimate } from "motion/react";
+import { HTMLAttributes } from "react";
 import { Profile } from "../types/profile";
 import Code from "./Code";
 
@@ -20,55 +14,65 @@ export default function ProfileClient({ data }: Props) {
   const { snippet } = data[0];
 
   const [scope, animate] = useAnimate();
-  const isReady = useRef(false);
-  const isInView = useInView(scope, { once: true });
-  const { scrollYProgress } = useScroll({
-    target: scope,
-    offset: ["end center", "start center"],
-  });
-
-  useMotionValueEvent(scrollYProgress, "change", (position) => {
-    if (!isReady.current) return;
-
-    animate(scope.current, {
-      rotateY: 10 + -20 * position,
-      rotateX: -10 + 20 * position,
-    });
-  });
-
-  useEffect(() => {
-    if (!isInView) return;
-
-    const position = scrollYProgress.get();
-
-    animate(
-      scope.current,
-      {
-        opacity: 1,
-        rotateY: 10 + -20 * position,
-        rotateX: [90, -5 + 10 * position],
-      },
-      {
-        duration: 0.5,
-        ease: "backOut",
-      }
-    ).then(() => (isReady.current = true));
-  }, [isInView]);
 
   return (
     <div
       ref={scope}
-      className="opacity-0 bg-foreground rounded-[3rem] max-w-[800px] mx-auto p-8 flex gap-8 items-center max-md:flex-col-reverse"
-      style={{
-        filter: `drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.5))`,
-      }}
+      className={`
+          grid grid-cols-[50px_minmax(max-content,200px)_auto] grid-rows-[repeat(2,auto)]
+          rounded-[1rem] overflow-hidden
+          [&>div]:bg-[#1e1e1e]
+          bg-contour
+          gap-px
+          border
+          border-contour
+          max-w-[1200px]
+          text-sm
+        `}
+      aria-label="Mock Visual Studio Code window"
     >
-      <Code snippet={snippet} />
-      <Image
-        className="rounded-full max-w-[250px] max-h-[250px]"
-        src={crop}
-        alt="Portrait photo of young man looking straight to the camera"
-      />
+      <div
+        className={`
+            col-span-3
+            flex justify-end items-center gap-2
+            p-4
+          `}
+      >
+        {[1, 2, 3].map((val) => (
+          <div
+            key={val}
+            className="size-4 rounded-full border border-contour"
+          />
+        ))}
+      </div>
+      <div />
+      <div className="p-4">
+        <div className="font-semibold mb-2">PORTFOLIO-COLAIA</div>
+        <AboutMeTsx className="ps-2" />
+      </div>
+      <div>
+        <div>
+          <AboutMeTsx className="p-4 border-e border-contour w-max" />
+        </div>
+        <div className="p-4 border-t border-contour">
+          <Code snippet={snippet} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AboutMeTsx({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={`
+        flex items-center gap-2
+        ${className}
+      `}
+      {...props}
+    >
+      <Icon icon="simple-icons:react" />
+      <span>AboutMe.tsx</span>
     </div>
   );
 }

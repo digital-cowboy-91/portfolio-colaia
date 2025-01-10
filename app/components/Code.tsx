@@ -14,6 +14,7 @@ export default function Code({ snippet }: { snippet: string }) {
       className="hljs whitespace-pre-wrap"
       style={{
         backgroundColor: "transparent",
+        padding: 0,
       }}
       dangerouslySetInnerHTML={{
         __html: sanitizedHtml,
