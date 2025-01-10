@@ -26,6 +26,7 @@ export default function ProfileClient({ data }: Props) {
           grid-rows-[repeat(2,auto)]
           [&>div]:bg-[#1e1e1e] overflow-hidden 
           max-w-[900px] mx-auto text-sm
+          drop-shadow-massive
         `}
       aria-label="Mock Visual Studio Code window"
     >

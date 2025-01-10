@@ -59,16 +59,18 @@ export default async function RootLayout({
             className={`
                 absolute bottom-0 z-10
                 flex items-center gap-8 p-8
+                uppercase text-xl tracking-wider 
               `}
             style={{
               transform:
-                "translate(0%, 50%) rotate(90deg) translate(-100%, -50%)",
+                // "translate(0%, 50%) rotate(90deg) translate(-100%, -50%)", // text top to bottom
+                "translate(0%, 50%) rotate(-90deg) translate(0%, 50%)", // text bottom to top
               transformOrigin: "left",
             }}
           >
+            <span className="w-32 border-b border-contour" />
             <Link href="/">Home</Link>
             <Link href="/profile">Profile</Link>
-            <span className="w-32 border-b border-contour" />
           </menu>
           {children}
           <GradientBackground />

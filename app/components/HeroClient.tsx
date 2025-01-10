@@ -84,20 +84,16 @@ export default function HeroClient() {
         quality={100}
         priority
         className={`
-          opacity-0
-          col-start-2
-          landscape:col-start-3
-          landscape:row-span-3
-          object-contain
-          h-full
-          w-full
-          portrait:self-end
-          portrait:translate-y-[5rem]
-          landscape:z-10
+            col-start-2
+            landscape:col-start-3
+            landscape:row-span-3
+            h-full w-full object-contain
+            portrait:self-end
+            portrait:translate-y-[5rem]
+            landscape:z-10
+            drop-shadow-massive
+            opacity-0
           `}
-        style={{
-          filter: "drop-shadow(20px 20px 30px rgba(0, 0, 0, 0.5))",
-        }}
       />
       <div
         ref={namesWrapperRef}
