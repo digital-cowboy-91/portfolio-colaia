@@ -54,11 +54,11 @@ export default async function RootLayout({
         >
           <SocialButtons />
         </header>
-        <main className="rounded-[1rem] relative overflow-hidden mb-4">
+        <main className="rounded-[1rem] relative overflow-hidden mb-4 p-4">
           <menu
             className={`
                 absolute bottom-0 z-10
-                flex items-center gap-8 p-8
+                flex items-center gap-8 p-4
                 uppercase text-xl tracking-wider 
               `}
             style={{

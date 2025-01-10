@@ -19,42 +19,45 @@ export default function ProfileClient({ data }: Props) {
     <div
       ref={scope}
       className={`
-          bg-contour
+          bg-[#1e1e1e]
           border border-contour rounded-[1rem]
-          grid gap-px
-          grid-cols-[50px_minmax(max-content,200px)_auto]
-          grid-rows-[repeat(2,auto)]
-          [&>div]:bg-[#1e1e1e] overflow-hidden 
+          overflow-hidden 
           max-w-[900px] mx-auto text-sm
           drop-shadow-massive
-        `}
+          `}
       aria-label="Mock Visual Studio Code window"
     >
       <div
         className={`
-            col-span-3
             flex justify-end items-center gap-2
-            p-4
+            border-b border-contour
+            p-[16px]
           `}
       >
         {[1, 2, 3].map((val) => (
           <div
             key={val}
-            className="size-4 rounded-full border border-contour"
+            className="size-[16px] rounded-full border border-contour"
           />
         ))}
       </div>
-      <div />
-      <div className="p-4">
-        <div className="font-semibold mb-2">PORTFOLIO-COLAIA</div>
-        <AboutMeTsx className="ps-2" />
-      </div>
-      <div>
-        <div>
-          <AboutMeTsx className="p-4 border-e border-contour w-max" />
+      <div className="flex">
+        <div className="w-[32px] shrink-0 md:w-[64px]" />
+        <div
+          className={`
+            max-md:hidden
+            border-s border-contour
+            text-nowrap p-4
+          `}
+        >
+          <div className="font-semibold mb-2">PORTFOLIO-COLAIA</div>
+          <AboutMeTsx className="ps-2" />
         </div>
-        <div className="p-4 border-t border-contour">
-          <Code snippet={snippet} />
+        <div className="border-s border-contour">
+          <AboutMeTsx className="p-4 border-e border-contour w-max" />
+          <div className="p-4 border-t border-contour">
+            <Code snippet={snippet} />
+          </div>
         </div>
       </div>
     </div>
