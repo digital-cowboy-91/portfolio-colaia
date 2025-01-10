@@ -19,15 +19,13 @@ export default function ProfileClient({ data }: Props) {
     <div
       ref={scope}
       className={`
-          grid grid-cols-[50px_minmax(max-content,200px)_auto] grid-rows-[repeat(2,auto)]
-          rounded-[1rem] overflow-hidden
-          [&>div]:bg-[#1e1e1e]
           bg-contour
-          gap-px
-          border
-          border-contour
-          max-w-[1200px]
-          text-sm
+          border border-contour rounded-[1rem]
+          grid gap-px
+          grid-cols-[50px_minmax(max-content,200px)_auto]
+          grid-rows-[repeat(2,auto)]
+          [&>div]:bg-[#1e1e1e] overflow-hidden 
+          max-w-[900px] mx-auto text-sm
         `}
       aria-label="Mock Visual Studio Code window"
     >
