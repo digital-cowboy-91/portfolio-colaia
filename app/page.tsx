@@ -22,9 +22,9 @@ export default function Home() {
       <SectionItem id="profile" className="h-[200vh]">
         <ProfileServer />
       </SectionItem>
-      <SectionItem id="projects" className="h-[200vh]">
+      {/* <SectionItem id="projects" className="h-[200vh]">
         <Placeholder name="projects" />
-      </SectionItem>
+      </SectionItem> */}
       <SectionItem id="journey" className="h-[200vh]">
         <Placeholder name="journey" />
       </SectionItem>

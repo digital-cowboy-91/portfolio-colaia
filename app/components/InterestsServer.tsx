@@ -1,7 +1,6 @@
 import { InterestsWithRefs } from "../types/interests";
 import { readFile } from "../utils/persistantJSON";
 import InterestClient from "./InterestsClient";
-import SectionWrapper from "./SectionWrapper";
 
 export default async function InterestsServer() {
   const toolMap = await readFile("tools").then(
@@ -21,9 +20,5 @@ export default async function InterestsServer() {
 
   if (!interests.length) return;
 
-  return (
-    <SectionWrapper id="interests">
-      <InterestClient data={interests} />
-    </SectionWrapper>
-  );
+  return <InterestClient data={interests} />;
 }
