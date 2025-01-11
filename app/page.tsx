@@ -40,14 +40,13 @@ export default function Home() {
           <GradientBackground />
         </div>
       </section>
-      <section id="profile" className="h-[150vh] bg-[blue]">
+      <section id="profile" className="h-[150vh]">
         <div
           className={`
           h-[calc(100vh-7rem)] p-4
           rounded-[1rem]
           relative overflow-hidden
           flex justify-center items-center
-          bg-[red]
         `}
         >
           <ProfileServer />
