@@ -1,8 +1,5 @@
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
-import Link from "next/link";
-import GradientBackground from "./components/GradientBackground";
 import SocialButtons from "./components/SocialButtons";
 import ToolsClient from "./components/ToolsClient";
 import "./globals.css";
@@ -55,36 +52,15 @@ export default async function RootLayout({
         >
           <SocialButtons />
         </header>
-        <main className="rounded-[1rem] relative overflow-hidden mb-4 p-4">
-          <menu
-            className={`
-                absolute bottom-0 z-10
-                flex flex-row-reverse items-center gap-8 p-4
-                uppercase text-xl tracking-wider 
-              `}
-            style={{
-              transform:
-                // "translate(0%, 50%) rotate(90deg) translate(-100%, -50%)", // text top to bottom
-                "translate(0%, 50%) rotate(-90deg) translate(0%, 50%)", // text bottom to top
-              transformOrigin: "left",
-            }}
-          >
-            <Link href="/" className="flex place-content-center">
-              <Icon
-                icon="codicon:arrow-up"
-                width="1.75rem"
-                className="rotate-90"
-              />
-            </Link>
-            <Link href="/profile">Profile</Link>
-            <Link href="/projects">Projects</Link>
-            <Link href="/journey">Journey</Link>
-            <span className="w-32 border-b border-foreground" />
-          </menu>
-          {children}
-          <GradientBackground />
-        </main>
-        <footer className="rounded-[1rem] relative overflow-hidden bg-foreground p-4">
+        <main>{children}</main>
+        <footer
+          className={`
+            h-16 p-4
+            fixed inset-x-4 bottom-4
+            bg-foreground
+            rounded-[1rem]
+          `}
+        >
           <ToolsClient data={tools} />
         </footer>
       </body>
