@@ -36,20 +36,20 @@ function SectionLink({
             `}
           >
             <line
-              x2="100%"
-              y1={5}
               x1={0}
+              y1={5}
+              x2="100%"
               y2={5}
               strokeWidth={3}
               stroke="rgba(255,255,255,0.3)"
             />
             <motion.line
-              x2="100%"
+              x1="100%"
               y1={5}
-              x1={0}
+              x2={0}
               y2={5}
-              initial={{ pathLength: 1 - scrollProgress }}
-              animate={{ pathLength: 1 - scrollProgress }}
+              initial={{ pathLength: scrollProgress }}
+              animate={{ pathLength: scrollProgress }}
               strokeWidth={3}
               stroke="rgba(255,255,255,1)"
             />
@@ -64,7 +64,7 @@ interface SectionItemProps extends Omit<SectionLinkProps, "scrollProgress"> {
   children: ReactElement[] | ReactElement;
   sectionClass?: string;
   containerClass?: string;
-  setProgress?: (num: number) => void;
+  setScrollProgress?: (num: number) => void;
 }
 
 export function SectionItem({
@@ -72,7 +72,7 @@ export function SectionItem({
   children,
   sectionClass,
   containerClass,
-  setProgress = (num) => num,
+  setScrollProgress = (num) => num,
 }: SectionItemProps) {
   const sectionRef = useRef(null);
 
@@ -82,18 +82,17 @@ export function SectionItem({
   });
 
   scrollYProgress.on("change", (current) => {
-    setProgress(current);
+    setScrollProgress(current);
   });
 
   return (
     <section id={id} ref={sectionRef} className={`p-4 ${sectionClass}`}>
       <div
         className={`
-          h-[calc(100vh-7rem)] p-4 mb-[7rem]
+          min-h-[calc(100vh-7rem)] p-4 mb-[7rem]
           rounded-[1rem]
           relative overflow-hidden
           flex justify-center items-center
-          sticky top-0
           ${containerClass}
         `}
       >
@@ -141,7 +140,7 @@ export function SectionWrapper({ children }: { children: SectionItem[] }) {
       </menu>
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
-          scrollProgress: (value: number) =>
+          setScrollProgress: (value: number) =>
             setScrollStates((prev) => ({ ...prev, [index]: value })),
         })
       )}

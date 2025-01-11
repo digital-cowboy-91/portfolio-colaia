@@ -1,5 +1,6 @@
 import GradientBackground from "./components/GradientBackground";
 import HeroClient from "./components/HeroClient";
+import InterestsServer from "./components/InterestsServer";
 import ProfileServer from "./components/ProfileServer";
 import { SectionItem, SectionWrapper } from "./components/Sections";
 
@@ -19,14 +20,22 @@ export default function Home() {
         <HeroClient />
         <GradientBackground />
       </SectionItem>
-      <SectionItem id="profile" className="h-[200vh]">
+      <SectionItem
+        id="profile"
+        sectionClass="h-[200vh]"
+        containerClass="sticky top-0"
+      >
         <ProfileServer />
       </SectionItem>
-      {/* <SectionItem id="projects" className="h-[200vh]">
+      {/* <SectionItem
+        id="projects"
+        sectionClass="h-[200vh]"
+        containerClass="sticky top-0"
+      >
         <Placeholder name="projects" />
       </SectionItem> */}
-      <SectionItem id="journey" className="h-[200vh]">
-        <Placeholder name="journey" />
+      <SectionItem id="journey">
+        <InterestsServer />
       </SectionItem>
     </SectionWrapper>
   );
