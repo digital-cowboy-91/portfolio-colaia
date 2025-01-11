@@ -3,50 +3,7 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion, useScroll } from "motion/react";
 import Link from "next/link";
-import React, { HTMLAttributes, useRef, useState } from "react";
-
-interface Props extends HTMLAttributes<HTMLElement> {
-  id: string;
-  title?: string;
-  icon?: string;
-  scrollProgress?: (num: number) => void;
-}
-
-type SectionItem = ReturnType<typeof SectionItem>;
-
-export function SectionItem({
-  children,
-  className,
-  scrollProgress = (num) => num,
-  ...props
-}: Props) {
-  const sectionRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start center", "end end"],
-  });
-
-  scrollYProgress.on("change", (current) => {
-    scrollProgress(current);
-  });
-
-  return (
-    <section ref={sectionRef} className={`p-4 ${className}`} {...props}>
-      <div
-        className={`
-          h-[calc(100vh-7rem)] p-4 mb-[7rem]
-          rounded-[1rem]
-          relative overflow-hidden
-          flex justify-center items-center
-          sticky top-0
-        `}
-      >
-        {children}
-      </div>
-    </section>
-  );
-}
+import React, { ReactElement, useRef, useState } from "react";
 
 type SectionLinkProps = {
   id: string;
@@ -102,6 +59,51 @@ function SectionLink({
     </Link>
   );
 }
+
+interface SectionItemProps extends Omit<SectionLinkProps, "scrollProgress"> {
+  children: ReactElement[] | ReactElement;
+  sectionClass?: string;
+  containerClass?: string;
+  setProgress?: (num: number) => void;
+}
+
+export function SectionItem({
+  id,
+  children,
+  sectionClass,
+  containerClass,
+  setProgress = (num) => num,
+}: SectionItemProps) {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end end"],
+  });
+
+  scrollYProgress.on("change", (current) => {
+    setProgress(current);
+  });
+
+  return (
+    <section id={id} ref={sectionRef} className={`p-4 ${sectionClass}`}>
+      <div
+        className={`
+          h-[calc(100vh-7rem)] p-4 mb-[7rem]
+          rounded-[1rem]
+          relative overflow-hidden
+          flex justify-center items-center
+          sticky top-0
+          ${containerClass}
+        `}
+      >
+        {children}
+      </div>
+    </section>
+  );
+}
+
+type SectionItem = ReturnType<typeof SectionItem>;
 
 export function SectionWrapper({ children }: { children: SectionItem[] }) {
   const [scrollStates, setScrollStates] = useState(
