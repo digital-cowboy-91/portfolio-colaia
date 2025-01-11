@@ -2,6 +2,7 @@ import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import Link from "next/link";
 import GradientBackground from "./components/GradientBackground";
 import HeroClient from "./components/HeroClient";
+import ProfileServer from "./components/ProfileServer";
 
 export default function Home() {
   return (
@@ -19,12 +20,12 @@ export default function Home() {
           transformOrigin: "left",
         }}
       >
-        <Link href="/" className="flex place-content-center">
+        <Link href="#herp" className="flex place-content-center">
           <Icon icon="codicon:arrow-up" width="1.75rem" className="rotate-90" />
         </Link>
-        <Link href="/profile">Profile</Link>
-        <Link href="/projects">Projects</Link>
-        <Link href="/journey">Journey</Link>
+        <Link href="#profile">Profile</Link>
+        <Link href="#projects">Projects</Link>
+        <Link href="#journey">Journey</Link>
         <span className="w-32 border-b border-foreground" />
       </menu>
       <section id="hero" className="h-[150vh]">
@@ -37,6 +38,19 @@ export default function Home() {
         >
           <HeroClient />
           <GradientBackground />
+        </div>
+      </section>
+      <section id="profile" className="h-[150vh] bg-[blue]">
+        <div
+          className={`
+          h-[calc(100vh-7rem)] p-4
+          rounded-[1rem]
+          relative overflow-hidden
+          flex justify-center items-center
+          bg-[red]
+        `}
+        >
+          <ProfileServer />
         </div>
       </section>
     </>
