@@ -38,8 +38,6 @@ export default async function RootLayout({
       <body
         className={`
           ${redHat.variable} antialiased
-          h-screen p-4
-          grid grid-rows-[1fr_max-content]
         `}
       >
         <header
