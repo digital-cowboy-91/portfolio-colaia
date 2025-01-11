@@ -1,3 +1,4 @@
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
 import Link from "next/link";
@@ -58,7 +59,7 @@ export default async function RootLayout({
           <menu
             className={`
                 absolute bottom-0 z-10
-                flex items-center gap-8 p-4
+                flex flex-row-reverse items-center gap-8 p-4
                 uppercase text-xl tracking-wider 
               `}
             style={{
@@ -68,9 +69,17 @@ export default async function RootLayout({
               transformOrigin: "left",
             }}
           >
-            <span className="w-32 border-b border-contour" />
-            <Link href="/">Home</Link>
+            <Link href="/" className="flex place-content-center">
+              <Icon
+                icon="codicon:arrow-up"
+                width="1.75rem"
+                className="rotate-90"
+              />
+            </Link>
             <Link href="/profile">Profile</Link>
+            <Link href="/projects">Projects</Link>
+            <Link href="/journey">Journey</Link>
+            <span className="w-32 border-b border-foreground" />
           </menu>
           {children}
           <GradientBackground />
