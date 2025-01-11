@@ -19,13 +19,13 @@ export default function Home() {
         <HeroClient />
         <GradientBackground />
       </SectionItem>
-      <SectionItem id="profile">
+      <SectionItem id="profile" className="h-[200vh]">
         <ProfileServer />
       </SectionItem>
-      <SectionItem id="projects">
+      <SectionItem id="projects" className="h-[200vh]">
         <Placeholder name="projects" />
       </SectionItem>
-      <SectionItem id="journey">
+      <SectionItem id="journey" className="h-[200vh]">
         <Placeholder name="journey" />
       </SectionItem>
     </SectionWrapper>
