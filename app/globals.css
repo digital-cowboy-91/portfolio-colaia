@@ -5,6 +5,8 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ffffff;
+  --contour: rgb(70, 70, 70);
+  --snippet-tab-size: 2rem;
 }
 
 body {
@@ -39,4 +41,16 @@ h3 {
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.02rem;
+}
+
+@media (max-width: 576px) {
+  :root {
+    --snippet-tab-size: 1.5rem;
+  }
+}
+
+@media (max-width: 440px) {
+  :root {
+    --snippet-tab-size: 1rem;
+  }
 }

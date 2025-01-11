@@ -6,7 +6,6 @@ import { useAnimate } from "motion/react";
 import Image from "next/image";
 import { RefObject, useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
-import ContainerWrapper from "./ContainerWrapper";
 
 export default function HeroClient() {
   // Reactive States
@@ -64,11 +63,10 @@ export default function HeroClient() {
   }, [width]);
 
   return (
-    <ContainerWrapper
+    <section
       ref={scope}
-      id="hero"
       className={`
-        relative
+        relative h-full
         grid place-items-center
         grid-cols-[minmax(0,1fr)_minmax(300px,max-content)_minmax(0,1fr)]
           landscape:grid-cols-[minmax(0,1fr)_repeat(2,minmax(480px,960px))_minmax(0,1fr)]
@@ -86,20 +84,16 @@ export default function HeroClient() {
         quality={100}
         priority
         className={`
-          opacity-0
-          col-start-2
-          landscape:col-start-3
-          landscape:row-span-3
-          object-contain
-          h-full
-          w-full
-          portrait:self-end
-          portrait:translate-y-[5rem]
-          landscape:z-10
+            col-start-2
+            landscape:col-start-3
+            landscape:row-span-3
+            h-full w-full object-contain
+            portrait:self-end
+            portrait:translate-y-[5rem]
+            landscape:z-10
+            drop-shadow-massive
+            opacity-0
           `}
-        style={{
-          filter: "drop-shadow(20px 20px 30px rgba(0, 0, 0, 0.5))",
-        }}
       />
       <div
         ref={namesWrapperRef}
@@ -153,33 +147,7 @@ export default function HeroClient() {
         <span>FULLSTACK</span>
         <span>CODER</span>
       </div>
-      <svg
-        width="100%"
-        height="100%"
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute inset-0 -z-10"
-      >
-        <rect
-          width="100%"
-          height="100%"
-          x="0"
-          y="0"
-          style={{ fill: "url(#_Radial1)" }}
-        />
-        <defs>
-          <radialGradient id="_Radial1" cx="0" cy="0" r="1">
-            <stop
-              offset="0"
-              style={{ stopColor: "rgb(0,191,255)", stopOpacity: 1 }}
-            />
-            <stop
-              offset="1"
-              style={{ stopColor: "rgb(255,0,126)", stopOpacity: 0 }}
-            />
-          </radialGradient>
-        </defs>
-      </svg>
-    </ContainerWrapper>
+    </section>
   );
 }
 

@@ -11,6 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        contour: "var(--contour)",
+      },
+      dropShadow: {
+        massive: "20px 20px 30px rgba(0, 0, 0, 0.5)",
       },
     },
   },
