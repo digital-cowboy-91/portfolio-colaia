@@ -20,7 +20,7 @@ export default function Home() {
         <HeroClient />
         <GradientBackground />
       </SectionItem>
-      <SectionItem id="profile">
+      <SectionItem id="profile" className="flex justify-center items-center">
         <ProfileServer />
       </SectionItem>
       {/* <SectionItem

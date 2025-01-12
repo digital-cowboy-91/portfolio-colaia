@@ -41,7 +41,7 @@ function SectionLink({
               x2="100%"
               y2={5}
               strokeWidth={3}
-              stroke="rgba(255,255,255,0.3)"
+              stroke="var(--contour)"
             />
             <motion.line
               x1="100%"
@@ -51,7 +51,7 @@ function SectionLink({
               initial={{ pathLength: scrollProgress }}
               animate={{ pathLength: scrollProgress }}
               strokeWidth={3}
-              stroke="rgba(255,255,255,1)"
+              stroke="var(--foreground)"
             />
           </svg>
         </>
@@ -63,7 +63,7 @@ function SectionLink({
 interface SectionItemProps extends Omit<SectionLinkProps, "scrollProgress"> {
   children: ReactElement[] | ReactElement;
   className?: string;
-  containerClass?: string;
+  wrapperClassName?: string;
   setScrollProgress?: (num: number) => void;
   fixedHeight?: boolean;
   debug?: boolean;
@@ -73,7 +73,7 @@ export function SectionItem({
   id,
   children,
   className,
-  containerClass,
+  wrapperClassName,
   setScrollProgress = (num) => num,
   fixedHeight = false,
   debug = false,
@@ -96,16 +96,15 @@ export function SectionItem({
       className={`
         ${fixedHeight ? "h-screen" : "min-h-screen"}
         p-4 pb-[6rem]
-        flex flex-col
         ${className}
       `}
     >
       <div
         className={`
-          flex-grow p-4
+          h-full p-4
           rounded-[1rem]
           relative overflow-hidden
-          ${containerClass}
+          ${wrapperClassName}
           ${debug && "bg-[red]"}
         `}
       >
