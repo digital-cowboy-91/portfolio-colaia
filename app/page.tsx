@@ -16,14 +16,14 @@ function Placeholder({ name }: { name: string }) {
 export default function Home() {
   return (
     <SectionWrapper>
-      <SectionItem id="hero" icon="codicon:arrow-up">
+      <SectionItem id="hero" icon="codicon:arrow-up" fixedHeight>
         <HeroClient />
         <GradientBackground />
       </SectionItem>
       <SectionItem
         id="profile"
-        sectionClass="h-[200vh]"
-        containerClass="sticky top-0"
+        // sectionClass="h-[200vh]"
+        // containerClass="sticky top-0"
       >
         <ProfileServer />
       </SectionItem>

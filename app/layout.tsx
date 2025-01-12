@@ -52,12 +52,11 @@ export default async function RootLayout({
         </header>
         <main>{children}</main>
         <footer
-          className={`
-            h-16 p-4
-            fixed inset-x-4 bottom-4
-            bg-foreground
-            rounded-[1rem]
-          `}
+          className={`fixed inset-x-0 bottom-0 p-4`}
+          style={{
+            backgroundImage:
+              "linear-gradient(0deg, var(--background) 75%, transparent)",
+          }}
         >
           <ToolsClient data={tools} />
         </footer>

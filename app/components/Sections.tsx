@@ -65,6 +65,7 @@ interface SectionItemProps extends Omit<SectionLinkProps, "scrollProgress"> {
   sectionClass?: string;
   containerClass?: string;
   setScrollProgress?: (num: number) => void;
+  fixedHeight?: boolean;
 }
 
 export function SectionItem({
@@ -73,6 +74,7 @@ export function SectionItem({
   sectionClass,
   containerClass,
   setScrollProgress = (num) => num,
+  fixedHeight = false,
 }: SectionItemProps) {
   const sectionRef = useRef(null);
 
@@ -86,10 +88,15 @@ export function SectionItem({
   });
 
   return (
-    <section id={id} ref={sectionRef} className={`p-4 ${sectionClass}`}>
+    <section
+      id={id}
+      ref={sectionRef}
+      className={`p-4 min-h-[150vh] ${sectionClass}`}
+    >
       <div
         className={`
-          min-h-[calc(100vh-7rem)] p-4 mb-[7rem]
+          ${fixedHeight ? "h-[calc(100vh-7rem)]" : "min-h-[calc(100vh-7rem)]"}
+          p-4 mb-[7rem]
           rounded-[1rem]
           relative overflow-hidden
           flex justify-center items-center

@@ -56,10 +56,21 @@ export default function ToolsClient({ data }: Props) {
   }, []);
 
   return (
-    <div ref={listRef} className="h-8">
+    <div
+      ref={listRef}
+      className={`
+        h-16
+        bg-foreground
+        rounded-[1rem]
+      `}
+    >
       {visibleRef.current.length > 0 && (
         <motion.ul
-          className="flex justify-center items-center gap-8 mx-auto text-background"
+          className={`
+            flex justify-center items-center
+            mx-auto
+            text-background
+          `}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -68,12 +79,12 @@ export default function ToolsClient({ data }: Props) {
             <AnimatePresence key={index} initial={false} mode="wait">
               <motion.li
                 key={icon}
-                className="flex items-center"
+                className="size-16 p-4"
                 exit={{ scale: 0 }}
                 animate={{ scale: [0, 1] }}
                 transition={{ duration: 0.5 }}
               >
-                <Icon icon={icon} height="2rem" />
+                <Icon icon={icon} height="100%" />
               </motion.li>
             </AnimatePresence>
           ))}
