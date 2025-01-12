@@ -3,50 +3,7 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion, useScroll } from "motion/react";
 import Link from "next/link";
-import React, { HTMLAttributes, useRef, useState } from "react";
-
-interface Props extends HTMLAttributes<HTMLElement> {
-  id: string;
-  title?: string;
-  icon?: string;
-  scrollProgress?: (num: number) => void;
-}
-
-type SectionItem = ReturnType<typeof SectionItem>;
-
-export function SectionItem({
-  children,
-  className,
-  scrollProgress = (num) => num,
-  ...props
-}: Props) {
-  const sectionRef = useRef(null);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start center", "end end"],
-  });
-
-  scrollYProgress.on("change", (current) => {
-    scrollProgress(current);
-  });
-
-  return (
-    <section ref={sectionRef} className={`p-4 ${className}`} {...props}>
-      <div
-        className={`
-          h-[calc(100vh-7rem)] p-4 mb-[7rem]
-          rounded-[1rem]
-          relative overflow-hidden
-          flex justify-center items-center
-          sticky top-0
-        `}
-      >
-        {children}
-      </div>
-    </section>
-  );
-}
+import React, { ReactElement, useRef, useState } from "react";
 
 type SectionLinkProps = {
   id: string;
@@ -79,22 +36,22 @@ function SectionLink({
             `}
           >
             <line
-              x2="100%"
-              y1={5}
               x1={0}
+              y1={5}
+              x2="100%"
               y2={5}
               strokeWidth={3}
-              stroke="rgba(255,255,255,0.3)"
+              stroke="var(--contour)"
             />
             <motion.line
-              x2="100%"
+              x1="100%"
               y1={5}
-              x1={0}
+              x2={0}
               y2={5}
-              initial={{ pathLength: 1 - scrollProgress }}
-              animate={{ pathLength: 1 - scrollProgress }}
+              initial={{ pathLength: scrollProgress }}
+              animate={{ pathLength: scrollProgress }}
               strokeWidth={3}
-              stroke="rgba(255,255,255,1)"
+              stroke="var(--foreground)"
             />
           </svg>
         </>
@@ -102,6 +59,62 @@ function SectionLink({
     </Link>
   );
 }
+
+interface SectionItemProps extends Omit<SectionLinkProps, "scrollProgress"> {
+  children: ReactElement[] | ReactElement;
+  className?: string;
+  wrapperClassName?: string;
+  setScrollProgress?: (num: number) => void;
+  fixedHeight?: boolean;
+  debug?: boolean;
+}
+
+export function SectionItem({
+  id,
+  children,
+  className,
+  wrapperClassName,
+  setScrollProgress = (num) => num,
+  fixedHeight = false,
+  debug = false,
+}: SectionItemProps) {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end end"],
+  });
+
+  scrollYProgress.on("change", (current) => {
+    setScrollProgress(current);
+  });
+
+  return (
+    <section
+      id={id}
+      ref={sectionRef}
+      className={`
+        ${fixedHeight ? "h-screen" : "min-h-screen"}
+        p-4 pb-[6rem]
+        ${className}
+      `}
+    >
+      <div
+        className={`
+          h-full p-4
+          rounded-[1rem]
+          relative overflow-hidden
+          ${wrapperClassName}
+          ${debug && "bg-[red]"}
+        `}
+      >
+        {children}
+      </div>
+    </section>
+  );
+}
+
+type SectionItem = ReturnType<typeof SectionItem>;
 
 export function SectionWrapper({ children }: { children: SectionItem[] }) {
   const [scrollStates, setScrollStates] = useState(
@@ -139,7 +152,7 @@ export function SectionWrapper({ children }: { children: SectionItem[] }) {
       </menu>
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
-          scrollProgress: (value: number) =>
+          setScrollProgress: (value: number) =>
             setScrollStates((prev) => ({ ...prev, [index]: value })),
         })
       )}
