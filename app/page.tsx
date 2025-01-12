@@ -20,21 +20,15 @@ export default function Home() {
         <HeroClient />
         <GradientBackground />
       </SectionItem>
-      <SectionItem
-        id="profile"
-        // sectionClass="h-[200vh]"
-        // containerClass="sticky top-0"
-      >
+      <SectionItem id="profile">
         <ProfileServer />
       </SectionItem>
       {/* <SectionItem
         id="projects"
-        sectionClass="h-[200vh]"
-        containerClass="sticky top-0"
       >
         <Placeholder name="projects" />
       </SectionItem> */}
-      <SectionItem id="journey" containerClass="mt-[50vh]">
+      <SectionItem id="journey">
         <InterestsServer />
       </SectionItem>
     </SectionWrapper>

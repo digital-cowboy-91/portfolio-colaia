@@ -62,25 +62,27 @@ function SectionLink({
 
 interface SectionItemProps extends Omit<SectionLinkProps, "scrollProgress"> {
   children: ReactElement[] | ReactElement;
-  sectionClass?: string;
+  className?: string;
   containerClass?: string;
   setScrollProgress?: (num: number) => void;
   fixedHeight?: boolean;
+  debug?: boolean;
 }
 
 export function SectionItem({
   id,
   children,
-  sectionClass,
+  className,
   containerClass,
   setScrollProgress = (num) => num,
   fixedHeight = false,
+  debug = false,
 }: SectionItemProps) {
   const sectionRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start center", "end end"],
+    offset: ["start end", "end end"],
   });
 
   scrollYProgress.on("change", (current) => {
@@ -92,18 +94,19 @@ export function SectionItem({
       id={id}
       ref={sectionRef}
       className={`
-        p-4 min-h-[150vh]
-        ${sectionClass}
+        ${fixedHeight ? "h-screen" : "min-h-screen"}
+        p-4 pb-[6rem]
+        flex flex-col
+        ${className}
       `}
     >
       <div
         className={`
-          ${fixedHeight ? "h-[calc(100vh-7rem)]" : "min-h-[calc(100vh-7rem)]"}
-          p-4 mb-[7rem]
+          flex-grow p-4
           rounded-[1rem]
           relative overflow-hidden
-          flex justify-center items-center
           ${containerClass}
+          ${debug && "bg-[red]"}
         `}
       >
         {children}
