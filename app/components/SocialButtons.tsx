@@ -23,9 +23,8 @@ export default function SocialButtons({ horizontal = false }: Props) {
           text: "@digital-cowboy-91",
         },
       ].map(({ icon, url, text }) => (
-        <div className="size-8 relative">
+        <div key={url} className="size-8 relative">
           <a
-            key={url}
             href={url}
             className={`
               bg-background rounded-full

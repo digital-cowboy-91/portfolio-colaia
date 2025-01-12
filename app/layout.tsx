@@ -33,7 +33,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"></script>
+        <script
+          src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"
+          async
+        />
       </head>
       <body
         className={`

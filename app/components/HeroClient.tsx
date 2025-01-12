@@ -4,7 +4,7 @@ import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import { stagger } from "motion";
 import { useAnimate } from "motion/react";
 import Image from "next/image";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useWindowSize from "../hooks/useWindowSize";
 
 export default function HeroClient() {
@@ -25,7 +25,7 @@ export default function HeroClient() {
     if (!namesRef.current || !subheadingRef.current) return;
 
     // Rescale
-    setNamesScale(scaleToParent(namesRef));
+    setNamesScale(scaleToParent(namesRef.current));
 
     // Animate
     if (isReady.current) return;
@@ -117,7 +117,7 @@ export default function HeroClient() {
           `}
           style={{
             scale: namesScale,
-            margin: `${calculateMargin(namesRef, namesScale)}px 0`,
+            margin: `${calculateMargin(namesRef.current, namesScale)}px 0`,
           }}
         >
           <span id="hero__name-1" className="-translate-x-[2.5rem]">
@@ -152,21 +152,23 @@ export default function HeroClient() {
 }
 
 // Helpers
-function scaleToParent(element: RefObject<any>) {
-  const childWidth = element.current?.clientWidth || 0;
-  const parentWidth = element.current?.parentElement.clientWidth || 0;
+function scaleToParent(element: HTMLDivElement | null) {
+  if (!element) return 1;
+
+  const childWidth = element.clientWidth;
+  const parentWidth = element.parentElement?.clientWidth ?? 1;
 
   return parentWidth / childWidth;
 }
 
 function calculateMargin(
-  element: RefObject<any>,
+  element: HTMLDivElement | null,
   scale: number,
   defaultValue: number = 0
 ) {
-  const height = element?.current?.clientHeight;
+  if (!element) return defaultValue;
 
-  if (!height) return defaultValue;
+  const height = element?.clientHeight;
 
   return (height * scale - height) / 2;
 }

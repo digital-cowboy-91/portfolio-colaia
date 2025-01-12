@@ -1,7 +1,6 @@
 "use client";
 
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
-import { useAnimate } from "motion/react";
 import { HTMLAttributes } from "react";
 import { Profile } from "../types/profile";
 import Code from "./Code";
@@ -13,11 +12,8 @@ type Props = {
 export default function ProfileClient({ data }: Props) {
   const { snippet } = data[0];
 
-  const [scope, animate] = useAnimate();
-
   return (
     <div
-      ref={scope}
       className={`
           bg-[#1e1e1e]
           border border-contour rounded-[1rem]
