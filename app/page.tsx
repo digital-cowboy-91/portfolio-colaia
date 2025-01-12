@@ -34,7 +34,7 @@ export default function Home() {
       >
         <Placeholder name="projects" />
       </SectionItem> */}
-      <SectionItem id="journey">
+      <SectionItem id="journey" containerClass="mt-[50vh]">
         <InterestsServer />
       </SectionItem>
     </SectionWrapper>

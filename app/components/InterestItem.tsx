@@ -1,7 +1,7 @@
 "use client";
 
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { useAnimate, useInView } from "motion/react";
-import Image from "next/image";
 import { useEffect } from "react";
 import { InterestsWithRefs } from "../types/interests";
 
@@ -14,7 +14,11 @@ export default function InterestItem({ data }: Props) {
   const jsDate = new Date(date);
 
   const [scope, animate] = useAnimate();
-  const isInView = useInView(scope, { amount: 0.5, once: true });
+  const isInView = useInView(scope, {
+    margin: "0px 0px -96px 0px",
+    amount: 1,
+    once: true,
+  });
 
   useEffect(() => {
     if (!isInView) return;
@@ -41,33 +45,19 @@ export default function InterestItem({ data }: Props) {
   }, [isInView]);
 
   return (
-    <li ref={scope} className="opacity-0 grid grid-cols-subgrid col-span-2">
-      <h2 className="flex flex-col text-right">
-        <span>{jsDate.getFullYear()}</span>
-        <span className="max-md:hidden">
-          {jsDate.toLocaleDateString("en-GB", { month: "long" }).toUpperCase()}
-        </span>
-        <span className="md:hidden">
-          {jsDate.toLocaleDateString("en-GB", { month: "short" }).toUpperCase()}
-        </span>
-      </h2>
-      <div className="flex flex-col gap-4 origin-top">
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <ul className="flex flex-row gap-4 justify-start flex-shrink">
-          {usedTools.map(({ slug, src, alt }) => (
-            <li key={slug}>
-              <Image
-                className="w-auto h-6"
-                width={128}
-                height={128}
-                src={src}
-                alt={alt}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </li>
+    <div ref={scope} className="flex flex-col gap-4 origin-top">
+      <h3 className="relative">
+        {title}
+        <div className="size-[8px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-4 -translate-x-1/2" />
+      </h3>
+      <p>{description}</p>
+      <ul className="flex flex-row gap-4 justify-start flex-shrink">
+        {usedTools.map(({ slug, icon }) => (
+          <li key={slug}>
+            <Icon className="w-auto h-6" icon={icon} />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

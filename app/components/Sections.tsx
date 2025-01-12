@@ -91,7 +91,10 @@ export function SectionItem({
     <section
       id={id}
       ref={sectionRef}
-      className={`p-4 min-h-[150vh] ${sectionClass}`}
+      className={`
+        p-4 min-h-[150vh]
+        ${sectionClass}
+      `}
     >
       <div
         className={`
