@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
-import SocialButtons from "./components/SocialButtons";
 import ToolsClient from "./components/ToolsClient";
 import "./globals.css";
 import { readFile } from "./utils/persistantJSON";
@@ -43,16 +42,6 @@ export default async function RootLayout({
           ${redHat.variable} antialiased
         `}
       >
-        <header
-          className={`
-              fixed z-10
-              left-0 right-0
-              flex justify-end
-              p-double
-            `}
-        >
-          <SocialButtons />
-        </header>
         <main>{children}</main>
         <footer
           className={`fixed inset-x-0 bottom-0 p-single`}
