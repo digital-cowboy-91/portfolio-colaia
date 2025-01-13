@@ -21,7 +21,7 @@ function SectionLink({
   return (
     <Link href={"#" + id} className="flex place-content-center relative">
       {icon ? (
-        <Icon icon={icon} width="1.75rem" className="rotate-90" />
+        <Icon icon={icon} width="1.75rem" className="-rotate-90" />
       ) : (
         <>
           {title || id}
@@ -29,7 +29,7 @@ function SectionLink({
             width={"100%"}
             height={5}
             className={`
-              absolute inset-x-0 -bottom-[10px]
+              absolute inset-x-0 -bottom-[5px]
               ${[0, 1].includes(scrollProgress) ? "opacity-0" : "opacity-1"}
               transition-opacity
               duration-500
@@ -44,9 +44,9 @@ function SectionLink({
               stroke="var(--contour)"
             />
             <motion.line
-              x1="100%"
+              x1={0}
               y1={5}
-              x2={0}
+              x2="100%"
               y2={5}
               initial={{ pathLength: scrollProgress }}
               animate={{ pathLength: scrollProgress }}
@@ -103,7 +103,7 @@ export function SectionItem({
     >
       <div
         className={`
-          h-full p-single
+          h-full p-single max-lg:pe-[3rem]
           rounded-single
           relative overflow-hidden
           ${wrapperClassName}
@@ -130,15 +130,14 @@ export function SectionWrapper({ children }: { children: SectionItem[] }) {
     <>
       <menu
         className={`
-                fixed left-[1rem] bottom-[6rem] z-10
-                flex flex-row-reverse items-center gap-double p-single
+                h-[2rem]
+                fixed right-single bottom-[6rem] z-10
+                flex items-center gap-double px-single
                 uppercase text-xl tracking-wider 
               `}
         style={{
-          transform:
-            // "translate(0%, 50%) rotate(90deg) translate(-100%, -50%)", // text top to bottom (remove flex-row-reverse from parent)
-            "translate(0%, 50%) rotate(-90deg) translate(0%, 50%)", // text bottom to top (add flex-row-reverse to parent)
-          transformOrigin: "left",
+          transform: "translate(0%, 50%) rotate(90deg) translate(0%, 50%)",
+          transformOrigin: "right",
         }}
       >
         {React.Children.map(children, (child, index) => (
@@ -149,6 +148,23 @@ export function SectionWrapper({ children }: { children: SectionItem[] }) {
             icon={child.props.icon}
             scrollProgress={scrollStates[index]}
           />
+        ))}
+        <span className="w-32 border-b border-foreground" />
+        {[
+          {
+            icon: "entypo-social:linkedin-with-circle",
+            url: "https://www.linkedin.com/in/dkolaja/",
+            text: "@dkolaja",
+          },
+          {
+            icon: "entypo-social:github-with-circle",
+            url: "https://github.com/digital-cowboy-91",
+            text: "@digital-cowboy-91",
+          },
+        ].map(({ url, icon }) => (
+          <Link key={url} href={url} className="size-[24px] md:size-[32px]">
+            <Icon icon={icon} height="100%" width="100%" />
+          </Link>
         ))}
         <span className="w-32 border-b border-foreground" />
       </menu>
