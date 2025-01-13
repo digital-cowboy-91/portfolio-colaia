@@ -61,7 +61,7 @@ export default function ToolsClient({ data }: Props) {
       className={`
         h-16
         bg-foreground
-        rounded-[1rem]
+        rounded-single
       `}
     >
       {visibleRef.current.length > 0 && (
@@ -79,7 +79,7 @@ export default function ToolsClient({ data }: Props) {
             <AnimatePresence key={index} initial={false} mode="wait">
               <motion.li
                 key={icon}
-                className="size-16 p-4"
+                className="size-16 p-single"
                 exit={{ scale: 0 }}
                 animate={{ scale: [0, 1] }}
                 transition={{ duration: 0.5 }}

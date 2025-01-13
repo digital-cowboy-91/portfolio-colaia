@@ -28,25 +28,28 @@ export default function InterestsClient({ data }: Props) {
           .reverse()
           .map(([year, months]) => (
             <li className="col-span-2 grid grid-cols-subgrid" key={year}>
-              <div className="text-3xl text-center border-e border-contour p-4 relative">
+              <div className="text-3xl text-center border-e border-contour p-single relative">
                 {year}
                 <div className="size-[12px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
               </div>
               <ul className="col-span-2 grid grid-cols-subgrid">
                 {Object.entries(months).map(([month, items]) => (
                   <li key={month} className="col-span-2 grid grid-cols-subgrid">
-                    <div className="text-center border-e border-contour p-4">
+                    <div className="text-center border-e border-contour p-single">
                       {month.toUpperCase()}
                     </div>
                     <ul>
                       {items.map(({ date, title, description, usedTools }) => (
-                        <li key={date} className="flex flex-col gap-4 p-4">
+                        <li
+                          key={date}
+                          className="flex flex-col gap-single p-single"
+                        >
                           <h2 className="relative">
                             {title}
                             <div className="size-[8px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-4 -translate-x-1/2" />
                           </h2>
                           <p>{description}</p>
-                          <ul className="flex flex-row gap-4 justify-start flex-shrink">
+                          <ul className="flex flex-row gap-single justify-start flex-shrink">
                             {usedTools.map(({ slug, icon }) => (
                               <li key={slug}>
                                 <Icon className="w-auto h-6" icon={icon} />

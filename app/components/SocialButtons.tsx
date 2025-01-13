@@ -9,7 +9,7 @@ export default function SocialButtons({ horizontal = false }: Props) {
     <nav
       className={`bg-background flex ${
         horizontal ? "" : "flex-col"
-      } gap-1 p-1 rounded-full w-fit`}
+      } gap-single p-single rounded-full w-fit`}
     >
       {[
         {
@@ -44,7 +44,7 @@ export default function SocialButtons({ horizontal = false }: Props) {
             >
               <span
                 className={`
-                ps-2 pe-4 text-nowrap
+                ps-double pe-single text-nowrap
               `}
               >
                 {text}

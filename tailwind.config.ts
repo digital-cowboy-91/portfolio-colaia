@@ -16,6 +16,17 @@ export default {
       dropShadow: {
         massive: "20px 20px 30px rgba(0, 0, 0, 0.5)",
       },
+      padding: {
+        single: "var(--spacing-single)",
+        double: "calc(var(--spacing-single) * 2)",
+      },
+      gap: {
+        single: "var(--spacing-single)",
+        double: "calc(var(--spacing-single) * 2)",
+      },
+      borderRadius: {
+        single: "var(--spacing-single)",
+      },
     },
   },
   plugins: [],

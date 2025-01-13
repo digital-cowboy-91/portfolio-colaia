@@ -16,7 +16,7 @@ export default function ProfileClient({ data }: Props) {
     <div
       className={`
           bg-[#1e1e1e]
-          border border-contour rounded-[1rem]
+          border border-contour rounded-single
           overflow-hidden 
           max-w-[900px] mx-auto text-sm
           drop-shadow-massive
@@ -25,7 +25,7 @@ export default function ProfileClient({ data }: Props) {
     >
       <div
         className={`
-            flex justify-end items-center gap-2
+            flex justify-end items-center gap-double
             border-b border-contour
             p-[16px]
           `}
@@ -43,15 +43,15 @@ export default function ProfileClient({ data }: Props) {
           className={`
             max-md:hidden
             border-s border-contour
-            text-nowrap p-4
+            text-nowrap p-single
           `}
         >
-          <div className="font-semibold mb-2">PORTFOLIO-COLAIA</div>
-          <AboutMeTsx className="ps-2" />
+          <div className="font-semibold mb-double">PORTFOLIO-COLAIA</div>
+          <AboutMeTsx className="ps-double" />
         </div>
         <div className="border-s border-contour">
-          <AboutMeTsx className="p-4 border-e border-contour w-max" />
-          <div className="p-4 border-t border-contour">
+          <AboutMeTsx className="p-single border-e border-contour w-max" />
+          <div className="p-single border-t border-contour">
             <Code snippet={snippet} />
           </div>
         </div>
@@ -64,7 +64,7 @@ function AboutMeTsx({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={`
-        flex items-center gap-2
+        flex items-center gap-double
         ${className}
       `}
       {...props}

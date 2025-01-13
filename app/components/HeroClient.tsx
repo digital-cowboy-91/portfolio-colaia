@@ -72,8 +72,8 @@ export default function HeroClient() {
           landscape:grid-cols-[minmax(0,1fr)_repeat(2,minmax(480px,960px))_minmax(0,1fr)]
         grid-rows-[50%_max-content_auto]
           landscape:grid-rows-[1fr_max-content_1fr]
-        gap-y-4
-        gap-x-8
+        gap-y-single
+        gap-x-double
       `}
     >
       <Image

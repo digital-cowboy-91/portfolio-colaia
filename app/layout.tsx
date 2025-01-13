@@ -48,14 +48,14 @@ export default async function RootLayout({
               fixed z-10
               left-0 right-0
               flex justify-end
-              p-8
+              p-double
             `}
         >
           <SocialButtons />
         </header>
         <main>{children}</main>
         <footer
-          className={`fixed inset-x-0 bottom-0 p-4`}
+          className={`fixed inset-x-0 bottom-0 p-single`}
           style={{
             backgroundImage:
               "linear-gradient(0deg, var(--background) 75%, transparent)",

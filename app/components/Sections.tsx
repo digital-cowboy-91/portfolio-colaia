@@ -95,14 +95,14 @@ export function SectionItem({
       ref={sectionRef}
       className={`
         ${fixedHeight ? "h-screen" : "min-h-screen"}
-        p-4 pb-[6rem]
+        p-single pb-[6rem]
         ${className}
       `}
     >
       <div
         className={`
-          h-full p-4
-          rounded-[1rem]
+          h-full p-single
+          rounded-single
           relative overflow-hidden
           ${wrapperClassName}
           ${debug && "bg-[red]"}
@@ -129,7 +129,7 @@ export function SectionWrapper({ children }: { children: SectionItem[] }) {
       <menu
         className={`
                 fixed left-[1rem] bottom-[6rem] z-10
-                flex flex-row-reverse items-center gap-8 p-4
+                flex flex-row-reverse items-center gap-double p-single
                 uppercase text-xl tracking-wider 
               `}
         style={{
