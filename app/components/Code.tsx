@@ -11,9 +11,13 @@ export default function Code({ snippet }: { snippet: string }) {
 
   return (
     <code
-      className="hljs whitespace-pre-wrap"
+      className={`
+          hljs whitespace-pre-wrap
+        `}
       style={{
         backgroundColor: "transparent",
+        padding: 0,
+        tabSize: "var(--snippet-tab-size)",
       }}
       dangerouslySetInnerHTML={{
         __html: sanitizedHtml,

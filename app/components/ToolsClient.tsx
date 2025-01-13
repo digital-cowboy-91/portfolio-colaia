@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
-
-import { useAnimate, useInView } from "motion/react";
-import { useEffect } from "react";
+import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import useWindowSize from "../hooks/useWindowSize";
 import { Tool } from "../types/tools";
 
 type Props = {
@@ -11,54 +11,83 @@ type Props = {
 };
 
 export default function ToolsClient({ data }: Props) {
-  const [scope, animate] = useAnimate();
-  const isInView = useInView(scope, { once: true });
+  const [_render, setRender] = useState(0);
+  const { width } = useWindowSize();
+
+  const wrapperRef = useRef<null | HTMLDivElement>(null);
+  const ulRef = useRef<null | HTMLUListElement>(null);
+
+  const hiddenRef = useRef<Tool[]>([]);
+  const visibleRef = useRef<Tool[]>([]);
 
   useEffect(() => {
-    if (!scope.current || !isInView) return;
+    if (!wrapperRef.current || !ulRef.current) return;
 
-    animate("#tool-list", {
-      opacity: 1,
-    });
-
-    animate(
-      "#tool-list",
-      {
-        x: -(scope.current.scrollWidth + 96) / 2,
-      },
-      {
-        duration: data.length * 2 * 2,
-        ease: "linear",
-        repeatType: "loop",
-        repeat: Infinity,
-      }
+    const limit = Math.floor(
+      wrapperRef.current.clientWidth / ulRef.current.clientHeight
     );
-  }, [isInView]);
+
+    visibleRef.current = data.slice(0, limit);
+    hiddenRef.current = data.slice(limit);
+
+    setRender(1);
+  }, [wrapperRef, width]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      let updated = false;
+
+      visibleRef.current = visibleRef.current.map((item) => {
+        if (Math.random() > 0.2) return item;
+
+        updated = true;
+
+        hiddenRef.current.unshift(item);
+        return hiddenRef.current.pop()!;
+      });
+
+      if (!updated) return;
+
+      setRender((prev) => prev + 1);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div
-      ref={scope}
-      className="h-24 relative overflow-hidden"
-      style={{
-        mask: "linear-gradient(90deg, transparent, white 20%, white 80%, transparent)",
-      }}
+      ref={wrapperRef}
+      className={`
+        bg-foreground
+        rounded-single
+      `}
     >
-      <ul
-        id="tool-list"
-        className="opacity-0 flex flex-row gap-24 absolute -z-10"
+      <motion.ul
+        ref={ulRef}
+        className={`
+          flex justify-center items-center
+          h-[48px] p-[12px] gap-[24px]
+          md:h-[64px] md:p-[16px] md:gap-[32px]
+          text-background
+          `}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        {[...data, ...data].map(({ src, alt }, index) => (
-          <li key={index} className="shrink-0 grow-0 size-24 relative">
-            <Image
-              src={src}
-              alt={alt}
-              width={128}
-              height={128}
-              className="mx-auto w-full h-full object-contain"
-            />
-          </li>
+        {visibleRef.current.map(({ icon }, index) => (
+          <AnimatePresence key={index} initial={false} mode="wait">
+            <motion.li
+              key={icon}
+              className="h-full aspect-square"
+              exit={{ scale: 0 }}
+              animate={{ scale: [0, 1] }}
+              transition={{ duration: 0.5 }}
+            >
+              <Icon icon={icon} height="100%" width="100%" />
+            </motion.li>
+          </AnimatePresence>
         ))}
-      </ul>
+      </motion.ul>
     </div>
   );
 }

@@ -11,6 +11,28 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        contour: "var(--contour)",
+      },
+      dropShadow: {
+        massive: "20px 20px 30px rgba(0, 0, 0, 0.5)",
+      },
+      padding: {
+        single: "var(--spacing-single)",
+        double: "var(--spacing-double)",
+      },
+      gap: {
+        single: "var(--spacing-single)",
+        double: "var(--spacing-double)",
+      },
+      borderRadius: {
+        single: "var(--spacing-single)",
+      },
+      height: {
+        single: "var(--spacing-single)",
+        double: "var(--spacing-double)",
+      },
+      inset: {
+        single: "var(--spacing-single)",
       },
     },
   },

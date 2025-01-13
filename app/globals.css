@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --background: #fbfbfb;
-  --foreground: #242222;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --contour: rgb(75, 75, 75);
+  --snippet-tab-size: 2rem;
+  --spacing-single: 1rem;
+  --spacing-double: calc(var(--spacing-single) * 2);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
+html {
+  font-size: 14px;
+}
 
 body {
   color: var(--foreground);
@@ -27,23 +28,28 @@ h3 {
   line-height: 1.2;
 }
 
-h1,
-h2 {
-  font-weight: 300;
-}
-
 h1 {
+  font-weight: 300;
   font-size: 3rem;
   text-align: center;
   margin-bottom: 5rem;
 }
 
 h2 {
-  font-size: 2rem;
-}
-
-h3 {
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.02rem;
+}
+
+@media (max-width: 576px) {
+  :root {
+    --snippet-tab-size: 1.5rem;
+    --spacing-single: 0.5rem;
+  }
+}
+
+@media (max-width: 440px) {
+  :root {
+    --snippet-tab-size: 1rem;
+  }
 }
