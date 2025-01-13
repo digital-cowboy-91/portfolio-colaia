@@ -14,26 +14,24 @@ export default function ToolsClient({ data }: Props) {
   const [_render, setRender] = useState(0);
   const { width } = useWindowSize();
 
-  const listRef = useRef<null | HTMLDivElement>(null);
+  const wrapperRef = useRef<null | HTMLDivElement>(null);
+  const ulRef = useRef<null | HTMLUListElement>(null);
 
   const hiddenRef = useRef<Tool[]>([]);
   const visibleRef = useRef<Tool[]>([]);
 
   useEffect(() => {
-    if (!listRef.current) return;
+    if (!wrapperRef.current || !ulRef.current) return;
 
-    const oneRem = parseFloat(
-      getComputedStyle(document.documentElement).fontSize
+    const limit = Math.floor(
+      wrapperRef.current.clientWidth / ulRef.current.clientHeight
     );
-
-    // const limit = Math.floor(listRef.current.clientWidth / (oneRem * 4));
-    const limit = 3;
 
     visibleRef.current = data.slice(0, limit);
     hiddenRef.current = data.slice(limit);
 
     setRender(1);
-  }, [listRef, width]);
+  }, [wrapperRef, width]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,17 +56,19 @@ export default function ToolsClient({ data }: Props) {
 
   return (
     <div
-      ref={listRef}
+      ref={wrapperRef}
       className={`
-        p-single
         bg-foreground
         rounded-single
       `}
     >
       <motion.ul
+        ref={ulRef}
         className={`
-            flex justify-center items-center gap-double
-            h-double
+          h-full
+            flex justify-center items-center
+            h-[48px] p-[12px] gap-[24px]
+            md:h-[64px] md:p-[16px] md:gap-[32px]
             text-background
           `}
         initial={{ opacity: 0 }}
