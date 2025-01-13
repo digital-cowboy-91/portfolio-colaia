@@ -136,7 +136,7 @@ export default function HeroClient() {
             col-start-2
             row-start-3
             self-start
-            text-4xl font-[300]
+            text-2xl sm:text-4xl font-[300]
             w-full
             flex justify-end gap-x-3 flex-wrap
             [&>span]:opacity-0

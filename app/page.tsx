@@ -16,7 +16,12 @@ function Placeholder({ name }: { name: string }) {
 export default function Home() {
   return (
     <SectionWrapper>
-      <SectionItem id="hero" icon="codicon:arrow-up" fixedHeight>
+      <SectionItem
+        id="hero"
+        icon="codicon:arrow-up"
+        fixedHeight
+        wrapperClassName="max-lg:ps-[3rem]"
+      >
         <HeroClient />
         <GradientBackground />
       </SectionItem>
