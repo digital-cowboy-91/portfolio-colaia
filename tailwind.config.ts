@@ -31,6 +31,9 @@ export default {
         single: "var(--spacing-single)",
         double: "var(--spacing-double)",
       },
+      inset: {
+        single: "var(--spacing-single)",
+      },
     },
   },
   plugins: [],

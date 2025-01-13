@@ -18,14 +18,14 @@ export default function ProfileClient({ data }: Props) {
           bg-[#1e1e1e]
           border border-contour rounded-single
           overflow-hidden 
-          max-w-[900px] mx-auto text-sm
+          max-w-[900px] mx-auto
           drop-shadow-massive
           `}
       aria-label="Mock Visual Studio Code window"
     >
       <div
         className={`
-            flex justify-end items-center gap-double
+            flex justify-end items-center gap-[16px]
             border-b border-contour
             p-[16px]
           `}

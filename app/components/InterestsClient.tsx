@@ -46,7 +46,7 @@ export default function InterestsClient({ data }: Props) {
                         >
                           <h2 className="relative">
                             {title}
-                            <div className="size-[8px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-4 -translate-x-1/2" />
+                            <div className="size-[8px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
                           </h2>
                           <p>{description}</p>
                           <ul className="flex flex-row gap-single justify-start flex-shrink">
