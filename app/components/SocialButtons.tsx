@@ -7,9 +7,12 @@ type Props = {
 export default function SocialButtons({ horizontal = false }: Props) {
   return (
     <nav
-      className={`bg-background flex ${
-        horizontal ? "" : "flex-col"
-      } gap-single p-single rounded-full w-fit`}
+      className={`
+        bg-background
+        flex ${horizontal ? "" : "flex-col"}
+        gap-[4px]
+        rounded-full w-fit
+      `}
     >
       {[
         {
@@ -23,10 +26,11 @@ export default function SocialButtons({ horizontal = false }: Props) {
           text: "@digital-cowboy-91",
         },
       ].map(({ icon, url, text }) => (
-        <div key={url} className="size-8 relative">
+        <div key={url} className="size-[32px] relative">
           <a
             href={url}
             className={`
+              h-full
               bg-background rounded-full
               flex items-center
               absolute right-0
@@ -34,7 +38,9 @@ export default function SocialButtons({ horizontal = false }: Props) {
               overflow-hidden
             `}
           >
-            <Icon icon={icon} width="2rem" />
+            <div className="h-full aspect-square">
+              <Icon icon={icon} height="100%" width="100%" />
+            </div>
             <div
               className={`
                 w-0 group-hover:w-[calc-size(max-content,size)]
