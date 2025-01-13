@@ -21,7 +21,7 @@ export default function InterestsClient({ data }: Props) {
   }, {} as Record<number, Record<string, InterestsWithRefs[]>>);
 
   return (
-    <div className="max-w-[800px] mx-auto">
+    <div className="max-w-[900px] mx-auto">
       <h1>Journey</h1>
       <ul className="grid grid-cols-[max-content_1fr]">
         {Object.entries(aggData)

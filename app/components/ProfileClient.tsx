@@ -47,7 +47,7 @@ export default function ProfileClient({ data }: Props) {
           `}
         >
           <div className="font-semibold mb-double">PORTFOLIO-COLAIA</div>
-          <AboutMeTsx className="ps-double" />
+          <AboutMeTsx className="ps-single" />
         </div>
         <div className="border-s border-contour">
           <AboutMeTsx className="p-single border-e border-contour w-max" />
@@ -64,7 +64,7 @@ function AboutMeTsx({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={`
-        flex items-center gap-double
+        flex items-center gap-2
         ${className}
       `}
       {...props}
