@@ -8,6 +8,7 @@
   --contour: rgb(75, 75, 75);
   --snippet-tab-size: 2rem;
   --spacing-single: 1rem;
+  --spacing-double: calc(var(--spacing-single) * 2);
 }
 
 body {

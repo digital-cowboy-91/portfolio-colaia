@@ -18,18 +18,18 @@ export default {
       },
       padding: {
         single: "var(--spacing-single)",
-        double: "calc(var(--spacing-single) * 2)",
+        double: "var(--spacing-double)",
       },
       gap: {
         single: "var(--spacing-single)",
-        double: "calc(var(--spacing-single) * 2)",
+        double: "var(--spacing-double)",
       },
       borderRadius: {
         single: "var(--spacing-single)",
       },
       height: {
         single: "var(--spacing-single)",
-        double: "calc(var(--spacing-single) * 2)",
+        double: "var(--spacing-double)",
       },
     },
   },
