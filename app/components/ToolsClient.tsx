@@ -65,11 +65,10 @@ export default function ToolsClient({ data }: Props) {
       <motion.ul
         ref={ulRef}
         className={`
-          h-full
-            flex justify-center items-center
-            h-[48px] p-[12px] gap-[24px]
-            md:h-[64px] md:p-[16px] md:gap-[32px]
-            text-background
+          flex justify-center items-center
+          h-[48px] p-[12px] gap-[24px]
+          md:h-[64px] md:p-[16px] md:gap-[32px]
+          text-background
           `}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
