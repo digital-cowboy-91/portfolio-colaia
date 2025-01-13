@@ -27,6 +27,10 @@ export default {
       borderRadius: {
         single: "var(--spacing-single)",
       },
+      height: {
+        single: "var(--spacing-single)",
+        double: "calc(var(--spacing-single) * 2)",
+      },
     },
   },
   plugins: [],

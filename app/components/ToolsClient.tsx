@@ -26,7 +26,8 @@ export default function ToolsClient({ data }: Props) {
       getComputedStyle(document.documentElement).fontSize
     );
 
-    const limit = Math.floor(listRef.current.clientWidth / (oneRem * 4));
+    // const limit = Math.floor(listRef.current.clientWidth / (oneRem * 4));
+    const limit = 3;
 
     visibleRef.current = data.slice(0, limit);
     hiddenRef.current = data.slice(limit);
@@ -59,37 +60,35 @@ export default function ToolsClient({ data }: Props) {
     <div
       ref={listRef}
       className={`
-        h-16
+        p-single
         bg-foreground
         rounded-single
       `}
     >
-      {visibleRef.current.length > 0 && (
-        <motion.ul
-          className={`
-            flex justify-center items-center
-            mx-auto
+      <motion.ul
+        className={`
+            flex justify-center items-center gap-double
+            h-double
             text-background
           `}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          {visibleRef.current.map(({ icon }, index) => (
-            <AnimatePresence key={index} initial={false} mode="wait">
-              <motion.li
-                key={icon}
-                className="size-16 p-single"
-                exit={{ scale: 0 }}
-                animate={{ scale: [0, 1] }}
-                transition={{ duration: 0.5 }}
-              >
-                <Icon icon={icon} height="100%" />
-              </motion.li>
-            </AnimatePresence>
-          ))}
-        </motion.ul>
-      )}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {visibleRef.current.map(({ icon }, index) => (
+          <AnimatePresence key={index} initial={false} mode="wait">
+            <motion.li
+              key={icon}
+              className="h-full aspect-square"
+              exit={{ scale: 0 }}
+              animate={{ scale: [0, 1] }}
+              transition={{ duration: 0.5 }}
+            >
+              <Icon icon={icon} height="100%" width="100%" />
+            </motion.li>
+          </AnimatePresence>
+        ))}
+      </motion.ul>
     </div>
   );
 }
