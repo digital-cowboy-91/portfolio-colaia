@@ -94,7 +94,7 @@ export function SectionItem({
       id={id}
       ref={sectionRef}
       className={`
-        ${fixedHeight ? "h-dvh" : "min-h-dvh"}
+        ${fixedHeight ? "h-screen" : "min-h-screen"}
         p-single
         pb-[calc(var(--spacing-single)*2+48px)]
         md:pb-[calc(var(--spacing-single)*2+64px)]
