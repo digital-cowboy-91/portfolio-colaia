@@ -69,7 +69,7 @@ export default function HeroClient() {
         relative h-full
         grid place-items-center
         grid-cols-[minmax(0,1fr)_minmax(300px,max-content)_minmax(0,1fr)]
-          landscape:grid-cols-[minmax(0,1fr)_repeat(2,minmax(480px,960px))_minmax(0,1fr)]
+          landscape:grid-cols-[minmax(0,1fr)_repeat(2,minmax(300px,960px))_minmax(0,1fr)]
         grid-rows-[50%_max-content_auto]
           landscape:grid-rows-[1fr_max-content_1fr]
         gap-y-single
