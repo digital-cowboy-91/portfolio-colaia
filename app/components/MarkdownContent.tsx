@@ -9,9 +9,12 @@ export default function MarkdownContent({ text }: { text: string }) {
           return (
             <a className="text-primary" {...rest}>
               {children}
-              <span className="relative">
-                <Icon icon="lsicon:link-filled" width="1rem" height="1rem" />
-              </span>
+              <Icon
+                icon="lsicon:link-filled"
+                width="1rem"
+                height="1rem"
+                className="mx-[0.1rem]"
+              />
             </a>
           );
         },
