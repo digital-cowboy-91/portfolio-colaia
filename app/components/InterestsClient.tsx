@@ -1,69 +1,185 @@
+"use client";
+
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { motion } from "motion/react";
+import { useMemo, useRef, useState } from "react";
 import { InterestsWithRefs } from "../types/interests";
 
 type Props = {
   data: InterestsWithRefs[];
+  tags: string[];
 };
 
-export default function InterestsClient({ data }: Props) {
-  const aggData = data.reduce((acc, item) => {
-    const date = new Date(item.date);
+export default function InterestsClient({ data, tags }: Props) {
+  const [sort, setSort] = useState("desc");
+  const [filterByTags, setFilterByTags] = useState<string[]>([]);
 
-    const year = date.getFullYear();
-    const month = date.toLocaleDateString("en-GB", { month: "short" });
+  const monthNames = useRef(
+    new Map(
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((m) => [
+        m.toString(),
+        new Date(2000, m, 1)
+          .toLocaleDateString("en-GB", { month: "short" })
+          .toUpperCase(),
+      ])
+    )
+  );
 
-    acc[year] ??= {};
-    acc[year][month] ??= [];
+  const input = useMemo(
+    () =>
+      data.reduce((acc, item) => {
+        const matchFilter =
+          filterByTags.length > 0
+            ? item.tags.some((tag) => filterByTags.includes(tag))
+            : true;
 
-    acc[year][month].unshift(item);
+        if (matchFilter) {
+          const date = new Date(item.date);
 
-    return acc;
-  }, {} as Record<number, Record<string, InterestsWithRefs[]>>);
+          const year = date.getFullYear();
+          const month = date.getMonth();
+          const ts = date.getTime() / 1000;
+
+          acc[year] ??= {};
+          acc[year][month] ??= {};
+          acc[year][month][ts] = item;
+        }
+
+        return acc;
+      }, {} as Record<number, Record<number, Record<number, InterestsWithRefs>>>),
+    [filterByTags]
+  );
+
+  const extractEntries = <T,>(obj: T) => {
+    const arr = Object.entries(obj);
+
+    if (sort === "desc") return arr.reverse();
+
+    return arr;
+  };
+
+  const handleTagFilter = (tag: string) =>
+    setFilterByTags((prev) => {
+      const next = [...prev];
+      const indexOfArg = prev.indexOf(tag);
+
+      if (indexOfArg === -1) {
+        next.push(tag);
+      } else {
+        next.splice(indexOfArg, 1);
+      }
+
+      return next;
+    });
 
   return (
     <div className="max-w-[900px] mx-auto">
       <h1>Journey</h1>
+      {tags?.length > 0 && (
+        <ul
+          className={`
+            flex justify-center gap-single
+            text-[#7a7a7a]
+          `}
+        >
+          {tags.map((tag) => (
+            <li
+              key={tag}
+              className={filterByTags.includes(tag) ? "font-black" : ""}
+            >
+              <button onClick={() => handleTagFilter(tag)}>#{tag}</button>
+            </li>
+          ))}
+        </ul>
+      )}
+
       <ul className="grid grid-cols-[max-content_1fr]">
-        {Object.entries(aggData)
-          .reverse()
-          .map(([year, months]) => (
-            <li className="col-span-2 grid grid-cols-subgrid" key={year}>
-              <div className="text-3xl text-center border-e border-contour p-single relative">
+        {extractEntries(input).map(([year, months]) => (
+          <li className="col-span-2 grid grid-cols-subgrid" key={year}>
+            <div className="text-3xl text-center border-e border-contour p-single relative">
+              <motion.span
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
+                viewport={{
+                  margin: "0px 0px -150px 0px",
+                  once: true,
+                }}
+              >
                 {year}
-                <div className="size-[12px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
-              </div>
-              <ul className="col-span-2 grid grid-cols-subgrid">
-                {Object.entries(months).map(([month, items]) => (
-                  <li key={month} className="col-span-2 grid grid-cols-subgrid">
-                    <div className="text-center border-e border-contour p-single">
-                      {month.toUpperCase()}
-                    </div>
-                    <ul>
-                      {items.map(({ date, title, description, usedTools }) => (
-                        <li
+              </motion.span>
+              <div className="size-[12px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
+            </div>
+            <ul className="col-span-2 grid grid-cols-subgrid">
+              {extractEntries(months).map(([month, messages]) => (
+                <li key={month} className="col-span-2 grid grid-cols-subgrid">
+                  <div className="text-center border-e border-contour p-single">
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      whileInView={{
+                        opacity: 1,
+                        transition: { duration: 0.5 },
+                      }}
+                      viewport={{
+                        margin: "0px 0px -150px 0px",
+                        once: true,
+                      }}
+                    >
+                      {monthNames.current.get(month)}
+                    </motion.span>
+                  </div>
+                  <ul>
+                    {extractEntries(messages).map(
+                      ([
+                        _ts,
+                        { date, title, description, usedTools, tags },
+                      ]) => (
+                        <motion.li
                           key={date}
-                          className="flex flex-col gap-single p-single"
+                          className="flex flex-col p-single pb-double"
+                          initial={{ opacity: 0 }}
+                          whileInView={{
+                            opacity: 1,
+                            transition: { duration: 0.5 },
+                          }}
+                          viewport={{
+                            margin: "0px 0px -150px 0px",
+                            once: true,
+                          }}
                         >
                           <h2 className="relative">
                             {title}
                             <div className="size-[8px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
                           </h2>
-                          <p>{description}</p>
-                          <ul className="flex flex-row gap-single justify-start flex-shrink">
-                            {usedTools.map(({ slug, icon }) => (
-                              <li key={slug}>
-                                <Icon className="w-auto h-6" icon={icon} />
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                ))}
-              </ul>
-            </li>
-          ))}
+                          {tags?.length > 0 && (
+                            <ul className="flex gap-single text-[#7a7a7a]">
+                              {tags.map((tag) => (
+                                <li key={tag}>#{tag}</li>
+                              ))}
+                            </ul>
+                          )}
+                          <p className="mt-single">{description}</p>
+                          {usedTools?.length > 0 && (
+                            <ul className="flex gap-single h-[16px] text-[#7a7a7a] mt-single">
+                              {usedTools.map(({ slug, icon }) => (
+                                <li key={slug} className="h-full aspect-square">
+                                  <Icon
+                                    icon={icon}
+                                    width="100%"
+                                    height="100%"
+                                  />
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </motion.li>
+                      )
+                    )}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))}
       </ul>
     </div>
   );

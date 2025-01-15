@@ -4,6 +4,7 @@ export interface Interest {
   date: string;
   title: string;
   description: string;
+  tags: string[];
   usedTools: string[];
 }
 
