@@ -78,9 +78,7 @@ export default function ActivityClient({ data, tags }: Props) {
             {tags.map((tag) => (
               <li
                 key={tag}
-                className={
-                  filterByTags.includes(tag) ? "font-black text-primary" : ""
-                }
+                className={filterByTags.includes(tag) ? "text-primary" : ""}
               >
                 <button onClick={() => handleTagFilter(tag)}>#{tag}</button>
               </li>
@@ -107,7 +105,11 @@ export default function ActivityClient({ data, tags }: Props) {
       </div>
       <ul className="grid grid-cols-[max-content_1fr]">
         {extractEntries(input, sort).map(([year, months]) => (
-          <li className="col-span-2 grid grid-cols-subgrid" key={year}>
+          <motion.li
+            layout
+            className="col-span-2 grid grid-cols-subgrid"
+            key={year}
+          >
             <div className="text-3xl text-center border-e border-contour p-single relative">
               <motion.span
                 initial={{ opacity: 0 }}
@@ -157,6 +159,7 @@ export default function ActivityClient({ data, tags }: Props) {
                             margin: "0px 0px -150px 0px",
                             once: true,
                           }}
+                          layout
                         >
                           <h2 className="relative">
                             {title}
@@ -169,7 +172,7 @@ export default function ActivityClient({ data, tags }: Props) {
                                   key={tag}
                                   className={
                                     filterByTags.includes(tag)
-                                      ? "font-black text-primary"
+                                      ? "text-primary"
                                       : ""
                                   }
                                 >
@@ -199,7 +202,7 @@ export default function ActivityClient({ data, tags }: Props) {
                 </li>
               ))}
             </ul>
-          </li>
+          </motion.li>
         ))}
       </ul>
     </div>
