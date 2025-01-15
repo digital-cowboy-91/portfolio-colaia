@@ -1,22 +1,22 @@
-import { InterestsWithRefs } from "../types/interests";
+import { ActivityWithRefs } from "../types/activity";
 import { readFile } from "../utils/persistantJSON";
-import InterestClient from "./InterestsClient";
+import InterestClient from "./ActivityClient";
 
-export type InterestsProcessed = {
+export type ActivityProcessed = {
   tags: string[];
-  data: Record<string, Record<string, InterestsWithRefs[]>>;
+  data: Record<string, Record<string, ActivityWithRefs[]>>;
 };
 
-export default async function InterestsServer() {
+export default async function ActivityServer() {
   const toolMap = await readFile("tools").then(
     (res) => new Map(res.map((item) => [item.slug, item]))
   );
 
   const tagSet = new Set<string>();
 
-  const interests = await readFile("interests").then((res) =>
+  const activity = await readFile("activity").then((res) =>
     res.map((item) => {
-      const itemWithRefs: InterestsWithRefs = {
+      const itemWithRefs: ActivityWithRefs = {
         ...item,
         usedTools: item.usedTools.map((slug) => toolMap.get(slug)!),
       };
@@ -27,5 +27,5 @@ export default async function InterestsServer() {
     })
   );
 
-  return <InterestClient data={interests} tags={[...tagSet]} />;
+  return <InterestClient data={activity} tags={[...tagSet]} />;
 }

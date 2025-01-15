@@ -3,14 +3,14 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion } from "motion/react";
 import { useMemo, useRef, useState } from "react";
-import { InterestsWithRefs } from "../types/interests";
+import { ActivityWithRefs } from "../types/activity";
 
 type Props = {
-  data: InterestsWithRefs[];
+  data: ActivityWithRefs[];
   tags: string[];
 };
 
-export default function InterestsClient({ data, tags }: Props) {
+export default function ActivityClient({ data, tags }: Props) {
   const [sort, setSort] = useState<"asc" | "desc">("desc");
   const [filterByTags, setFilterByTags] = useState<string[]>([]);
 
@@ -46,7 +46,7 @@ export default function InterestsClient({ data, tags }: Props) {
         }
 
         return acc;
-      }, {} as Record<number, Record<number, Record<number, InterestsWithRefs>>>),
+      }, {} as Record<number, Record<number, Record<number, ActivityWithRefs>>>),
     [filterByTags]
   );
 
@@ -66,7 +66,7 @@ export default function InterestsClient({ data, tags }: Props) {
 
   return (
     <div className="max-w-[900px] mx-auto">
-      <h1>Journey</h1>
+      <h1>Activity</h1>
       <div className="flex gap-single justify-center items-center">
         {tags?.length > 0 && (
           <ul

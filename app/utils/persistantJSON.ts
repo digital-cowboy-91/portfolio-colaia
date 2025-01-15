@@ -1,12 +1,12 @@
 import fs from "node:fs/promises";
-import { Interest } from "../types/interests";
+import { Interest } from "../types/activity";
 import { Profile } from "../types/profile";
 import { Tool } from "../types/tools";
 
 type Documents = {
   profile: Profile[];
   tools: Tool[];
-  interests: Interest[];
+  activity: Interest[];
 };
 
 type DocumentName = keyof Documents;

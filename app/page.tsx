@@ -1,6 +1,6 @@
+import ActivityServer from "./components/ActivityServer";
 import GradientBackground from "./components/GradientBackground";
 import HeroClient from "./components/HeroClient";
-import InterestsServer from "./components/InterestsServer";
 import ProfileServer from "./components/ProfileServer";
 import { SectionItem, SectionWrapper } from "./components/Sections";
 
@@ -33,8 +33,8 @@ export default function Home() {
       >
         <Placeholder name="projects" />
       </SectionItem> */}
-      <SectionItem id="journey">
-        <InterestsServer />
+      <SectionItem id="activity">
+        <ActivityServer />
       </SectionItem>
     </SectionWrapper>
   );
