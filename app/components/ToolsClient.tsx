@@ -66,8 +66,7 @@ export default function ToolsClient({ data }: Props) {
         ref={ulRef}
         className={`
           flex justify-center items-center
-          h-[48px] p-[12px] gap-[24px]
-          md:h-[64px] md:p-[16px] md:gap-[32px]
+          h-[var(--tools-h)] p-[var(--tools-p)] gap-[var(--tools-gap)]
           text-background
           `}
         initial={{ opacity: 0 }}

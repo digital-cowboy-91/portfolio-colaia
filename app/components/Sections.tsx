@@ -96,8 +96,7 @@ export function SectionItem({
       className={`
         ${fixedHeight ? "h-screen" : "min-h-screen"}
         p-single
-        pb-[calc(var(--spacing-single)*2+48px)]
-        md:pb-[calc(var(--spacing-single)*2+64px)]
+        pb-[calc(var(--spacing-single)*2+var(--tools-h))]
         ${className}
       `}
     >
