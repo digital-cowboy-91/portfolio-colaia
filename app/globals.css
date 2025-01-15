@@ -6,6 +6,7 @@
   --background: #0a0a0a;
   --foreground: #ffffff;
   --primary: rgb(0, 191, 255);
+  --secondary: rgb(255, 0, 126);
   --subtle: #7a7a7a;
   --contour: rgba(255, 255, 255, 0.2);
   --snippet-tab-size: 2rem;
@@ -14,6 +15,21 @@
   --tools-h: 64px;
   --tools-p: calc(var(--tools-h) * 0.25);
   --tools-gap: calc(var(--tools-h) * 0.5);
+}
+
+@media (max-width: 576px) and (orientation: portrait),
+  (max-height: 576px) and (orientation: landscape) {
+  :root {
+    --snippet-tab-size: 1.5rem;
+    --spacing-single: 0.5rem;
+    --tools-h: 48px;
+  }
+}
+
+@media (max-width: 440px) {
+  :root {
+    --snippet-tab-size: 1rem;
+  }
 }
 
 html {
@@ -44,19 +60,4 @@ h2 {
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.02rem;
-}
-
-@media (max-width: 576px) and (orientation: portrait),
-  (max-height: 576px) and (orientation: landscape) {
-  :root {
-    --snippet-tab-size: 1.5rem;
-    --spacing-single: 0.5rem;
-    --tools-h: 48px;
-  }
-}
-
-@media (max-width: 440px) {
-  :root {
-    --snippet-tab-size: 1rem;
-  }
 }

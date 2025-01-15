@@ -4,6 +4,7 @@ import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion } from "motion/react";
 import { useMemo, useRef, useState } from "react";
 import { ActivityWithRefs } from "../types/activity";
+import MarkdownContent from "./MarkdownContent";
 
 type Props = {
   data: ActivityWithRefs[];
@@ -168,20 +169,13 @@ export default function ActivityClient({ data, tags }: Props) {
                           {tags?.length > 0 && (
                             <ul className="flex gap-single text-subtle">
                               {tags.map((tag) => (
-                                <li
-                                  key={tag}
-                                  className={
-                                    filterByTags.includes(tag)
-                                      ? "text-primary"
-                                      : ""
-                                  }
-                                >
-                                  #{tag}
-                                </li>
+                                <li key={tag}>#{tag}</li>
                               ))}
                             </ul>
                           )}
-                          <p className="mt-single">{description}</p>
+                          <div className="mt-single">
+                            <MarkdownContent text={description} />
+                          </div>
                           {usedTools?.length > 0 && (
                             <ul className="flex gap-single h-[16px] text-subtle mt-single">
                               {usedTools.map(({ slug, icon }) => (
