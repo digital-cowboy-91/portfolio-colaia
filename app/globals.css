@@ -5,7 +5,9 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ffffff;
-  --contour: rgb(75, 75, 75);
+  --primary: rgb(0, 191, 255);
+  --subtle: #7a7a7a;
+  --contour: rgba(255, 255, 255, 0.2);
   --snippet-tab-size: 2rem;
   --spacing-single: 1rem;
   --spacing-double: calc(var(--spacing-single) * 2);

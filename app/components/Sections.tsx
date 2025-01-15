@@ -51,7 +51,7 @@ function SectionLink({
               initial={{ pathLength: scrollProgress }}
               animate={{ pathLength: scrollProgress }}
               strokeWidth={3}
-              stroke="var(--foreground)"
+              stroke="var(--primary)"
             />
           </svg>
         </>
