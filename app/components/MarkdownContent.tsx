@@ -7,14 +7,11 @@ export default function MarkdownContent({ text }: { text: string }) {
       components={{
         a({ children, ...rest }) {
           return (
-            <a className="text-primary relative pe-[1rem]" {...rest}>
+            <a className="text-primary" {...rest}>
               {children}
-              <Icon
-                icon="tdesign:link"
-                width="1rem"
-                height="1rem"
-                className="absolute right-0 top-1/2 -translate-y-1/2"
-              />
+              <span className="relative">
+                <Icon icon="lsicon:link-filled" width="1rem" height="1rem" />
+              </span>
             </a>
           );
         },
