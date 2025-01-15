@@ -3,7 +3,7 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion, useScroll } from "motion/react";
 import Link from "next/link";
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 type SectionLinkProps = {
   id: string;
@@ -85,9 +85,11 @@ export function SectionItem({
     offset: ["start end", "end end"],
   });
 
-  scrollYProgress.on("change", (current) => {
-    setScrollProgress(current);
-  });
+  useEffect(() => {
+    scrollYProgress.on("change", (current) => {
+      setScrollProgress(current);
+    });
+  }, []);
 
   return (
     <section
