@@ -72,13 +72,15 @@ export default function ActivityClient({ data, tags }: Props) {
           <ul
             className={`
             flex gap-single
-            text-[#7a7a7a]
+            text-subtle
           `}
           >
             {tags.map((tag) => (
               <li
                 key={tag}
-                className={filterByTags.includes(tag) ? "font-black" : ""}
+                className={
+                  filterByTags.includes(tag) ? "font-black text-primary" : ""
+                }
               >
                 <button onClick={() => handleTagFilter(tag)}>#{tag}</button>
               </li>
@@ -88,7 +90,7 @@ export default function ActivityClient({ data, tags }: Props) {
 
         <button
           onClick={() => setSort((prev) => (prev === "desc" ? "asc" : "desc"))}
-          className="h-[24px] aspect-square"
+          className="h-[24px] aspect-square text-primary"
         >
           {/* {sort === "desc" ? (
             <Icon icon="tabler:sort-9-0" height={"100%"} width={"100%"} />
@@ -117,7 +119,7 @@ export default function ActivityClient({ data, tags }: Props) {
               >
                 {year}
               </motion.span>
-              <div className="size-[12px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
+              <div className="size-[12px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
             </div>
             <ul className="col-span-2 grid grid-cols-subgrid">
               {extractEntries(months, sort).map(([month, messages]) => (
@@ -158,18 +160,27 @@ export default function ActivityClient({ data, tags }: Props) {
                         >
                           <h2 className="relative">
                             {title}
-                            <div className="size-[8px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
+                            <div className="size-[8px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
                           </h2>
                           {tags?.length > 0 && (
-                            <ul className="flex gap-single text-[#7a7a7a]">
+                            <ul className="flex gap-single text-subtle">
                               {tags.map((tag) => (
-                                <li key={tag}>#{tag}</li>
+                                <li
+                                  key={tag}
+                                  className={
+                                    filterByTags.includes(tag)
+                                      ? "font-black text-primary"
+                                      : ""
+                                  }
+                                >
+                                  #{tag}
+                                </li>
                               ))}
                             </ul>
                           )}
                           <p className="mt-single">{description}</p>
                           {usedTools?.length > 0 && (
-                            <ul className="flex gap-single h-[16px] text-[#7a7a7a] mt-single">
+                            <ul className="flex gap-single h-[16px] text-subtle mt-single">
                               {usedTools.map(({ slug, icon }) => (
                                 <li key={slug} className="h-full aspect-square">
                                   <Icon
