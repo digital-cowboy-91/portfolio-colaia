@@ -4,15 +4,6 @@ import HeroClient from "./components/HeroClient";
 import ProfileServer from "./components/ProfileServer";
 import { SectionItem, SectionWrapper } from "./components/Sections";
 
-function Placeholder({ name }: { name: string }) {
-  return (
-    <div className="w-full h-[500px] bg-[grey] flex justify-center items-center text-3xl flex flex-col">
-      <span>{name.toUpperCase()}</span>
-      <span>PLACEHOLDER</span>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <SectionWrapper>
@@ -28,11 +19,6 @@ export default function Home() {
       <SectionItem id="profile" className="flex justify-center items-center">
         <ProfileServer />
       </SectionItem>
-      {/* <SectionItem
-        id="projects"
-      >
-        <Placeholder name="projects" />
-      </SectionItem> */}
       <SectionItem id="activity">
         <ActivityServer />
       </SectionItem>

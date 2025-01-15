@@ -207,10 +207,10 @@ export default function ActivityClient({ data, tags }: Props) {
 }
 
 // Helpers
-function extractEntries<T extends Record<number, any>>(
+function extractEntries<T extends Record<number, T[keyof T]>>(
   obj: T,
   sort: "asc" | "desc"
-): [string, T[keyof T]][] {
+) {
   const arr = Object.entries(obj);
 
   if (sort === "desc") return arr.reverse();
