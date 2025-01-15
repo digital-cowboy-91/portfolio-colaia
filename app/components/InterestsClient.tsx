@@ -11,7 +11,7 @@ type Props = {
 };
 
 export default function InterestsClient({ data, tags }: Props) {
-  const [sort, setSort] = useState("desc");
+  const [sort, setSort] = useState<"asc" | "desc">("desc");
   const [filterByTags, setFilterByTags] = useState<string[]>([]);
 
   const monthNames = useRef(
@@ -50,14 +50,6 @@ export default function InterestsClient({ data, tags }: Props) {
     [filterByTags]
   );
 
-  const extractEntries = <T,>(obj: T) => {
-    const arr = Object.entries(obj);
-
-    if (sort === "desc") return arr.reverse();
-
-    return arr;
-  };
-
   const handleTagFilter = (tag: string) =>
     setFilterByTags((prev) => {
       const next = [...prev];
@@ -75,26 +67,44 @@ export default function InterestsClient({ data, tags }: Props) {
   return (
     <div className="max-w-[900px] mx-auto">
       <h1>Journey</h1>
-      {tags?.length > 0 && (
-        <ul
-          className={`
-            flex justify-center gap-single
+      <div className="flex gap-single justify-center items-center">
+        {tags?.length > 0 && (
+          <ul
+            className={`
+            flex gap-single
             text-[#7a7a7a]
           `}
-        >
-          {tags.map((tag) => (
-            <li
-              key={tag}
-              className={filterByTags.includes(tag) ? "font-black" : ""}
-            >
-              <button onClick={() => handleTagFilter(tag)}>#{tag}</button>
-            </li>
-          ))}
-        </ul>
-      )}
+          >
+            {tags.map((tag) => (
+              <li
+                key={tag}
+                className={filterByTags.includes(tag) ? "font-black" : ""}
+              >
+                <button onClick={() => handleTagFilter(tag)}>#{tag}</button>
+              </li>
+            ))}
+          </ul>
+        )}
 
+        <button
+          onClick={() => setSort((prev) => (prev === "desc" ? "asc" : "desc"))}
+          className="h-[24px] aspect-square"
+        >
+          {/* {sort === "desc" ? (
+            <Icon icon="tabler:sort-9-0" height={"100%"} width={"100%"} />
+          ) : (
+            <Icon icon="tabler:sort-0-9" height={"100%"} width={"100%"} />
+          )} */}
+          <Icon
+            icon="solar:sort-vertical-line-duotone"
+            className={sort === "desc" ? "" : "rotate-180"}
+            height={"100%"}
+            width={"100%"}
+          />
+        </button>
+      </div>
       <ul className="grid grid-cols-[max-content_1fr]">
-        {extractEntries(input).map(([year, months]) => (
+        {extractEntries(input, sort).map(([year, months]) => (
           <li className="col-span-2 grid grid-cols-subgrid" key={year}>
             <div className="text-3xl text-center border-e border-contour p-single relative">
               <motion.span
@@ -110,7 +120,7 @@ export default function InterestsClient({ data, tags }: Props) {
               <div className="size-[12px] bg-contour rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
             </div>
             <ul className="col-span-2 grid grid-cols-subgrid">
-              {extractEntries(months).map(([month, messages]) => (
+              {extractEntries(months, sort).map(([month, messages]) => (
                 <li key={month} className="col-span-2 grid grid-cols-subgrid">
                   <div className="text-center border-e border-contour p-single">
                     <motion.span
@@ -128,7 +138,7 @@ export default function InterestsClient({ data, tags }: Props) {
                     </motion.span>
                   </div>
                   <ul>
-                    {extractEntries(messages).map(
+                    {extractEntries(messages, sort).map(
                       ([
                         _ts,
                         { date, title, description, usedTools, tags },
@@ -183,4 +193,16 @@ export default function InterestsClient({ data, tags }: Props) {
       </ul>
     </div>
   );
+}
+
+// Helpers
+function extractEntries<T extends Record<number, any>>(
+  obj: T,
+  sort: "asc" | "desc"
+): [string, T[keyof T]][] {
+  const arr = Object.entries(obj);
+
+  if (sort === "desc") return arr.reverse();
+
+  return arr;
 }
