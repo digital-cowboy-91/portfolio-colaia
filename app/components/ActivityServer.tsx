@@ -1,6 +1,6 @@
 import { ActivityWithRefs } from "../types/activity";
 import { readFile } from "../utils/persistantJSON";
-import InterestClient from "./ActivityClient";
+import ActivityClient from "./ActivityClient";
 
 export type ActivityProcessed = {
   tags: string[];
@@ -27,5 +27,5 @@ export default async function ActivityServer() {
     })
   );
 
-  return <InterestClient data={activity} tags={[...tagSet]} />;
+  return <ActivityClient data={activity} tags={[...tagSet]} />;
 }

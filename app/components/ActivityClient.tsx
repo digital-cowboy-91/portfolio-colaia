@@ -4,6 +4,7 @@ import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion } from "motion/react";
 import { useMemo, useRef, useState } from "react";
 import { ActivityWithRefs } from "../types/activity";
+import CoverImage from "./CoverImage";
 import MarkdownContent from "./MarkdownContent";
 
 type Props = {
@@ -146,11 +147,20 @@ export default function ActivityClient({ data, tags }: Props) {
                     {extractEntries(messages, sort).map(
                       ([
                         _ts,
-                        { date, title, description, usedTools, tags },
+                        {
+                          date,
+                          title,
+                          description,
+                          usedTools,
+                          tags,
+                          coverImage,
+                          coverLink,
+                          repository,
+                        },
                       ]) => (
                         <motion.li
                           key={date}
-                          className="flex flex-col p-single pb-double"
+                          className="flex flex-col gap-single p-single pb-double"
                           initial={{ opacity: 0 }}
                           whileInView={{
                             opacity: 1,
@@ -162,22 +172,42 @@ export default function ActivityClient({ data, tags }: Props) {
                           }}
                           layout
                         >
-                          <h2 className="relative">
-                            {title}
-                            <div className="size-[8px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
-                          </h2>
-                          {tags?.length > 0 && (
-                            <ul className="flex gap-single text-subtle">
-                              {tags.map((tag) => (
-                                <li key={tag}>#{tag}</li>
-                              ))}
-                            </ul>
-                          )}
-                          <div className="mt-single">
+                          <div className="flex flex-row gap-single justify-between">
+                            <div>
+                              <h2 className="relative text-wrap">
+                                {title}
+                                <div className="size-[8px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
+                              </h2>
+                              {tags?.length > 0 && (
+                                <ul className="flex gap-single text-subtle">
+                                  {tags.map((tag) => (
+                                    <li key={tag}>#{tag}</li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                            {repository && (
+                              <a
+                                href={repository}
+                                className="flex-none h-[24px] aspect-square text-primary"
+                              >
+                                <Icon
+                                  icon="ph:code"
+                                  width="100%"
+                                  height="100%"
+                                />
+                              </a>
+                            )}
+                          </div>
+
+                          <div>
                             <MarkdownContent text={description} />
                           </div>
+                          {coverImage && (
+                            <CoverImage link={coverLink} src={coverImage} />
+                          )}
                           {usedTools?.length > 0 && (
-                            <ul className="flex gap-single h-[16px] text-subtle mt-single">
+                            <ul className="flex gap-single h-[16px] text-subtle">
                               {usedTools.map(({ slug, icon }) => (
                                 <li key={slug} className="h-full aspect-square">
                                   <Icon
