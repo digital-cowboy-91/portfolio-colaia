@@ -9,9 +9,10 @@ export default function CoverImage({ link, src, ...props }: Props) {
     <a
       className={`
         rounded-single
-        aspect-[10/1] hover:aspect-video transition-all delay-300 duration-300
-        overflow-hidden relative
-        group
+        aspect-[10/1] hover:aspect-video
+        opacity-75 hover:opacity-100
+        transition-all delay-300 duration-300
+        overflow-hidden
       `}
       href={link ?? src}
     >

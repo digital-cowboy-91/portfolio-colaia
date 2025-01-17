@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
+  --background-coords: 10, 10, 10;
+  --background: rgb(var(--background-coords));
   --foreground: #ffffff;
   --primary: rgb(0, 191, 255);
   --secondary: rgb(255, 0, 126);
