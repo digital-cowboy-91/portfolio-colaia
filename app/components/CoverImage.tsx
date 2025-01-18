@@ -1,10 +1,21 @@
+import Image from "next/image";
 import { ImgHTMLAttributes } from "react";
 
 interface Props extends ImgHTMLAttributes<HTMLImageElement> {
+  src: string;
   link?: string;
+  width?: number;
+  height?: number;
 }
 
-export default function CoverImage({ link, src, ...props }: Props) {
+export default function CoverImage({
+  link,
+  src,
+  alt = "",
+  width = 900,
+  height = 900,
+  ...props
+}: Props) {
   return (
     <a
       className={`
@@ -16,7 +27,14 @@ export default function CoverImage({ link, src, ...props }: Props) {
       `}
       href={link ?? src}
     >
-      <img src={src} {...props} className="object-cover" />
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        {...props}
+        className="object-cover"
+      />
     </a>
   );
 }
