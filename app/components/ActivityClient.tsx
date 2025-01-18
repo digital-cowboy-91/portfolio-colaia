@@ -4,8 +4,7 @@ import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion } from "motion/react";
 import { useMemo, useRef, useState } from "react";
 import { ActivityWithRefs } from "../types/activity";
-import CoverImage from "./CoverImage";
-import MarkdownContent from "./MarkdownContent";
+import Article from "./Article";
 
 type Props = {
   data: ActivityWithRefs[];
@@ -87,16 +86,10 @@ export default function ActivityClient({ data, tags }: Props) {
             ))}
           </ul>
         )}
-
         <button
           onClick={() => setSort((prev) => (prev === "desc" ? "asc" : "desc"))}
           className="h-[24px] aspect-square text-primary"
         >
-          {/* {sort === "desc" ? (
-            <Icon icon="tabler:sort-9-0" height={"100%"} width={"100%"} />
-          ) : (
-            <Icon icon="tabler:sort-0-9" height={"100%"} width={"100%"} />
-          )} */}
           <Icon
             icon="solar:sort-vertical-line-duotone"
             className={sort === "desc" ? "" : "rotate-180"}
@@ -112,116 +105,29 @@ export default function ActivityClient({ data, tags }: Props) {
             className="col-span-2 grid grid-cols-subgrid"
             key={year}
           >
-            <div className="text-3xl text-center border-e border-contour p-single relative">
-              <motion.span
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
-                viewport={{
-                  margin: "0px 0px -150px 0px",
-                  once: true,
-                }}
-              >
-                {year}
-              </motion.span>
-              <div className="size-[12px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
-            </div>
+            <CalendarItem label={year} isYear />
             <ul className="col-span-2 grid grid-cols-subgrid">
               {extractEntries(months, sort).map(([month, messages]) => (
                 <li key={month} className="col-span-2 grid grid-cols-subgrid">
-                  <div className="text-center border-e border-contour p-single">
-                    <motion.span
-                      initial={{ opacity: 0 }}
-                      whileInView={{
-                        opacity: 1,
-                        transition: { duration: 0.5 },
-                      }}
-                      viewport={{
-                        margin: "0px 0px -150px 0px",
-                        once: true,
-                      }}
-                    >
-                      {monthNames.current.get(month)}
-                    </motion.span>
-                  </div>
+                  <CalendarItem label={monthNames.current.get(month)!} />
                   <ul>
-                    {extractEntries(messages, sort).map(
-                      ([
-                        _ts,
-                        {
-                          date,
-                          title,
-                          description,
-                          usedTools,
-                          tags,
-                          coverImage,
-                          coverLink,
-                          repository,
-                        },
-                      ]) => (
-                        <motion.li
-                          key={date}
-                          className="flex flex-col gap-single p-single pb-double"
-                          initial={{ opacity: 0 }}
-                          whileInView={{
-                            opacity: 1,
-                            transition: { duration: 0.5 },
-                          }}
-                          viewport={{
-                            margin: "0px 0px -150px 0px",
-                            once: true,
-                          }}
-                          layout
-                        >
-                          <div className="flex flex-row gap-single justify-between">
-                            <div>
-                              <h2 className="relative text-wrap">
-                                {title}
-                                <div className="size-[8px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -left-single -translate-x-1/2" />
-                              </h2>
-                              {tags?.length > 0 && (
-                                <ul className="flex gap-single text-subtle">
-                                  {tags.map((tag) => (
-                                    <li key={tag}>#{tag}</li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
-                            {repository && (
-                              <a
-                                href={repository}
-                                className="flex-none h-[24px] aspect-square text-primary"
-                              >
-                                <Icon
-                                  icon="ph:code"
-                                  width="100%"
-                                  height="100%"
-                                />
-                              </a>
-                            )}
-                          </div>
-
-                          <div>
-                            <MarkdownContent text={description} />
-                          </div>
-                          {coverImage && (
-                            <CoverImage link={coverLink} src={coverImage} />
-                          )}
-                          {usedTools?.length > 0 && (
-                            <ul className="flex gap-single h-[16px] text-subtle">
-                              {usedTools.map(({ slug, icon }) => (
-                                <li key={slug} className="h-full aspect-square">
-                                  <Icon
-                                    icon={icon}
-                                    width="100%"
-                                    height="100%"
-                                  />
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </motion.li>
-                      )
-                    )}
+                    {extractEntries(messages, sort).map(([_ts, item]) => (
+                      <motion.li
+                        key={item.date}
+                        initial={{ opacity: 0 }}
+                        whileInView={{
+                          opacity: 1,
+                          transition: { duration: 0.5 },
+                        }}
+                        viewport={{
+                          margin: "0px 0px -150px 0px",
+                          once: true,
+                        }}
+                        layout
+                      >
+                        <Article data={item} />
+                      </motion.li>
+                    ))}
                   </ul>
                 </li>
               ))}
@@ -229,6 +135,36 @@ export default function ActivityClient({ data, tags }: Props) {
           </motion.li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+// Subcomponents
+type CalendarItemProps = {
+  label: string;
+  isYear?: boolean;
+};
+
+function CalendarItem({ label, isYear = false }: CalendarItemProps) {
+  return (
+    <div
+      className={`${
+        isYear ? "text-3xl" : ""
+      } text-center border-e border-contour p-single relative`}
+    >
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
+        viewport={{
+          margin: "0px 0px -150px 0px",
+          once: true,
+        }}
+      >
+        {label}
+      </motion.span>
+      {isYear && (
+        <div className="size-[12px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
+      )}
     </div>
   );
 }
