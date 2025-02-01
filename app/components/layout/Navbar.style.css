@@ -7,13 +7,13 @@
   z-index: 10;
 
   text-transform: uppercase;
-  text-size: 1.25rem;
+  font-size: 1.25rem;
   letter-spacing: 0.05rem;
 
   writing-mode: vertical-lr;
 
   padding-top: var(--spacing-single);
-  padding-bottom: var(--spacing-single);
+  padding-bottom: calc(var(--tools-h) + var(--spacing-single) * 2);
 
   & > menu {
     display: flex;
@@ -39,6 +39,27 @@
       transform: rotate(90deg);
 
       flex-shrink: 0;
+    }
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  [data-component="navbar"] {
+    height: auto;
+    width: 100vw;
+
+    writing-mode: horizontal-tb;
+
+    padding: var(--spacing-single);
+
+    & > menu {
+      & > [data-component="separator"] {
+        width: 128px;
+        height: 0;
+      }
+      & > [data-component="social-link"] {
+        transform: rotate(0deg);
+      }
     }
   }
 }
