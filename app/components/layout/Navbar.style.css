@@ -1,0 +1,41 @@
+[data-component="navbar"] {
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+
+  text-transform: uppercase;
+  text-size: 1.25rem;
+  letter-spacing: 0.05rem;
+
+  writing-mode: vertical-lr;
+
+  & > menu {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    gap: var(--spacing-double);
+
+    & > [data-component="separator"] {
+      height: 128px;
+
+      border: solid 0 var(--foreground);
+      border-left-width: 1px;
+      border-bottom-width: 1px;
+    }
+
+    & > [data-component="social-link"] {
+      --size: 32px;
+
+      width: var(--size);
+      height: var(--size);
+
+      transform: rotate(90deg);
+
+      flex-shrink: 0;
+    }
+  }
+}

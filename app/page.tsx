@@ -8,7 +8,7 @@ export default function Home() {
     <SectionWrapper>
       <SectionItem
         id="hero"
-        icon="codicon:arrow-up"
+        icon="codicon:arrow-right"
         fixedHeight
         className="h-svh"
       >
