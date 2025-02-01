@@ -3,7 +3,7 @@
 
   position: fixed;
   top: 0;
-  right: 0;
+  right: var(--spacing-single);
   z-index: 10;
 
   text-transform: uppercase;
@@ -11,6 +11,9 @@
   letter-spacing: 0.05rem;
 
   writing-mode: vertical-lr;
+
+  padding-top: var(--spacing-single);
+  padding-bottom: var(--spacing-single);
 
   & > menu {
     display: flex;
