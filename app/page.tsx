@@ -1,7 +1,7 @@
 import ActivityServer from "./components/ActivityServer";
 import HeroClient from "./components/HeroClient";
+import { SectionItem, SectionWrapper } from "./components/layout/sections";
 import ProfileServer from "./components/ProfileServer";
-import { SectionItem, SectionWrapper } from "./components/Sections";
 
 export default function Home() {
   return (
