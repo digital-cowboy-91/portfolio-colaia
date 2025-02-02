@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
-import ToolsClient from "./components/ToolsClient";
 import "./globals.css";
 import { readFile } from "./utils/persistantJSON";
 
@@ -43,7 +42,7 @@ export default async function RootLayout({
         `}
       >
         <main>{children}</main>
-        <footer
+        {/* <footer
           className={`fixed inset-x-0 bottom-0 p-single`}
           style={{
             backgroundImage:
@@ -51,7 +50,7 @@ export default async function RootLayout({
           }}
         >
           <ToolsClient data={tools} />
-        </footer>
+        </footer> */}
       </body>
     </html>
   );
