@@ -2,6 +2,7 @@ import ActivityServer from "./components/ActivityServer";
 import HeroClient from "./components/HeroClient";
 import { SectionItem, SectionWrapper } from "./components/layout/sections";
 import ProfileServer from "./components/ProfileServer";
+import { Tools } from "./components/tools";
 
 export default function Home() {
   return (
@@ -32,6 +33,9 @@ export default function Home() {
             `,
           }}
         />
+      </SectionItem>
+      <SectionItem id="tools">
+        <Tools />
       </SectionItem>
       <SectionItem id="profile" className="flex justify-center items-center">
         <ProfileServer />

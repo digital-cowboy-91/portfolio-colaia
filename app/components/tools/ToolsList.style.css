@@ -1,0 +1,37 @@
+.tools-list {
+  place-content: center;
+  height: 100%;
+}
+
+.tools-list--bar {
+  height: var(--tools-h);
+  padding: var(--tools-p);
+
+  display: flex;
+  place-content: center;
+  flex-wrap: wrap;
+
+  gap: var(--tools-gap);
+
+  & > .tools-item {
+    height: 100%;
+
+    & > .tool-label {
+      display: none;
+    }
+  }
+}
+
+.tools-list--grid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+
+  & > .tools-item {
+    height: var(--tools-h);
+    padding: var(--tools-p);
+
+    display: flex;
+    align-items: center;
+    gap: var(--tools-p);
+  }
+}
