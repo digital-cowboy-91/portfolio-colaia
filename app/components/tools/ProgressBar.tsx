@@ -52,7 +52,7 @@ export default function ProgressBar({ points, activePoint, fill }: Props) {
     ]);
 
     activePointPrev.current = activePoint;
-  }, [points, activePoint]);
+  }, [activePoint]);
 
   return (
     <div ref={scope} className="flex justify-between relative">

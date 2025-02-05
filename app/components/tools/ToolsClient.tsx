@@ -32,7 +32,7 @@ export default function ToolsClient({ items }: Props) {
       <div ref={trackerRef} className="absolute inset-x-0 h-[50vh] -z-10" />
       <motion.div
         className={`bg-foreground text-background p-4 ${
-          isInView ? "max-w-[720px]" : "w-full h-[var(--tools-h)]"
+          isInView ? "w-[720px]" : "w-full h-[var(--tools-h)]"
         } overflow-hidden`}
         style={{ borderRadius: "16px" }}
         layout
