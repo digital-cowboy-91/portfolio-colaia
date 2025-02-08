@@ -9,7 +9,7 @@ export type ActivityProcessed = {
 
 export default async function ActivityServer() {
   const toolMap = await readFile("tools").then(
-    (res) => new Map(res.map((item) => [item.icon, item]))
+    (res) => new Map(res.map((item) => [item.id, item]))
   );
 
   const tagSet = new Set<string>();

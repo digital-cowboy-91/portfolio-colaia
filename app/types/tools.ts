@@ -1,4 +1,5 @@
 export interface Tool {
+  id: string;
   title: string;
   icon: string;
   experience: 1 | 2 | 3 | 4 | 5;
