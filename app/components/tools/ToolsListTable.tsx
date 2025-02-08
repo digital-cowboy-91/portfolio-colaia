@@ -2,8 +2,8 @@ import { Tool } from "@/app/types/tools";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { AnimatePresence, motion } from "motion/react";
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import useBoxSize from "../../hooks/useBoxSize";
 import ProgressBar from "./ProgressBar";
-import useBoxSize from "./useBoxSize";
 
 const experience = {
   1: {

@@ -8,9 +8,9 @@ import {
   useScroll,
 } from "motion/react";
 import { useRef, useState } from "react";
+import useBoxSize from "../../hooks/useBoxSize";
 import ToolsListBar from "./ToolsListBar";
 import ToolsListTable from "./ToolsListTable";
-import useBoxSize from "./useBoxSize";
 
 type Props = {
   items: Tool[];
