@@ -45,8 +45,8 @@ export default function Article({ data }: { data: ActivityWithRefs }) {
       {usedTools?.length > 0 && (
         <footer>
           <ul className="flex gap-single h-[16px] text-subtle">
-            {usedTools.map(({ slug, icon }) => (
-              <li key={slug} className="h-full aspect-square">
+            {usedTools.map(({ icon }) => (
+              <li key={icon} className="h-full aspect-square">
                 <Icon icon={icon} width="100%" height="100%" />
               </li>
             ))}

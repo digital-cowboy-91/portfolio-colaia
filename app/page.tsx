@@ -1,22 +1,23 @@
 import ActivityServer from "./components/ActivityServer";
 import HeroClient from "./components/HeroClient";
-import { SectionItem, SectionWrapper } from "./components/layout/sections";
+import { Section, SectionWrapper } from "./components/layout/sections";
 import ProfileServer from "./components/ProfileServer";
+import { Tools } from "./components/tools";
 
 export default function Home() {
   return (
     <SectionWrapper>
-      <SectionItem
+      <Section
         id="hero"
-        icon="codicon:arrow-up"
-        fixedHeight
-        className="h-svh"
+        bookmark={{ title: "Home", icon: "codicon:arrow-up" }}
+        className="h-[calc(100vh-var(--tools-h)-var(--spacing-single))] p-single"
       >
-        <HeroClient />
-        <div
-          className="absolute inset-0 -z-10"
-          style={{
-            backgroundImage: `
+        <div className="relative rounded-single overflow-hidden w-full h-full">
+          <HeroClient />
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              backgroundImage: `
               radial-gradient(
                 circle at top left,
                 rgba(0,191,255,1),
@@ -30,15 +31,21 @@ export default function Home() {
                 rgba(255,0,126,0) 75%
               )
             `,
-          }}
-        />
-      </SectionItem>
-      <SectionItem id="profile" className="flex justify-center items-center">
+            }}
+          />
+        </div>
+      </Section>
+      <Section
+        id="profile"
+        bookmark={{ title: "Profile" }}
+        className="px-single pt-0 pb-[25vh] flex flex-col gap-[5vh]"
+      >
+        <Tools />
         <ProfileServer />
-      </SectionItem>
-      <SectionItem id="activity">
+      </Section>
+      <Section id="activity" bookmark={{ title: "Activity" }}>
         <ActivityServer />
-      </SectionItem>
+      </Section>
     </SectionWrapper>
   );
 }
