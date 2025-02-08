@@ -1,4 +1,4 @@
-import SectionItem from "./SectionItem";
+import Section from "./Section";
 import SectionWrapper from "./SectionWrapper";
 
-export { SectionItem, SectionWrapper };
+export { Section, SectionWrapper };

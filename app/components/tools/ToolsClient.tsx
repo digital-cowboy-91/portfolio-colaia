@@ -34,15 +34,15 @@ export default function ToolsClient({ items }: Props) {
   return (
     <div
       ref={box.set}
-      className="h-[500px] max-h-screen flex justify-center items-start relative"
+      className="min-h-[300px] flex justify-center items-start relative"
     >
-      <div ref={trackerRef} className="absolute inset-x-0 h-[50vh] -z-10" />
+      <div ref={trackerRef} className="absolute inset-x-0 h-[300px] -z-10" />
       <motion.div
         className={`bg-foreground text-background rounded-single overflow-hidden`}
         initial={false}
         animate={{
           height,
-          width: isInView ? 720 : box.get("width"),
+          width: isInView ? 900 : box.get("width"),
         }}
         transition={{ ease: "backInOut" }}
       >
@@ -61,7 +61,7 @@ export default function ToolsClient({ items }: Props) {
                 // key="table"
                 items={items}
                 onHeightChange={(height) => setHeight(height)}
-                className="p-single"
+                className="p-single max-w-[900px]"
               />
             ) : (
               <ToolsListBar

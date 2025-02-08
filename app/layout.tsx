@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
-import ToolsClient from "./components/ToolsClient";
 import "./globals.css";
-import { readFile } from "./utils/persistantJSON";
 
 const redHat = Red_Hat_Display({
   weight: ["300", "400", "600", "900"],
@@ -25,10 +23,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const tools = await readFile("tools").then((res) =>
-    res.sort(() => 0.5 - Math.random())
-  );
-
   return (
     <html lang="en">
       <head>
@@ -43,15 +37,6 @@ export default async function RootLayout({
         `}
       >
         <main>{children}</main>
-        <footer
-          className={`fixed inset-x-0 bottom-0 p-single`}
-          style={{
-            backgroundImage:
-              "linear-gradient(0deg, var(--background) 75%, transparent)",
-          }}
-        >
-          <ToolsClient data={tools} />
-        </footer>
       </body>
     </html>
   );
