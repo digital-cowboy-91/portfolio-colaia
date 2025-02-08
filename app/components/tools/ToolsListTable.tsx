@@ -1,8 +1,9 @@
 import { Tool } from "@/app/types/tools";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 import ProgressBar from "./ProgressBar";
+import useBoxSize from "./useBoxSize";
 
 const experience = {
   1: {
@@ -49,29 +50,31 @@ const experience = {
   },
 };
 
-type Props = {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   items: Tool[];
-};
+  onHeightChange?: (height: number) => void;
+}
 
-export default function ToolsListTable({ items }: Props) {
+export default function ToolsListTable({
+  items,
+  onHeightChange,
+  ...rest
+}: Props) {
   const pages = useRef(splitToPages(items, 12));
   const [activePage, setActivePage] = useState(0);
   const [activeItem, setActiveItem] = useState(pages.current[activePage][0]);
+
+  const box = useBoxSize("height", (box) => {
+    onHeightChange?.(box.height);
+  });
+  box.setDebug("TABLE");
 
   useEffect(() => {
     setActiveItem(() => pages.current[activePage][0]);
   }, [activePage]);
 
   return (
-    <motion.div
-      className="flex flex-col gap-single w-full"
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 0.3 },
-      }}
-      exit={{ opacity: 0, transition: { duration: 0 } }}
-    >
+    <div ref={box.set} {...rest}>
       <div className="flex justify-between items-center">
         <button
           className="h-8 aspect-square disabled:opacity-0"
@@ -141,10 +144,10 @@ export default function ToolsListTable({ items }: Props) {
         activePoint={activeItem.experience}
         fill={{ active: "var(--primary)", inActive: "var(--subtle)" }}
       />
-      <p className="text-center">
+      <p className="text-center p-single pb-0">
         {experience[activeItem.experience].description[activeItem.type]}
       </p>
-    </motion.div>
+    </div>
   );
 }
 

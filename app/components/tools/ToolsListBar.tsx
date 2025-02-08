@@ -1,40 +1,45 @@
-import useWindowSize from "@/app/hooks/useWindowSize";
 import { Tool } from "@/app/types/tools";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import useBoxSize from "./useBoxSize";
 
-type Props = {
+interface Props extends Omit<HTMLAttributes<HTMLUListElement>, "ref"> {
   items: Tool[];
-};
+  onHeightChange?: (height: number) => void;
+}
 
-export default function ToolsListBar({ items }: Props) {
-  const [_render, setRender] = useState(0);
-  const { width } = useWindowSize();
-
-  const ulRef = useRef<null | HTMLUListElement>(null);
+export default function ToolsListBar({
+  items,
+  onHeightChange,
+  ...rest
+}: Props) {
+  const [itemLimit, setItemLimit] = useState(0);
 
   const hiddenRef = useRef<Tool[]>([]);
   const visibleRef = useRef<Tool[]>([]);
 
-  useEffect(() => {
-    if (!ulRef.current) return;
+  const box = useBoxSize("all", ({ width, height }) => {
+    const limit = Math.floor(width / height);
 
-    const ul = ulRef.current;
+    if (height !== box.getPrevious("height")) {
+      onHeightChange?.(height);
+    }
 
-    const limit = Math.floor(ul.clientWidth / ul.clientHeight / 2);
+    if (itemLimit === limit) return;
 
-    visibleRef.current = items.slice(0, limit);
     hiddenRef.current = items.slice(limit);
+    visibleRef.current = items.slice(0, limit);
 
-    setRender(1);
-  }, [width]);
+    setItemLimit(limit);
+  });
+  box.setDebug("BAR");
 
   useEffect(() => {
     const interval = setInterval(() => {
       let updated = false;
 
-      visibleRef.current = visibleRef.current.map((item) => {
+      const shuffle = visibleRef.current.map((item) => {
         if (Math.random() > 0.2) return item;
 
         updated = true;
@@ -45,28 +50,14 @@ export default function ToolsListBar({ items }: Props) {
 
       if (!updated) return;
 
-      setRender((prev) => prev + 1);
+      visibleRef.current = shuffle;
     }, 2500);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <motion.ul
-      ref={ulRef}
-      className={`
-        h-full
-        flex justify-center items-center
-        gap-[var(--tools-gap)]
-        overflow-hidden
-        `}
-      initial={{ opacity: 0 }}
-      animate={{
-        opacity: 1,
-        transition: { delay: 0.3 },
-      }}
-      exit={{ opacity: 0, transition: { duration: 0 } }}
-    >
+    <ul ref={box.set} {...rest}>
       {visibleRef.current.map(({ icon }, index) => (
         <AnimatePresence key={index} initial={false} mode="wait">
           <motion.li
@@ -80,6 +71,6 @@ export default function ToolsListBar({ items }: Props) {
           </motion.li>
         </AnimatePresence>
       ))}
-    </motion.ul>
+    </ul>
   );
 }
