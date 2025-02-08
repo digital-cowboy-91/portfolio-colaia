@@ -33,7 +33,6 @@ export default function ToolsListBar({
 
     setItemLimit(limit);
   });
-  box.setDebug("BAR");
 
   useEffect(() => {
     const interval = setInterval(() => {

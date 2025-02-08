@@ -10,7 +10,7 @@ import {
 import { useRef, useState } from "react";
 import ToolsListBar from "./ToolsListBar";
 import ToolsListTable from "./ToolsListTable";
-import useResizeObserver from "./useResizeObserver";
+import useBoxSize from "./useBoxSize";
 
 type Props = {
   items: Tool[];
@@ -25,17 +25,15 @@ export default function ToolsClient({ items }: Props) {
   });
   const [height, setHeight] = useState<number | "auto">("auto");
 
-  const wrapperObserver = useResizeObserver();
+  const box = useBoxSize();
 
   useMotionValueEvent(scrollYProgress, "change", (current) =>
     setIsInView(current === 1 ? true : false)
   );
 
-  // console.log({ isInView });
-
   return (
     <div
-      ref={wrapperObserver.set}
+      ref={box.set}
       className="bg-[blue] h-[500px] max-h-screen flex justify-center items-start relative"
     >
       <div ref={trackerRef} className="absolute inset-x-0 h-[50vh] -z-10" />
@@ -44,7 +42,7 @@ export default function ToolsClient({ items }: Props) {
         initial={false}
         animate={{
           height,
-          width: isInView ? 720 : wrapperObserver.get("width"),
+          width: isInView ? 720 : box.get("width"),
         }}
         transition={{ ease: "backInOut" }}
       >

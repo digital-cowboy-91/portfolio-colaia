@@ -67,7 +67,6 @@ export default function ToolsListTable({
   const box = useBoxSize("height", (box) => {
     onHeightChange?.(box.height);
   });
-  box.setDebug("TABLE");
 
   useEffect(() => {
     setActiveItem(() => pages.current[activePage][0]);
@@ -152,8 +151,8 @@ export default function ToolsListTable({
 }
 
 function splitToPages<T>(arr: T[], page: number) {
-  let _arr = [...arr];
-  let result = [];
+  const _arr = [...arr];
+  const result = [];
 
   while (_arr.length > 0) {
     result.push(_arr.splice(0, page));

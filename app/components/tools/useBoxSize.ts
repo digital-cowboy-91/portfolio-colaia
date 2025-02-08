@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const defaultBox = () => ({
   width: 0,
@@ -29,17 +29,20 @@ const defaultStore = (): Store => ({
 export default function useBoxSize(...[watch, callback]: Params) {
   let { current: _ } = useRef(defaultStore());
 
-  const log = useCallback((action: string, data?: unknown) => {
+  const log = (action: string, data?: unknown) => {
     if (_.debug) console.log(_.debug + ":" + action, { data });
-  }, []);
-  const unSet = useCallback(() => {
+  };
+
+  log("Hook rerendered");
+
+  const unSet = () => {
     log("unSet", _.ref);
 
     _.observer?.disconnect();
     _ = defaultStore();
-  }, []);
+  };
 
-  const set = useCallback((element: Ref) => {
+  const set = (element: Ref) => {
     if (!element || element === _.ref) return;
     log("set", element);
     _.ref = element;
@@ -67,11 +70,11 @@ export default function useBoxSize(...[watch, callback]: Params) {
     });
 
     _.observer.observe(_.ref);
-  }, []);
+  };
 
-  const get = useCallback((key: BoxKeys) => _.nextBox[key], []);
-  const getPrevious = useCallback((key: BoxKeys) => _.prevBox[key], []);
-  const setDebug = useCallback((prefix?: string) => (_.debug = prefix), []);
+  const get = (key: BoxKeys) => _.nextBox[key];
+  const getPrevious = (key: BoxKeys) => _.prevBox[key];
+  const setDebug = (prefix?: string) => (_.debug = prefix);
 
   useEffect(() => {
     log("Mount");
@@ -81,5 +84,6 @@ export default function useBoxSize(...[watch, callback]: Params) {
       unSet();
     };
   }, []);
+
   return { set, unSet, get, getPrevious, setDebug };
 }
