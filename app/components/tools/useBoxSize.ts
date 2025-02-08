@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 const defaultBox = () => ({
   width: 0,
@@ -11,59 +11,67 @@ type Watch = BoxKeys | "all";
 type Params = [Watch, (box: Box) => void] | [];
 type Ref = Element | null;
 
-let ref: Ref = null;
-let observer: ResizeObserver | null = null;
-let prevBox = defaultBox();
-let nextBox = defaultBox();
-let debug: string | undefined;
+type Store = {
+  ref: Ref;
+  observer: ResizeObserver | null;
+  prevBox: Box;
+  nextBox: Box;
+  debug?: string;
+};
+
+const defaultStore = (): Store => ({
+  ref: null,
+  observer: null,
+  prevBox: defaultBox(),
+  nextBox: defaultBox(),
+});
 
 export default function useBoxSize(...[watch, callback]: Params) {
+  let { current: _ } = useRef(defaultStore());
+
   const log = useCallback((action: string, data?: unknown) => {
-    if (debug) console.log(debug + ":" + action, { data });
+    if (_.debug) console.log(_.debug + ":" + action, { data });
   }, []);
   const unSet = useCallback(() => {
-    log("unSet", ref);
+    log("unSet", _.ref);
 
-    observer?.disconnect();
-    observer = null;
-    ref = null;
-    prevBox = defaultBox();
-    nextBox = defaultBox();
+    _.observer?.disconnect();
+    _ = defaultStore();
   }, []);
 
   const set = useCallback((element: Ref) => {
-    if (!element || element === ref) return;
+    if (!element || element === _.ref) return;
     log("set", element);
-    ref = element;
+    _.ref = element;
 
-    observer = new ResizeObserver((e) => {
+    _.observer = new ResizeObserver((e) => {
       const box = e[0].borderBoxSize[0];
 
-      prevBox = { ...nextBox };
-      nextBox = {
+      _.prevBox = { ..._.nextBox };
+      _.nextBox = {
         width: box.inlineSize,
         height: box.blockSize,
       };
 
-      log("observe", { observer, prevBox, nextBox });
+      log("observe", { _ });
 
       if (!watch || !callback) return;
 
       const trigger = (key: BoxKeys) =>
-        ["all", key].includes(watch) && prevBox[key] !== nextBox[key];
+        ["all", key].includes(watch) && _.prevBox[key] !== _.nextBox[key];
 
       if (trigger("width") || trigger("height")) {
-        log("trigger", { nextBox });
-        callback(nextBox);
+        log("trigger", _.nextBox);
+        callback(_.nextBox);
       }
     });
 
-    observer.observe(ref);
+    _.observer.observe(_.ref);
   }, []);
 
-  const get = useCallback((key: BoxKeys) => nextBox[key], []);
-  const getPrevious = useCallback((key: BoxKeys) => prevBox[key], []);
-  const setDebug = useCallback((prefix?: string) => (debug = prefix), []);
+  const get = useCallback((key: BoxKeys) => _.nextBox[key], []);
+  const getPrevious = useCallback((key: BoxKeys) => _.prevBox[key], []);
+  const setDebug = useCallback((prefix?: string) => (_.debug = prefix), []);
 
   useEffect(() => {
     log("Mount");
