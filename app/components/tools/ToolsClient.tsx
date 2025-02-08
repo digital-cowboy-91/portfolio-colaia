@@ -34,7 +34,7 @@ export default function ToolsClient({ items }: Props) {
   return (
     <div
       ref={box.set}
-      className="bg-[blue] h-[500px] max-h-screen flex justify-center items-start relative"
+      className="h-[500px] max-h-screen flex justify-center items-start relative"
     >
       <div ref={trackerRef} className="absolute inset-x-0 h-[50vh] -z-10" />
       <motion.div
