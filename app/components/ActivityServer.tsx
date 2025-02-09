@@ -9,7 +9,7 @@ export type ActivityProcessed = {
 
 export default async function ActivityServer() {
   const toolMap = await readFile("tools").then(
-    (res) => new Map(res.map((item) => [item.slug, item]))
+    (res) => new Map(res.map((item) => [item.id, item]))
   );
 
   const tagSet = new Set<string>();
@@ -18,7 +18,7 @@ export default async function ActivityServer() {
     res.map((item) => {
       const itemWithRefs: ActivityWithRefs = {
         ...item,
-        usedTools: item.usedTools.map((slug) => toolMap.get(slug)!),
+        usedTools: item.usedTools.map((icon) => toolMap.get(icon)!),
       };
 
       item.tags.forEach((tag) => tagSet.add(tag));

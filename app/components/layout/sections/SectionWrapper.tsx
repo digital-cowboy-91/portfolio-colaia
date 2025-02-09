@@ -2,14 +2,10 @@
 
 import React, { useState } from "react";
 import Navbar from "../Navbar";
-import { SectionItem } from "./SectionItem";
+import { Section } from "./Section";
 import SectionLink from "./SectionLink";
 
-export default function SectionWrapper({
-  children,
-}: {
-  children: SectionItem[];
-}) {
+export default function SectionWrapper({ children }: { children: Section[] }) {
   const [scrollStates, setScrollStates] = useState<Record<number, number>>(
     children.reduce((acc, _child, index) => {
       acc[index] = 0;
@@ -24,15 +20,15 @@ export default function SectionWrapper({
           <SectionLink
             key={child.props.id}
             id={child.props.id}
-            title={child.props.title}
-            icon={child.props.icon}
+            title={child.props.bookmark.title}
+            icon={child.props.bookmark.icon}
             scrollProgress={scrollStates[index]}
           />
         ))}
       </Navbar>
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
-          setScrollProgress: (value: number) =>
+          scrollProgress: (value: number) =>
             setScrollStates((prev) => ({ ...prev, [index]: value })),
         })
       )}
