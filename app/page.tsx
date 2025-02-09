@@ -9,7 +9,7 @@ export default function Home() {
     <SectionWrapper>
       <Section
         id="hero"
-        bookmark={{ title: "Home", icon: "codicon:arrow-up" }}
+        bookmark={{ title: "Home", icon: "codicon:arrow-right" }}
         className="h-[calc(100vh-var(--tools-h)-var(--spacing-single))] p-single"
       >
         <div className="relative rounded-single overflow-hidden w-full h-full">

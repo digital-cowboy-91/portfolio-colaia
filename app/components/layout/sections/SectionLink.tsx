@@ -17,6 +17,13 @@ export default function SectionLink({
   icon,
   scrollProgress = 1,
 }: SectionLinkProps) {
+  const coords = {
+    x1: 5,
+    x2: 5,
+    y1: 0,
+    y2: "100%",
+    strokeWidth: 3,
+  };
   return (
     <Link href={"#" + id} className="flex place-content-center relative">
       {icon ? (
@@ -25,31 +32,20 @@ export default function SectionLink({
         <>
           {title || id}
           <svg
-            width={"100%"}
-            height={5}
+            height={"100%"}
+            width={5}
             className={`
-                absolute inset-x-0 -bottom-[5px]
+                absolute -left-[5px]
                 ${[0, 1].includes(scrollProgress) ? "opacity-0" : "opacity-1"}
                 transition-opacity
                 duration-500
               `}
           >
-            <line
-              x1={0}
-              y1={5}
-              x2="100%"
-              y2={5}
-              strokeWidth={3}
-              stroke="var(--contour)"
-            />
+            <line {...coords} stroke="var(--contour)" />
             <motion.line
-              x1={0}
-              y1={5}
-              x2="100%"
-              y2={5}
+              {...coords}
               initial={{ pathLength: scrollProgress }}
               animate={{ pathLength: scrollProgress }}
-              strokeWidth={3}
               stroke="var(--primary)"
             />
           </svg>
