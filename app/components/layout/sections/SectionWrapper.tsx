@@ -5,6 +5,7 @@ import NavbarHorizontal, {
   ActiveBookmark,
   Bookmark,
 } from "../navbar/NavbarHorizontal";
+import NavbarVertical from "../navbar/NavbarVertical";
 import { Section } from "./Section";
 
 export default function SectionWrapper({ children }: { children: Section[] }) {
@@ -42,6 +43,7 @@ export default function SectionWrapper({ children }: { children: Section[] }) {
           />
         ))}
       </Navbar> */}
+      <NavbarVertical bookmarks={bookmarks} activeBookmark={activeBookmark} />
       <NavbarHorizontal bookmarks={bookmarks} activeBookmark={activeBookmark} />
       {React.Children.map(children, (child, index) =>
         React.cloneElement(child, {
