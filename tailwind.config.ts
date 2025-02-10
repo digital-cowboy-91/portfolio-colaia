@@ -40,6 +40,7 @@ export default {
       },
       inset: {
         single: "var(--spacing-single)",
+        double: "var(--spacing-double)",
       },
     },
   },

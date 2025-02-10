@@ -19,8 +19,6 @@ export default function Navbar({ children }: PropsWithChildren) {
       <SVGLine direction="vertical" />
     </div>
   ) : (
-    <div className="fixed inset-x-0 z-50">
-      <NavbarHorizontal />
-    </div>
+    <NavbarHorizontal />
   );
 }

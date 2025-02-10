@@ -17,7 +17,7 @@ export default function SocialLinks() {
         },
       ].map(({ url, icon }) => (
         <Link key={url} href={url} className="size-[24px] md:size-[32px]">
-          <Icon icon={icon} height="100%" width="100%" />
+          <Icon icon={icon} height="100%" width="100%" noobserver />
         </Link>
       ))}
     </>
