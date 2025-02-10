@@ -15,11 +15,13 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   const effect = useRef({
     store: {} as Record<number, number>,
     skip: function (id: number, count: number = 2) {
-      let store = this.store;
+      const store = this.store;
 
       if (store[id] > count) return false;
+      if (!store[id]) store[id] = 0;
 
-      store[id] ? store[id]++ : (store[id] = 1);
+      store[id]++;
+
       return true;
     },
   });
