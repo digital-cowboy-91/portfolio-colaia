@@ -12,9 +12,22 @@ interface Props {
 }
 
 export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
+  const effect = useRef({
+    store: {} as Record<number, number>,
+    skip: function (id: number, count: number = 2) {
+      let store = this.store;
+
+      if (store[id] > count) return false;
+
+      store[id] ? store[id]++ : (store[id] = 1);
+      return true;
+    },
+  });
+
   const [scope, animate] = useAnimate();
   const [showNav, setShowNav] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+
   const timer = useRef({
     instance: null as NodeJS.Timeout | null,
     set: function () {
@@ -38,6 +51,8 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   });
 
   useEffect(() => {
+    if (effect.current.skip(0)) return;
+
     if (showMenu) {
       timer.current.clear();
 
@@ -82,11 +97,15 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   }, [showMenu]);
 
   useEffect(() => {
+    if (effect.current.skip(1)) return;
+
     timer.current.reset();
 
     if (!showNav) setShowNav(true);
     if (showMenu) setShowMenu(false);
   }, [activeBookmark]);
+
+  // console.dir(effect.current);
 
   return (
     <div className="fixed inset-x-0 z-50">

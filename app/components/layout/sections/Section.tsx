@@ -16,7 +16,7 @@ export default function Section({ scrollProgress, children, ...rest }: Props) {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end end"],
+    offset: ["start center", "end center"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
@@ -26,6 +26,8 @@ export default function Section({ scrollProgress, children, ...rest }: Props) {
     const nextPct = roundFloat(current);
 
     if (prevPct === nextPct) return;
+
+    // console.log({ [rest.bookmark.title]: nextPct });
 
     scrollProgress(nextPct);
   });

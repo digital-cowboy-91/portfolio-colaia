@@ -25,6 +25,8 @@ export default function SectionWrapper({ children }: { children: Section[] }) {
       {React.Children.map(children, (child) =>
         React.cloneElement(child, {
           scrollProgress: (value: number) =>
+            value > 0 &&
+            value < 1 &&
             setActiveBookmark(() => ({
               id: child.props.id,
               progress: value,
