@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Bookmark } from "./NavbarHorizontal";
+import { Bookmark } from ".";
 
 interface Props {
   bookmark: Bookmark;
