@@ -1,11 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import NavbarHorizontal, {
-  ActiveBookmark,
-  Bookmark,
-} from "../navbar/NavbarHorizontal";
-import NavbarVertical from "../navbar/NavbarVertical";
+import Navbar, { ActiveBookmark, Bookmark } from "../navbar";
+
 import { Section } from "./Section";
 
 export default function SectionWrapper({ children }: { children: Section[] }) {
@@ -24,8 +21,7 @@ export default function SectionWrapper({ children }: { children: Section[] }) {
 
   return (
     <>
-      <NavbarVertical bookmarks={bookmarks} activeBookmark={activeBookmark} />
-      <NavbarHorizontal bookmarks={bookmarks} activeBookmark={activeBookmark} />
+      <Navbar bookmarks={bookmarks} activeBookmark={activeBookmark} />
       {React.Children.map(children, (child) =>
         React.cloneElement(child, {
           scrollProgress: (value: number) =>
