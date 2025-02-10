@@ -1,9 +1,9 @@
 import { AnimatePresence, motion, stagger, useAnimate } from "motion/react";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ProgressBar from "../ProgressBar";
-import SocialLinks from "../SocialLinks";
+import MenuItem from "./MenuItem";
 import NavbarButton from "./NavbarButton";
+import SocialLinks from "./SocialLinks";
 
 export type Bookmark = {
   id: string;
@@ -100,7 +100,13 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
 
   return (
     <div className="fixed inset-x-0 z-50">
-      <NavbarButton show={!showNav} onClick={() => setShowNav(true)} />
+      <NavbarButton
+        show={!showNav}
+        onClick={() => {
+          setShowNav(true);
+          setShowMenu(true);
+        }}
+      />
       <nav
         className={`
           relative p-double overflow-hidden
@@ -144,16 +150,12 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
           }}
         >
           <div className="pt-double pb-single flex flex-col items-start gap-single">
-            {bookmarks.map(({ id, title }) => (
-              <Link
-                key={id}
-                href={`#${id}`}
-                className={`flex gap-single items-center ${
-                  activeBookmark.id === id && "text-primary"
-                }`}
-              >
-                {title.toUpperCase()}
-              </Link>
+            {bookmarks.map((bookmark) => (
+              <MenuItem
+                key={bookmark.id}
+                bookmark={bookmark}
+                isActive={bookmark.id === activeBookmark.id}
+              />
             ))}
           </div>
         </menu>

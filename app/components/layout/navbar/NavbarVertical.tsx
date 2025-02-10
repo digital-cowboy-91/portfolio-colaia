@@ -1,7 +1,7 @@
-import Link from "next/link";
 import ProgressBar from "../ProgressBar";
-import SocialLinks from "../SocialLinks";
+import MenuItem from "./MenuItem";
 import { ActiveBookmark, Bookmark } from "./NavbarHorizontal";
+import SocialLinks from "./SocialLinks";
 
 interface Props {
   bookmarks: Bookmark[];
@@ -31,24 +31,5 @@ export default function NavbarVertical({ bookmarks, activeBookmark }: Props) {
         <SocialLinks />
       </nav>
     </div>
-  );
-}
-
-interface MenuItemProps {
-  bookmark: Bookmark;
-  isActive: boolean;
-}
-
-function MenuItem({ bookmark: { id, title }, isActive }: MenuItemProps) {
-  return (
-    <Link
-      href={`#${id}`}
-      className={`flex transition-all`}
-      style={{
-        color: isActive ? "var(--primary)" : undefined,
-      }}
-    >
-      {title.toUpperCase()}
-    </Link>
   );
 }
