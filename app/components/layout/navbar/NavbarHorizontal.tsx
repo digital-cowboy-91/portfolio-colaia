@@ -13,8 +13,8 @@ interface Props {
 
 export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   const effect = useRef({
-    store: {} as Record<number, number>,
-    skip: function (id: number, count: number = 2) {
+    store: {} as Record<number | string, number>,
+    skip: function (id: number | string, count: number = 1) {
       const store = this.store;
 
       if (store[id] > count) return false;
@@ -53,7 +53,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   });
 
   useEffect(() => {
-    if (effect.current.skip(0)) return;
+    if (effect.current.skip("menuAnim")) return;
 
     if (showMenu) {
       timer.current.clear();
@@ -99,7 +99,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   }, [showMenu]);
 
   useEffect(() => {
-    if (effect.current.skip(1)) return;
+    if (effect.current.skip("scroll")) return;
 
     timer.current.reset();
 
