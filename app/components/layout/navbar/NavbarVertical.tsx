@@ -24,7 +24,7 @@ export default function NavbarVertical({ bookmarks, activeBookmark }: Props) {
           ))}
         </menu>
         <ProgressBar
-          className="w-full min-h-[64px] h-[200px]"
+          className="w-full h-[128px]"
           progress={activeBookmark.progress}
           direction="vertical"
         />
