@@ -16,7 +16,12 @@ export default {
         subtle: "var(--subtle)",
         contour: "var(--contour)",
       },
+      boxShadow: {
+        top: "0px 8px 16px rgba(0, 0, 0, 0.3)",
+        massive: "20px 20px 30px rgba(0, 0, 0, 0.5)",
+      },
       dropShadow: {
+        top: "0px 8px 16px rgba(0, 0, 0, 0.3)",
         massive: "20px 20px 30px rgba(0, 0, 0, 0.5)",
       },
       padding: {
@@ -40,6 +45,7 @@ export default {
       },
       inset: {
         single: "var(--spacing-single)",
+        double: "var(--spacing-double)",
       },
     },
   },
