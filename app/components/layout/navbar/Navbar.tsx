@@ -20,8 +20,6 @@ export default function Navbar({ bookmarks, activeBookmark }: Props) {
 
   if (screenSmall === null) return null;
 
-  console.log({ bookmarks, activeBookmark });
-
   return screenSmall ? (
     <NavbarHorizontal bookmarks={bookmarks} activeBookmark={activeBookmark} />
   ) : (

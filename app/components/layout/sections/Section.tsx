@@ -27,8 +27,6 @@ export default function Section({ scrollProgress, children, ...rest }: Props) {
 
     if (prevPct === nextPct) return;
 
-    // console.log({ [rest.bookmark.title]: nextPct });
-
     scrollProgress(nextPct);
   });
 

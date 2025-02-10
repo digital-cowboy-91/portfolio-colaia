@@ -105,8 +105,6 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
     if (showMenu) setShowMenu(false);
   }, [activeBookmark]);
 
-  // console.dir(effect.current);
-
   return (
     <div className="fixed inset-x-0 z-50">
       <NavbarButton
