@@ -9,7 +9,7 @@ interface Props {
   activeBookmark: ActiveBookmark;
 }
 export default function Navbar({ bookmarks, activeBookmark }: Props) {
-  const [screenSmall, setScreenSmall] = useState(false);
+  const [screenSmall, setScreenSmall] = useState<boolean | null>(null);
   const size = useWindowSize();
 
   useEffect(() => {
@@ -17,6 +17,8 @@ export default function Navbar({ bookmarks, activeBookmark }: Props) {
 
     setScreenSmall(size.width < 576 || size.height < 576);
   }, [size]);
+
+  if (screenSmall === null) return null;
 
   return screenSmall ? (
     <NavbarHorizontal bookmarks={bookmarks} activeBookmark={activeBookmark} />

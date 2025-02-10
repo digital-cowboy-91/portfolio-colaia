@@ -16,7 +16,7 @@ export default function Section({ scrollProgress, children, ...rest }: Props) {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end end"],
+    offset: ["start center", "end center"],
   });
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {

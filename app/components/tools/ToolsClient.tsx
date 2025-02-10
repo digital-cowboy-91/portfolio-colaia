@@ -32,11 +32,14 @@ export default function ToolsClient({ items }: Props) {
   );
 
   return (
-    <div
-      ref={box.set}
-      className="min-h-[300px] flex justify-center items-start relative"
-    >
-      <div ref={trackerRef} className="absolute inset-x-0 h-[300px] -z-10" />
+    <div ref={box.set} className="flex justify-center items-start relative">
+      <div
+        ref={trackerRef}
+        className="absolute inset-x-0 -z-10"
+        style={{
+          height: "calc(var(--tools-h) + var(--spacing-single) * 2)",
+        }}
+      />
       <motion.div
         className={`bg-foreground text-background rounded-single overflow-hidden`}
         initial={false}

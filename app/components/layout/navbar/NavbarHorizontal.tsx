@@ -12,9 +12,24 @@ interface Props {
 }
 
 export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
+  const effect = useRef({
+    store: {} as Record<number, number>,
+    skip: function (id: number, count: number = 2) {
+      const store = this.store;
+
+      if (store[id] > count) return false;
+      if (!store[id]) store[id] = 0;
+
+      store[id]++;
+
+      return true;
+    },
+  });
+
   const [scope, animate] = useAnimate();
   const [showNav, setShowNav] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+
   const timer = useRef({
     instance: null as NodeJS.Timeout | null,
     set: function () {
@@ -38,6 +53,8 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   });
 
   useEffect(() => {
+    if (effect.current.skip(0)) return;
+
     if (showMenu) {
       timer.current.clear();
 
@@ -82,6 +99,8 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   }, [showMenu]);
 
   useEffect(() => {
+    if (effect.current.skip(1)) return;
+
     timer.current.reset();
 
     if (!showNav) setShowNav(true);
