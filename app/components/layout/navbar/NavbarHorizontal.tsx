@@ -14,7 +14,6 @@ export type Bookmark = {
 export type ActiveBookmark = {
   id: string;
   progress: number;
-  isScrollingDown: boolean;
 };
 
 interface Props {
@@ -102,7 +101,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   return (
     <div className="fixed inset-x-0 z-50">
       <NavbarButton show={!showNav} onClick={() => setShowNav(true)} />
-      <div
+      <nav
         className={`
           relative p-double overflow-hidden
           grid grid-rows-[32px_auto]
@@ -158,7 +157,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
             ))}
           </div>
         </menu>
-      </div>
+      </nav>
     </div>
   );
 }
