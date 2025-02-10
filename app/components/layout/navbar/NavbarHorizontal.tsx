@@ -95,69 +95,69 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
   useEffect(() => {
     timer.current.reset();
 
-    !showNav && setShowNav(true);
-    showMenu && setShowMenu(false);
+    if (!showNav) setShowNav(true);
+    if (showMenu) setShowMenu(false);
   }, [activeBookmark]);
-
-  const animations = {
-    activeButton: {
-      init: { opacity: 1, y: activeBookmark.isScrollingDown ? -50 : 50 },
-      anim: { opacity: 1, y: 0 },
-      exit: (direction: boolean) => ({ opacity: 1, y: direction ? 50 : -50 }),
-    },
-  };
 
   return (
     <div className="fixed inset-x-0 z-50">
       <NavbarButton show={!showNav} onClick={() => setShowNav(true)} />
       <div
         className={`
-          relative p-double
-          flex gap-single
-          text-xl tracking-wider
+          relative p-double overflow-hidden
+          grid grid-rows-[32px_auto]
+          text-xl tracking-wider font-semibold
           transition-transform duration-300
           ${showNav ? "translate-y-0" : "-translate-y-[200%]"}
+          text-foreground drop-shadow-top
         `}
         style={{
-          backgroundImage: "linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0))",
+          background: "rgba(0, 0, 0, 0.7)",
+          backdropFilter: "blur(5px)",
         }}
       >
-        <AnimatePresence
-          mode="popLayout"
-          custom={activeBookmark.isScrollingDown}
-        >
-          <motion.button
-            key={activeBookmark.id}
-            onClick={() => setShowMenu((current) => !current)}
-            disabled={!showNav}
-            variants={animations.activeButton}
-            initial="init"
-            animate="anim"
-            exit="exit"
-          >
-            {bookmarks
-              .find(({ id }) => id === activeBookmark.id)
-              ?.title.toUpperCase()}
-          </motion.button>
-        </AnimatePresence>
+        <div className="flex gap-double">
+          <AnimatePresence mode="popLayout">
+            <motion.button
+              key={activeBookmark.id}
+              onClick={() => setShowMenu((current) => !current)}
+              disabled={!showNav}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+            >
+              {bookmarks
+                .find(({ id }) => id === activeBookmark.id)
+                ?.title.toUpperCase()}
+            </motion.button>
+          </AnimatePresence>
+          <ProgressBar
+            className="flex-grow"
+            progress={activeBookmark.progress}
+          />
+          <SocialLinks />
+        </div>
         <menu
           ref={scope}
-          className="inset-x-double -bottom-0 translate-y-full absolute overflow-hidden bg-foreground text-background rounded-single shadow-lg"
           style={{
             opacity: 0,
             height: 0,
           }}
         >
-          <div className="flex flex-col items-start gap-single p-double">
+          <div className="pt-double pb-single flex flex-col items-start gap-single">
             {bookmarks.map(({ id, title }) => (
-              <Link key={id} href={`#${id}`}>
+              <Link
+                key={id}
+                href={`#${id}`}
+                className={`flex gap-single items-center ${
+                  activeBookmark.id === id && "text-primary"
+                }`}
+              >
                 {title.toUpperCase()}
               </Link>
             ))}
           </div>
         </menu>
-        <ProgressBar className="flex-grow" progress={activeBookmark.progress} />
-        <SocialLinks />
       </div>
     </div>
   );

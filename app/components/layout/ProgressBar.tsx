@@ -35,7 +35,7 @@ export default function ProgressBar({
           initial={{ pathLength: progress }}
           animate={{ pathLength: progress }}
           strokeWidth="2"
-          stroke="var(--primary)"
+          stroke="var(--foreground)"
         />
       </svg>
     </div>
