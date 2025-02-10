@@ -17,7 +17,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
     skip: function (id: number | string, count: number = 1) {
       const store = this.store;
 
-      if (store[id] > count) return false;
+      if (store[id] >= count) return false;
       if (!store[id]) store[id] = 0;
 
       store[id]++;
