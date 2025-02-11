@@ -9,8 +9,8 @@ jobs:
     env:
       DO_WORKDIR: services/portfolio-colaia
       DO_STORAGE: $SERVER_WORKDIR/persistant
-      # DO_ACCESS: ${{ secrets.DO_VPS1_SSH_ACCESS }}
-      DO_ACCESS: root@46.101.29.4
+      DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
+      DO_ACCESS: ${{ secrets.DO_VPS1_SSH_USER }}@$DO_IP
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
       #     node-version: "23.1.0"
 
       - name: Test ping with resolved address
-        run: ping -c 4 46.101.29.4 || true
+        run: ping -c 4 $DO_IP || true
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
@@ -29,11 +29,11 @@ jobs:
           ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
       
       - name: Add known host
-        run: ssh-keyscan -H 46.101.29.4 >> ~/.ssh/known_hosts
+        run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
         
       - name: Test connection
         # run: ssh -o StrictHostKeyChecking=no -v root@46.101.29.4 uname -r
-        run: ssh -v root@46.101.29.4 uname -r
+        run: ssh -v $DO_SSH uname -r
 
       # - name: Copy server data
       #   run: |
