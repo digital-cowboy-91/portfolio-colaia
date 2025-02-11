@@ -15,7 +15,7 @@ export async function readFile<T extends DocumentName>(
   filename: T
 ): Promise<Documents[T]> {
   return fs
-    .readFile(process.env.PERSISTANT + "/" + filename + ".json", {
+    .readFile(process.env.PERSISTENT + "/" + filename + ".json", {
       encoding: "utf8",
     })
     .then((res) => JSON.parse(res));
