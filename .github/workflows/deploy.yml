@@ -23,6 +23,10 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
+      
+      - name: Add known host
+        run: ssh-keyscan $DO_ACCESS >> ~/.ssh/known_hosts
+        
       - name: Test connection
         run: ssh -v $DO_ACCESS uname
 
