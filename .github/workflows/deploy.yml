@@ -14,41 +14,44 @@ jobs:
       DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
       DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # - name: Checkout
+      #   uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "23.1.0"
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "23.1.0"
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
 
-      - run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
+      - name: Add known hosts
+        run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
 
-      - name: Prepare to Build
-        run: scp -r $DO_SSH:$DO_PERSISTANT/* $PERSISTANT
+      # - name: Prepare to Build
+      #   run: scp -r $DO_SSH:$DO_PERSISTANT/* $PERSISTANT
 
-      - name: Build
-        run: |
-          npm i
-          npm run build
+      # - name: Build
+      #   run: |
+      #     npm i
+      #     npm run build
 
-      - name: Prepare to Deploy
-        run: |
-          echo 'PERSISTANT='$DO_PERSISTANT >> .env
-          echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
-          tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/
+      # - name: Prepare to Deploy
+      #   run: |
+      #     echo 'PERSISTANT='$DO_PERSISTANT >> .env
+      #     echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
+      #     tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/
 
       - name: Deploy
         run: |
+          echo 'test' > test.txt
+          tar -czvf latest.tar.gz test.txt
           scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR &&
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
-            mkdir tmp
+            mkdir -p tmp
             cd tmp
             tar -xzvf latest.tar.gz
           EOF
