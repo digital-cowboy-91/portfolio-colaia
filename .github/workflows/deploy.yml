@@ -51,26 +51,27 @@ jobs:
         run: |
           npm i
           npm run build
+          npm i -g clean-modules
+          npm ci --omit=dev
+          clean-modules -y
 
       - name: Upload
         run: |
           echo 'PERSISTENT='$DO_PERSISTENT >> .env
           echo 'TOTP_SECRET='$TOTP_SECRET >> .env
-          tar -czf $FILENAME.tar.gz package.json package-lock.json next.config.ts .env .next/ &&
+          tar -czf $FILENAME.tar.gz package.json package-lock.json next.config.ts .env .next/ node_modules/ &&
           scp -r $FILENAME.tar.gz $DO_SSH:$DO_BUILDS
 
       - name: Deploy
         run: |
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
-            pm2 stop $REPO
+            pm2 stop $REPO || true
             find . \
               -mindepth 1 \
               -regextype egrep \
-              -not -regex '^\.\/(persistent|builds|node_modules)($|/.*)' \
+              -not -regex '^\.\/(persistent|builds)($|/.*)' \
               -exec rm -rf {} +
             tar -xzf ./builds/$FILENAME.tar.gz
-            npm ci --omit=dev
-            clean-modules -y
-            pm2 start $REPO
+            pm2 start $REPO || pm2 --name $REPO start npm --start && pm2 save
           EOF
