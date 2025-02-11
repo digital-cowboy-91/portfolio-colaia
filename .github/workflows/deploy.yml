@@ -25,10 +25,10 @@ jobs:
           ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
       
       - name: Add known host
-        run: ssh-keyscan $DO_ACCESS >> ~/.ssh/known_hosts
+        run: ssh-keyscan ${{env.DO_ACCESS}} >> ~/.ssh/known_hosts
         
       - name: Test connection
-        run: ssh -v $DO_ACCESS uname
+        run: ssh -v ${{env.DO_ACCESS}} uname -r
 
       # - name: Copy server data
       #   run: |
