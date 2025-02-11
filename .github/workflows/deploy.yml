@@ -19,10 +19,12 @@ jobs:
           node-version: "23.1.0"
           
       - name: Create empty data
-      - run: echo '[]' > /tmp/tools.json
-      - run: echo '[]' > /tmp/profile.json
-      - run: echo '[]' > /tmp/activity.json
+        run: |
+          echo '[]' > /tmp/tools.json
+          echo '[]' > /tmp/profile.json
+          echo '[]' > /tmp/activity.json
 
       - name: Generate build
-      - run: npm i
-      - run: npm run build
+        run: |
+          npm i
+          npm run build
