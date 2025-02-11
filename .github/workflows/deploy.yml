@@ -20,7 +20,7 @@ jobs:
       #     node-version: "23.1.0"
 
       - name: Print DO_ACCESS value
-        run: echo "DO_ACCESS: $DO_ACCESS"
+        run: echo $DO_ACCESS
 
       - name: Ping the server
         run: ping -c 4 $DO_ACCESS
