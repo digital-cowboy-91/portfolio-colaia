@@ -47,9 +47,9 @@ jobs:
         run: |
           scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR
           ssh $DO_SSH <<EOF
-cd $DO_WORKDIR
-mkdir tmp
-cd tmp
-tar -xzvf latest.tar.gz --overwrite
-# npm i
+            cd $DO_WORKDIR
+            mkdir tmp
+            cd tmp
+            tar -xzvf latest.tar.gz --overwrite
+            # npm i
           EOF
