@@ -1,4 +1,4 @@
-name: Deploy to VPS1
+name: Deploy on Tag to VPS1
 on:
   push:
     branches:
@@ -6,14 +6,32 @@ on:
 jobs:
   workflow:
     runs-on: ubuntu-latest
-    env:
-      PERSISTANT: /tmp
+    # env:
+    #   PERSISTENT: /tmp
+    #   FILENAME: ${{ github.sha:0:7 }}
+    #   REPO: ${{ github.event.repository.name }}
 
-      DO_WORKDIR: services/action-test
-      DO_PERSISTANT: services/portfolio-colaia/persistant
-      DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
-      DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
+    #   DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
+    #   DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
+
+    #   DO_WORKDIR: services/${{ github.event.repository.name }}
+    #   DO_PERSISTENT: services/${{ github.event.repository.name }}/persistent
+    #   DO_BUILDS: services/${{ github.event.repository.name }}/builds
+    # export REPO=${{ github.event.repository.name }}
     steps:
+      - name: Setup Env Variables
+        run: |
+          export PERSISTENT=/tmp/persistent
+          export REPO=action-test
+          export FILENAME=${{ github.sha:0:7 }}
+
+          export DO_IP=${{ secrets.DO_VPS1_SSH_IP }}
+          export DO_SSH=${{ secrets.DO_VPS1_SSH_USER }}@$DO_IP
+
+          export DO_WORKDIR=services/$REPO
+          export DO_PERSISTENT=services/$REPO/persistent
+          export DO_BUILDS=services/$REPO/builds
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -30,8 +48,16 @@ jobs:
       - name: Add known hosts
         run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
 
+      - name: Initialize directories
+        run: |
+          mkdir -p $PERSISTENT
+          ssh $DO_SSH <<EOF
+            mkdir -p $DO_PERSISTENT
+            mkdir -p $DO_BUILDS
+          EOF
+
       - name: Download latest data
-        run: scp -r $DO_SSH:$DO_PERSISTANT/* $PERSISTANT
+        run: scp -r $DO_SSH:$DO_PERSISTENT/* $PERSISTENT
 
       - name: Build
         run: |
@@ -40,17 +66,23 @@ jobs:
 
       - name: Upload
         run: |
-          echo 'PERSISTANT='$DO_PERSISTANT >> .env
+          echo 'PERSISTENT='$DO_PERSISTENT >> .env
           echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
-          tar -czf latest.tar.gz package.json package-lock.json next.config.ts .env .next/ &&
-          scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR
+          tar -czf $FILENAME.tar.gz package.json package-lock.json next.config.ts .env .next/ &&
+          scp -r $FILENAME.tar.gz $DO_SSH:$DO_BUILDS
 
       - name: Deploy
         run: |
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
-            tar -xzf latest.tar.gz
+            pm2 stop $REPO
+            find . \
+              -mindepth 1 \
+              -regextype egrep \
+              -not -regex '^\.\/(persistent|builds|node_modules)($|/.*)' \
+              -exec rm -rf {} +
+            tar -xzf ./builds/$FILENAME.tar.gz
             npm ci --omit=dev
-            npm i -g clean-modules
             clean-modules -y
+            pm2 start $REPO
           EOF
