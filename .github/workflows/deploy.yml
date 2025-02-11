@@ -6,34 +6,21 @@ on:
 jobs:
   workflow:
     runs-on: ubuntu-latest
-    # env:
-    #   PERSISTENT: /tmp
-    #   FILENAME: ${{ github.sha:0:7 }}
-    #   REPO: ${{ github.event.repository.name }}
+    env:
+      PERSISTENT: /tmp/persistent
+      FILENAME: ${{ github.sha }}
+      # REPO: ${{ github.event.repository.name }}
+      REPO: action-test
 
-    #   DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
-    #   DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
+      DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
+      DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
 
-    #   DO_WORKDIR: services/${{ github.event.repository.name }}
-    #   DO_PERSISTENT: services/${{ github.event.repository.name }}/persistent
-    #   DO_BUILDS: services/${{ github.event.repository.name }}/builds
-    # export REPO=${{ github.event.repository.name }}
+      DO_WORKDIR: services/${{ github.event.repository.name }}
+      DO_PERSISTENT: services/${{ github.event.repository.name }}/persistent
+      DO_BUILDS: services/${{ github.event.repository.name }}/builds
+
+      TOTP_SECRET: ${{ secrets.TOTP_SECRET }}
     steps:
-      - name: Setup Env Variables
-        run: |
-          export PERSISTENT=/tmp/persistent
-          export REPO=action-test
-          export FILENAME=${{ github.sha }}
-
-          export DO_IP=${{ secrets.DO_VPS1_SSH_IP }}
-          export DO_SSH=${{ secrets.DO_VPS1_SSH_USER }}@$DO_IP
-
-          export DO_WORKDIR=services/$REPO
-          export DO_PERSISTENT=services/$REPO/persistent
-          export DO_BUILDS=services/$REPO/builds
-
-          printenv
-
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -69,7 +56,7 @@ jobs:
       - name: Upload
         run: |
           echo 'PERSISTENT='$DO_PERSISTENT >> .env
-          echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
+          echo 'TOTP_SECRET='$TOTP_SECRET >> .env
           tar -czf $FILENAME.tar.gz package.json package-lock.json next.config.ts .env .next/ &&
           scp -r $FILENAME.tar.gz $DO_SSH:$DO_BUILDS
 
