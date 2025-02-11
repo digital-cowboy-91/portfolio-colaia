@@ -50,5 +50,5 @@ jobs:
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
             tar -xzvf latest.tar.gz
-            npm i
+            npm ci
           EOF
