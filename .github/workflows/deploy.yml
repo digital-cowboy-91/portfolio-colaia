@@ -52,6 +52,7 @@ jobs:
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
             mkdir -p tmp
+            mv latest.tar.gz tmp
             cd tmp
             tar -xzvf latest.tar.gz
           EOF
