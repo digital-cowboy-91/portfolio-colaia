@@ -46,8 +46,8 @@ jobs:
 
       - name: Deploy
         run: |
-          echo 'test' > test.txt
-          tar -czvf latest.tar.gz test.txt
+          echo 'test' > test.tmp
+          tar -czvf latest.tar.gz test.tmp &&
           scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR &&
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
