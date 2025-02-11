@@ -9,8 +9,7 @@ jobs:
     env:
       PERSISTENT: /tmp/persistent
       FILENAME: ${{ github.sha }}
-      # REPO: ${{ github.event.repository.name }}
-      REPO: action-test
+      REPO: ${{ github.event.repository.name }}
 
       DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
       DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
