@@ -42,7 +42,7 @@ jobs:
         run: |
           echo 'PERSISTANT='$DO_PERSISTANT >> .env
           echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
-          tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/ &&
+          tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/ node_modules &&
           scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR
 
       - name: Deploy
@@ -50,5 +50,4 @@ jobs:
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
             tar -xzvf latest.tar.gz
-            npm ci
           EOF
