@@ -9,18 +9,18 @@ jobs:
     env:
       PERSISTANT: /tmp
 
-      DO_WORKDIR: services/portfolio-colaia
+      DO_WORKDIR: services/action-test
       DO_PERSISTANT: services/portfolio-colaia/persistant
       DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
       DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "23.1.0"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "23.1.0"
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
@@ -30,28 +30,25 @@ jobs:
       - name: Add known hosts
         run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
 
-      # - name: Prepare to Build
-      #   run: scp -r $DO_SSH:$DO_PERSISTANT/* $PERSISTANT
+      - name: Prepare to Build
+        run: scp -r $DO_SSH:$DO_PERSISTANT/* $PERSISTANT
 
-      # - name: Build
-      #   run: |
-      #     npm i
-      #     npm run build
+      - name: Build
+        run: |
+          npm i
+          npm run build
 
-      # - name: Prepare to Deploy
-      #   run: |
-      #     echo 'PERSISTANT='$DO_PERSISTANT >> .env
-      #     echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
-      #     tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/
+      - name: Prepare to Deploy
+        run: |
+          echo 'PERSISTANT='$DO_PERSISTANT >> .env
+          echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
+          tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/ &&
+          scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR
 
       - name: Deploy
         run: |
-          echo 'test' > test.tmp
-          tar -czvf latest.tar.gz test.tmp &&
-          ssh $DO_SSH mkdir -p $DO_WORKDIR/tmp &&
-          scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR/tmp &&
           ssh $DO_SSH <<EOF
-            cd $DO_WORKDIR/tmp
-            cd tmp
+            cd $DO_WORKDIR
             tar -xzvf latest.tar.gz
+            npm i
           EOF
