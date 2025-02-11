@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DO_WORKDIR: services/portfolio-colaia
-      DO_STORAGE: $SERVER_WORKDIR/persistant
+      DO_STORAGE: services/portfolio-colaia/persistant
       DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
-      DO_ACCESS: ${{ secrets.DO_VPS1_SSH_USER }}@$DO_IP
+      DO_ACCESS: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
     steps:
       # - name: Checkout
       #   uses: actions/checkout@v4
