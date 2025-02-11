@@ -23,11 +23,13 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
+      - name: Test connection
+        run: ssh $DO_ACCESS uname -r
 
-      - name: Copy server data
-        run: |
-          scp -r $DO_ACCESS:$DO_STORAGE/* /tmp
-          ls -l /tmp
+      # - name: Copy server data
+      #   run: |
+      #     scp -r $DO_ACCESS:$DO_STORAGE/* /tmp
+      #     ls -l /tmp
 
       # - name: Generate build
       #   run: |
