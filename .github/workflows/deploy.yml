@@ -23,7 +23,7 @@ jobs:
         run: |
           export PERSISTENT=/tmp/persistent
           export REPO=action-test
-          export FILENAME=${{ github.sha:0:7 }}
+          export FILENAME=${{ github.sha }}
 
           export DO_IP=${{ secrets.DO_VPS1_SSH_IP }}
           export DO_SSH=${{ secrets.DO_VPS1_SSH_USER }}@$DO_IP
@@ -31,6 +31,8 @@ jobs:
           export DO_WORKDIR=services/$REPO
           export DO_PERSISTENT=services/$REPO/persistent
           export DO_BUILDS=services/$REPO/builds
+
+          printenv
 
       - name: Checkout
         uses: actions/checkout@v4
