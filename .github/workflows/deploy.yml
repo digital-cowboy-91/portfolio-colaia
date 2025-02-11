@@ -66,7 +66,7 @@ jobs:
         run: |
           ssh $DO_SSH <<EOF
             cd $DO_WORKDIR
-            pm2 stop $REPO || true
+            pm2 delete $REPO || true
             find . \
               -mindepth 1 \
               -maxdepth 1 \
@@ -74,5 +74,6 @@ jobs:
               -not -regex '^\.\/(persistent|builds)$' \
               -exec rm -rf {} +
             tar -xzf ./builds/$FILENAME.tar.gz
-            pm2 start $REPO || pm2 --name $REPO start npm --start && pm2 save
+            pm2 --name $REPO start npm -- start
+            pm2 save
           EOF
