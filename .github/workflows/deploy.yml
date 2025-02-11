@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       DO_WORKDIR: services/portfolio-colaia
@@ -12,31 +12,44 @@ jobs:
       DO_IP: ${{ secrets.DO_VPS1_SSH_IP }}
       DO_SSH: ${{ secrets.DO_VPS1_SSH_USER }}@${{ secrets.DO_VPS1_SSH_IP }}
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         
-      # - name: Setup Node
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "23.1.0"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "23.1.0"
 
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
       
-      - name: Add known host
-        run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
-        
-      # - name: Test connection
-      #   run: ssh -v $DO_SSH uname -r
+      - run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
 
-      - name: Copy server data
+      - name: Prepare to Build
+        run: scp -r $DO_SSH:$DO_STORAGE/* /tmp
+
+      - name: Build
         run: |
-          scp -r $DO_SSH:$DO_STORAGE/* /tmp
-          ls -l /tmp
+          npm i
+          npm run build
 
-      # - name: Generate build
-      #   run: |
-      #     npm i
-      #     npm run build
+      - name: Prepare to Deploy
+        run: |
+          echo 'SERVER_STORAGE='$DO_STORAGE >> .env
+          echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
+          tar -czvf latest.tar.gz package.json package-lock.json next.config.ts .env .next/
+          
+      - name: Deploy
+        run: |
+          scp -r latest.tar.gz $DO_SSH:$DO_STORAGE
+          ssh $DO_SSH
+          cd $DO_STORAGE
+          mkdir tmp
+          cd tmp
+          tar -xzvf latest.tar.gz --overwrite
+          # npm i
+          
+
+        
