@@ -1,10 +1,10 @@
-name: Deploy App
+name: Deploy to VPS1
 on:
   push:
     branches:
       - main
 jobs:
-  deploy:
+  workflow:
     runs-on: ubuntu-latest
     env:
       PERSISTANT: /tmp
@@ -30,7 +30,7 @@ jobs:
       - name: Add known hosts
         run: ssh-keyscan -H $DO_IP >> ~/.ssh/known_hosts
 
-      - name: Prepare to Build
+      - name: Download latest data
         run: scp -r $DO_SSH:$DO_PERSISTANT/* $PERSISTANT
 
       - name: Build
@@ -38,7 +38,7 @@ jobs:
           npm i
           npm run build
 
-      - name: Prepare to Deploy
+      - name: Upload
         run: |
           echo 'PERSISTANT='$DO_PERSISTANT >> .env
           echo 'TOTP_SECRET='${{ secrets.TOTP_SECRET }} >> .env
