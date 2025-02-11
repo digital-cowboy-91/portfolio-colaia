@@ -48,11 +48,10 @@ jobs:
         run: |
           echo 'test' > test.tmp
           tar -czvf latest.tar.gz test.tmp &&
-          scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR &&
+          ssh $DO_SSH mkdir -p $DO_WORKDIR/tmp &&
+          scp -r latest.tar.gz $DO_SSH:$DO_WORKDIR/tmp &&
           ssh $DO_SSH <<EOF
-            cd $DO_WORKDIR
-            mkdir -p tmp
-            mv latest.tar.gz tmp
+            cd $DO_WORKDIR/tmp
             cd tmp
             tar -xzvf latest.tar.gz
           EOF
