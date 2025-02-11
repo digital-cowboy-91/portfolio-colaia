@@ -69,8 +69,9 @@ jobs:
             pm2 stop $REPO || true
             find . \
               -mindepth 1 \
+              -maxdepth 1 \
               -regextype egrep \
-              -not -regex '^\.\/(persistent|builds)($|/.*)' \
+              -not -regex '^\.\/(persistent|builds)$' \
               -exec rm -rf {} +
             tar -xzf ./builds/$FILENAME.tar.gz
             pm2 start $REPO || pm2 --name $REPO start npm --start && pm2 save
