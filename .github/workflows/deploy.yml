@@ -7,24 +7,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      # TOTP_SECRET: ${{ secrets.TOTP_SECRET }}
-      SERVER_STORAGE: /tmp
+      DO_WORKDIR: services/portfolio-colaia
+      DO_STORAGE: $SERVER_WORKDIR/persistant
+      DO_ACCESS: ${{ secrets.DO_VPS1_SSH_ACCESS }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # - name: Checkout
+      #   uses: actions/checkout@v4
         
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "23.1.0"
-          
-      - name: Create empty data
-        run: |
-          echo '[]' > /tmp/tools.json
-          echo '[]' > /tmp/profile.json
-          echo '[]' > /tmp/activity.json
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "23.1.0"
 
-      - name: Generate build
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DO_VPS1_SSH_PRIVATE_KEY }}
+
+      - name: Copy server data
         run: |
-          npm i
-          npm run build
+          scp -r $DO_ACCESS:$DO_STORAGE/* /tmp
+          ls -l /tmp
+
+      # - name: Generate build
+      #   run: |
+      #     npm i
+      #     npm run build
