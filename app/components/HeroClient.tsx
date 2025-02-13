@@ -1,7 +1,6 @@
 "use client";
 
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
-import { stagger } from "motion";
 import { useAnimate } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -54,8 +53,8 @@ export default function HeroClient() {
       ["#hero__name-3", { filter: "blur(6px)", opacity: 0.25 }, { at: "<" }],
       [
         "#hero__subheading>span",
-        { y: ["3rem", 0], opacity: 1 },
-        { ease: "backOut", delay: stagger(0.2), duration: 0.75, at: "+.2" },
+        { rotateX: [-90, 0], opacity: [0, 1] },
+        { ease: "backOut", at: "+.1", duration: 0.5 },
       ],
     ]).then(() => {
       isReady.current = true;
@@ -63,7 +62,7 @@ export default function HeroClient() {
   }, [width]);
 
   return (
-    <section
+    <div
       ref={scope}
       className={`
         relative h-full
@@ -133,21 +132,26 @@ export default function HeroClient() {
         ref={subheadingRef}
         id="hero__subheading"
         className={`
-            col-start-2
-            row-start-3
-            self-start
-            text-2xl sm:text-4xl font-[300]
-            w-full
-            flex justify-end gap-x-3 flex-wrap
-            [&>span]:opacity-0
-            relative
+            col-start-2 row-start-3
+            w-max justify-self-end self-start
+            text-2xl sm:text-4xl
           `}
+        style={{
+          perspective: "200px",
+        }}
       >
-        <span>THE</span>
-        <span>FULLSTACK</span>
-        <span>CODER</span>
+        <span
+          className="block"
+          style={{
+            transformOrigin: "top",
+            transform: "rotateX(-90deg)",
+            opacity: 0,
+          }}
+        >
+          THE FULLSTACK CODER
+        </span>
       </div>
-    </section>
+    </div>
   );
 }
 
