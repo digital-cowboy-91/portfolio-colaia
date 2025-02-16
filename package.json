@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.12.7",
     "highlight.js": "^11.11.1",
     "isomorphic-dompurify": "^2.19.0",
     "motion": "^11.15.0",
