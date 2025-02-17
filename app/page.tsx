@@ -66,9 +66,10 @@ export default function Home() {
                 className="absolute inset-0 flex flex-col justify-center"
                 style={{ opacity: 0 }}
               >
-                <div className="bg-white rounded-single text-background p-double drop-shadow-massive">
-                  <ToolsServer as="table" />
-                </div>
+                <ToolsServer
+                  as="table"
+                  className="bg-white rounded-single text-background p-double drop-shadow-massive"
+                />
               </div>
             </div>
             <Image
@@ -89,9 +90,10 @@ export default function Home() {
               style={{ opacity: 0 }}
             />
           </div>
-          <div className="h-[var(--tools-h)] bg-white rounded-single flex items-center justify-center">
-            <ToolsServer as="bar" />
-          </div>
+          <ToolsServer
+            as="bar"
+            className="h-[var(--tools-h)] p-single gap-[var(--tools-gap)] bg-white rounded-single flex items-center justify-center text-background"
+          />
         </div>
       </section>
     </HomeAnimate>
