@@ -21,18 +21,6 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .add(intro.play().delay(0.5))
       .set("body", { overflow: "" });
 
-    // ON SCROLL - CONFIG
-    const map = {
-      0.33: "step1",
-      0.66: "step2",
-      1: "step3",
-    };
-
-    const steps = {
-      prev: 0,
-      next: 0,
-    };
-
     // ON SCROLL - ANIMATION
     const tl = gsap
       .timeline({ paused: true, defaults: { duration: 0.3 } })
@@ -99,10 +87,24 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .add("step3");
 
     // ON SCROLL - TRIGGER
+    type StepKeys = 0 | 0.33 | 0.66 | 1;
+
+    const steps = {
+      map: {
+        0: "step0",
+        0.33: "step1",
+        0.66: "step2",
+        1: "step3",
+      },
+      prev: 0 as StepKeys,
+      next: 0 as StepKeys,
+    };
+
     ScrollTrigger.create({
       onUpdate: (self) => {
         const current = self.progress;
-        const prev = steps.prev;
+
+        const { map, prev } = steps;
         const next = current <= 0.33 ? 0.33 : current <= 0.66 ? 0.66 : 1;
 
         if (prev === next) return;
