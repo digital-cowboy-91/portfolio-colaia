@@ -24,7 +24,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      style={{ scrollBehavior: "smooth", scrollbarGutter: "stable" }}
+    >
       <head>
         <script
           src="https://code.iconify.design/iconify-icon/2.2.0/iconify-icon.min.js"

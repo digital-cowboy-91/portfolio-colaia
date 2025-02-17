@@ -1,3 +1,5 @@
+"use client";
+
 import { Tool } from "@/app/types/tools";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { AnimatePresence, motion } from "motion/react";

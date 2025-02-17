@@ -1,10 +1,20 @@
 import { readFile } from "@/app/utils/persistantJSON";
-import ToolsClient from "./ToolsClient";
+import ToolsListBar from "./ToolsListBar";
+import ToolsListTable from "./ToolsListTable";
 
-export default async function ToolsServer() {
+interface Props {
+  as: "table" | "bar";
+}
+
+export default async function ToolsServer({ as }: Props) {
   const data = await readFile("tools").then((res) =>
     res.sort(() => 0.5 - Math.random())
   );
 
-  return <ToolsClient items={data} />;
+  if (!data.length) return;
+
+  if (as === "table") return <ToolsListTable items={data} />;
+  if (as === "bar") return <ToolsListBar items={data} />;
+
+  return;
 }
