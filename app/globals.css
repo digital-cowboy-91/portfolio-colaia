@@ -11,6 +11,7 @@
   --subtle: #c1c1c1;
   --contour: rgba(255, 255, 255, 0.2);
   --snippet-tab-size: 2rem;
+  --layout-spacing: 1rem;
   --spacing-single: 1rem;
   --spacing-double: calc(var(--spacing-single) * 2);
   --tools-h: 64px;
@@ -23,7 +24,7 @@
   (max-height: 576px) and (orientation: landscape) {
   :root {
     --snippet-tab-size: 1.5rem;
-    --spacing-single: 0.5rem;
+    --layout-spacing: 0.5rem;
     --tools-h: 48px;
   }
 }

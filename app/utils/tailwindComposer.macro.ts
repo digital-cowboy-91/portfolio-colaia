@@ -51,12 +51,12 @@ export const twTransform = transformer;
 //       "h-full w-full max-w-[960px] mx-auto object-contain drop-shadow-massive",
 //     landscape: "z-10",
 //   },
-//   scrollables: {
+//   frames: {
 //     DEFAULT: "h-full w-full",
 //     landscape: "relative order-1 col-start-2",
 //     portrait: "absolute inset-0",
 //   },
-//   scrollableItem: {
+//   frameItem: {
 //     DEFAULT: "absolute inset-0 flex flex-col justify-center",
 //   },
 // });
@@ -70,7 +70,7 @@ export const twTransform = transformer;
 //     "h-full w-full flex flex-col landscape:order-2 landscape:col-start-3 portrait:h-[60%]",
 //   image:
 //     "h-full w-full max-w-[960px] mx-auto object-contain drop-shadow-massive landscape:z-10",
-//   scrollables:
+//   frames:
 //     "h-full w-full landscape:relative landscape:order-1 landscape:col-start-2 portrait:absolute portrait:inset-0",
-//   scrollableItem: "absolute inset-0 flex flex-col justify-center",
+//   frameItem: "absolute inset-0 flex flex-col justify-center",
 // };

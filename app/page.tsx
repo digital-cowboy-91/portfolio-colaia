@@ -14,7 +14,6 @@ export default function Home() {
           <div className="profile__main">
             <div className="profile__image-wrapper">
               <Image
-                id="portrait"
                 className="anim__portrait"
                 src={portraitPic}
                 alt=""
@@ -23,24 +22,21 @@ export default function Home() {
                 style={{ opacity: 0 }}
               />
             </div>
-            <div className="profile__scrollables">
+            <div className="profile__frames">
               <div
-                id="intro"
-                className="profile__scrollable-item 
-                anim__scrollable-1"
+                className="profile__frame-item 
+                anim__frame-1"
               >
                 <HeroText />
               </div>
               <div
-                id="about-me"
-                className="profile__scrollable-item anim__scrollable-2"
+                className="profile__frame-item anim__frame-2"
                 style={{ opacity: 0 }}
               >
                 <ProfileServer />
               </div>
               <div
-                id="tools-table"
-                className="profile__scrollable-item anim__scrollable-3"
+                className="profile__frame-item anim__frame-3"
                 style={{ opacity: 0 }}
               >
                 <ToolsServer
@@ -56,49 +52,3 @@ export default function Home() {
     </HomeAnimate>
   );
 }
-
-// export default function Home() {
-//   return (
-//     <HomeAnimate>
-//       <section id="profile">
-//         <div className="layout">
-//           <div className="main">
-//             <div className="image-wrapper">
-//               <Image
-//                 id="portrait"
-//                 src={portraitPic}
-//                 alt=""
-//                 quality={100}
-//                 priority
-//                 style={{ opacity: 0 }}
-//               />
-//             </div>
-//             <div className="scrollables">
-//               <div id="intro" className={"scrollable-item"}>
-//                 <HeroText />
-//               </div>
-//               <div
-//                 id="about-me"
-//                 className="scrollable-item"
-//                 style={{ opacity: 0 }}
-//               >
-//                 <ProfileServer />
-//               </div>
-//               <div
-//                 id="tools-table"
-//                 className="scrollable-item"
-//                 style={{ opacity: 0 }}
-//               >
-//                 <ToolsServer
-//                   as="table"
-//                   className="bg-white rounded-single text-background p-double drop-shadow-massive"
-//                 />
-//               </div>
-//             </div>
-//           </div>
-//           <ToolsServer as="bar" className="card tools-bar" />
-//         </div>
-//       </section>
-//     </HomeAnimate>
-//   );
-// }

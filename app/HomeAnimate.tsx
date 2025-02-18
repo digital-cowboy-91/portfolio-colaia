@@ -26,7 +26,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .timeline({ paused: true, defaults: { duration: 0.3 } })
 
       // STEP 1
-      .to(".anim__scrollable-1", {
+      .to(".anim__frame-1", {
         y: "+=0",
         opacity: 1,
         attr: { "aria-hidden": "false" },
@@ -34,14 +34,14 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .add("step1")
 
       // STEP 2
-      .to(".anim__scrollable-1", {
+      .to(".anim__frame-1", {
         y: "-=50",
         opacity: 0,
         display: "none",
         attr: { "aria-hidden": "true" },
       })
       .to(
-        ".anim__scrollable-2",
+        ".anim__frame-2",
         {
           y: "-=50",
           opacity: 0,
@@ -50,7 +50,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         },
         "<"
       )
-      .to(".anim__scrollable-2", {
+      .to(".anim__frame-2", {
         y: "+=50",
         rotateX: 0,
         rotateY: 0,
@@ -60,7 +60,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .add("step2")
 
       // STEP 3
-      .to(".anim__scrollable-2", {
+      .to(".anim__frame-2", {
         rotateX: -90,
         rotateY: 90,
         opacity: 0,
@@ -70,7 +70,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         attr: { "aria-hidden": "true" },
       })
       .to(
-        ".anim__scrollable-3",
+        ".anim__frame-3",
         {
           rotateX: 90,
           rotateY: 90,
@@ -80,7 +80,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         },
         "<"
       )
-      .to(".anim__scrollable-3", {
+      .to(".anim__frame-3", {
         rotateX: 0,
         rotateY: 0,
         opacity: 1,
