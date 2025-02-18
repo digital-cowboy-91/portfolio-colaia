@@ -7,8 +7,8 @@ import { PropsWithChildren } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function HomeAnimate({ children }: PropsWithChildren) {
-  useGSAP((context) => {
-    console.log();
+  useGSAP(() => {
+    console.log("rerender");
     // INITIAL ANIMATION
     const intro = gsap.getById("intro") ?? gsap.timeline();
 
@@ -27,7 +27,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
 
       // STEP 1
       .to("#intro", {
-        y: 0,
+        y: "+=0",
         opacity: 1,
         attr: { "aria-hidden": "false" },
       })
@@ -35,21 +35,21 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
 
       // STEP 2
       .to("#intro", {
-        y: -50,
+        y: "-=50",
         opacity: 0,
         attr: { "aria-hidden": "true" },
       })
       .to(
         "#about-me",
         {
-          y: 50,
+          y: "-=50",
           opacity: 0,
           attr: { "aria-hidden": "true" },
         },
         "<"
       )
       .to("#about-me", {
-        y: "0",
+        y: "+=50",
         rotateX: 0,
         rotateY: 0,
         opacity: 1,
