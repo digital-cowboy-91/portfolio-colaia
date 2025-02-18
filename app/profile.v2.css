@@ -134,3 +134,9 @@
     top: 25%;
   }
 }
+
+@media (orientation: portrait) and (min-height: 960px) {
+  .profile__frame-item {
+    top: 25%;
+  }
+}
