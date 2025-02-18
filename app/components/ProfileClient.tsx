@@ -41,7 +41,7 @@ export default function ProfileClient({ data }: Props) {
         <div className="w-[32px] shrink-0 md:w-[64px]" />
         <div
           className={`
-            max-md:hidden
+            portrait:hidden
             border-s border-contour
             text-nowrap p-single
           `}

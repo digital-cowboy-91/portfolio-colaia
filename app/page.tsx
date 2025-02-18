@@ -1,51 +1,54 @@
-import ActivityServer from "./components/ActivityServer";
-import HeroClient from "./components/HeroClient";
-import { Section, SectionWrapper } from "./components/layout/sections";
+import portraitPic from "@/app/assets/profile-turtle-neck.webp";
+import Image from "next/image";
+import HeroText from "./components/HeroText";
 import ProfileServer from "./components/ProfileServer";
-import { Tools } from "./components/tools";
+import ToolsServer from "./components/tools/ToolsServer";
+import HomeAnimate from "./HomeAnimate";
+import "./profile.v2.css";
 
 export default function Home() {
   return (
-    <SectionWrapper>
-      <Section
-        id="hero"
-        bookmark={{ title: "Home", icon: "codicon:arrow-right" }}
-        className="h-[calc(100vh-var(--tools-h)-var(--spacing-single))] p-single"
-      >
-        <div className="relative rounded-single overflow-hidden w-full h-full">
-          <HeroClient />
-          <div
-            className="absolute inset-0 -z-10"
-            style={{
-              backgroundImage: `
-              radial-gradient(
-                circle at top left,
-                rgba(0,191,255,1),
-                rgba(32,167,239,0.88),
-                rgba(64,143,223,0.75),
-                rgba(96,119,207,0.63),
-                rgba(128,95,190,0.5),
-                rgba(159,72,174,0.38),
-                rgba(191,48,158,0.25),
-                rgba(223,24,142,0.13),
-                rgba(255,0,126,0) 75%
-              )
-            `,
-            }}
-          />
+    <HomeAnimate>
+      <section className="profile">
+        <div className="profile__layout">
+          <div className="profile__main">
+            <div className="profile__image-wrapper">
+              <Image
+                className="anim__portrait"
+                src={portraitPic}
+                alt=""
+                quality={100}
+                priority
+                style={{ opacity: 0 }}
+              />
+            </div>
+            <div className="profile__frames">
+              <div
+                className="profile__frame-item 
+                anim__frame-1"
+              >
+                <HeroText />
+              </div>
+              <div
+                className="profile__frame-item anim__frame-2"
+                style={{ opacity: 0 }}
+              >
+                <ProfileServer />
+              </div>
+              <div
+                className="profile__frame-item anim__frame-3"
+                style={{ opacity: 0 }}
+              >
+                <ToolsServer
+                  as="table"
+                  className="g-card profile__tools-table drop-shadow-massive"
+                />
+              </div>
+            </div>
+          </div>
+          <ToolsServer as="bar" className="g-card profile__tools-bar" />
         </div>
-      </Section>
-      <Section
-        id="profile"
-        bookmark={{ title: "Profile" }}
-        className="px-single pt-0 pb-[25vh] flex flex-col gap-[5vh]"
-      >
-        <Tools />
-        <ProfileServer />
-      </Section>
-      <Section id="activity" bookmark={{ title: "Activity" }}>
-        <ActivityServer />
-      </Section>
-    </SectionWrapper>
+      </section>
+    </HomeAnimate>
   );
 }
