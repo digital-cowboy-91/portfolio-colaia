@@ -15,7 +15,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
     gsap
       .timeline({ id: "initial" })
       .set("body", { overflow: "hidden" })
-      .to("#portrait", {
+      .to(".anim__portrait", {
         opacity: 1,
       })
       .add(intro.play().delay(0.5))
@@ -26,7 +26,7 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .timeline({ paused: true, defaults: { duration: 0.3 } })
 
       // STEP 1
-      .to("#intro", {
+      .to(".anim__scrollable-1", {
         y: "+=0",
         opacity: 1,
         attr: { "aria-hidden": "false" },
@@ -34,21 +34,23 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .add("step1")
 
       // STEP 2
-      .to("#intro", {
+      .to(".anim__scrollable-1", {
         y: "-=50",
         opacity: 0,
+        display: "none",
         attr: { "aria-hidden": "true" },
       })
       .to(
-        "#about-me",
+        ".anim__scrollable-2",
         {
           y: "-=50",
           opacity: 0,
+          display: undefined,
           attr: { "aria-hidden": "true" },
         },
         "<"
       )
-      .to("#about-me", {
+      .to(".anim__scrollable-2", {
         y: "+=50",
         rotateX: 0,
         rotateY: 0,
@@ -58,25 +60,27 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .add("step2")
 
       // STEP 3
-      .to("#about-me", {
+      .to(".anim__scrollable-2", {
         rotateX: -90,
         rotateY: 90,
         opacity: 0,
         ease: "back.in",
         duration: 0.5,
+        display: "none",
         attr: { "aria-hidden": "true" },
       })
       .to(
-        "#tools-table",
+        ".anim__scrollable-3",
         {
           rotateX: 90,
           rotateY: 90,
           opacity: 0,
+          display: undefined,
           attr: { "aria-hidden": "true" },
         },
         "<"
       )
-      .to("#tools-table", {
+      .to(".anim__scrollable-3", {
         rotateX: 0,
         rotateY: 0,
         opacity: 1,

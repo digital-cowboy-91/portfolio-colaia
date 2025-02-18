@@ -16,6 +16,7 @@
   --tools-h: 64px;
   --tools-p: calc(var(--tools-h) * 0.25);
   --tools-gap: calc(var(--tools-h) * 0.5);
+  --shadow-massive: 20px 20px 30px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 576px) and (orientation: portrait),
@@ -61,4 +62,10 @@ h2 {
   font-size: 1rem;
   font-weight: 900;
   letter-spacing: 0.02rem;
+}
+
+.g-card {
+  background: white;
+  color: var(--background);
+  border-radius: var(--spacing-single);
 }
