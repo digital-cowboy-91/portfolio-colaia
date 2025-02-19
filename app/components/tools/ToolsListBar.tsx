@@ -24,8 +24,6 @@ export default function ToolsListBar({
   const box = useBoxSize("all", ({ width, height }) => {
     const limit = Math.floor(width / height);
 
-    console.log(limit);
-
     if (height !== box.getPrevious("height")) {
       onHeightChange?.(height);
     }

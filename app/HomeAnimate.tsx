@@ -8,7 +8,6 @@ import { PropsWithChildren } from "react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function HomeAnimate({ children }: PropsWithChildren) {
   useGSAP(() => {
-    console.log("rerender");
     // INITIAL ANIMATION
     const intro = gsap.getById("intro") ?? gsap.timeline();
 
