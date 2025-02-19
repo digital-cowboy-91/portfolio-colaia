@@ -39,7 +39,7 @@ export default async function RootLayout({
           ${redHat.variable} antialiased
         `}
       >
-        <main>{children}</main>
+        {children}
       </body>
     </html>
   );

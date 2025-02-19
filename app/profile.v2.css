@@ -1,8 +1,8 @@
-.profile {
+main {
   height: 300vh;
 }
 
-.profile__layout {
+.layout {
   width: 100%;
   height: 100vh;
   position: sticky;
@@ -11,9 +11,16 @@
   display: flex;
   flex-direction: column;
   gap: var(--layout-spacing);
+  overflow: hidden;
 }
 
-.profile__main {
+.section__group {
+  height: 100%;
+  width: 200%;
+  display: flex;
+}
+
+section {
   position: relative;
   width: 100%;
   height: 100%;
@@ -23,6 +30,9 @@
   align-items: center;
   gap: 1.5rem;
   overflow: hidden;
+}
+
+.anim__frame-0 {
   background-image: radial-gradient(
     circle at top left,
     rgba(0, 191, 255, 1),
@@ -37,7 +47,7 @@
   );
 }
 
-.profile__image-wrapper {
+.portrait {
   height: 100%;
   width: 100%;
   display: flex;
@@ -54,13 +64,13 @@
   }
 }
 
-.profile__frames {
+.frame__group {
   height: 100%;
   width: 100%;
   perspective: 1500px;
 }
 
-.profile__frame-item {
+.frame__item {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -71,12 +81,12 @@
   justify-content: center;
 }
 
-.profile__tools-table {
+.tools__table {
   filter: drop-shadow(var(--shadow-massive));
   padding: var(--spacing-single);
 }
 
-.profile__tools-bar {
+.tools__bar {
   height: var(--tools-h);
   padding: var(--tools-p);
   gap: var(--tools-gap);
@@ -87,7 +97,7 @@
 }
 
 @media (orientation: landscape) {
-  .profile__main {
+  section {
     display: grid;
     place-items: center;
     grid-template-columns: minmax(0, 1fr) repeat(2, minmax(300px, 960px)) minmax(
@@ -97,7 +107,7 @@
     grid-template-rows: 1;
   }
 
-  .profile__image-wrapper {
+  .portrait {
     order: 2;
     grid-column-start: 3;
 
@@ -106,7 +116,7 @@
     }
   }
 
-  .profile__frames {
+  .frame__group {
     position: relative;
     order: 1;
     grid-column-start: 2;
@@ -114,29 +124,29 @@
 }
 
 @media (orientation: portrait) {
-  .profile__image-wrapper {
+  .portrait {
     height: 60%;
   }
 
-  .profile__frames {
+  .frame__group {
     position: absolute;
     height: 100%;
   }
 
-  .profile__frame-item {
+  .frame__item {
     padding: 0 var(--spacing-single);
     max-width: 960px;
     margin: 0 auto;
   }
 
-  .profile__frame-item.anim__frame-1 {
+  .frame__item.anim__frame-1 {
     max-width: 720px;
     top: 25%;
   }
 }
 
 @media (orientation: portrait) and (min-height: 960px) {
-  .profile__frame-item {
+  .frame__item {
     top: 25%;
   }
 }
