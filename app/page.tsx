@@ -1,5 +1,6 @@
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import Image from "next/image";
+import ActivityServer from "./components/ActivityServer";
 import HeroText from "./components/HeroText";
 import ProfileServer from "./components/ProfileServer";
 import ToolsServer from "./components/tools/ToolsServer";
@@ -44,7 +45,9 @@ export default function Home() {
                 </div>
               </div>
             </section>
-            <section className="anim__frame-4">ACTIVITY</section>
+            <section className="anim__frame-4">
+              <ActivityServer />
+            </section>
           </div>
           <ToolsServer as="bar" className="g-card tools__bar" />
         </div>

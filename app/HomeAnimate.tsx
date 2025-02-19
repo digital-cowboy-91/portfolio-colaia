@@ -8,30 +8,30 @@ import { PropsWithChildren } from "react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function HomeAnimate({ children }: PropsWithChildren) {
   useGSAP(() => {
-    // INITIAL ANIMATION
+    // RETRIEVE ANIMATIONS
     const intro = gsap.getById("intro") ?? gsap.timeline();
 
-    gsap
-      .timeline({ id: "initial" })
+    // THIS ANIMATION
+    const tl = gsap
+      .timeline({ id: "main", defaults: { duration: 0.3 } })
+
+      // FRAME 0
       .set("body", { overflow: "hidden" })
       .to(".anim__portrait", {
         opacity: 1,
       })
       .add(intro.play().delay(0.5))
-      .set("body", { overflow: "" });
+      .set("body", { overflow: "" })
+      .add("frame0")
 
-    // ON SCROLL - ANIMATION
-    const tl = gsap
-      .timeline({ paused: true, defaults: { duration: 0.3 } })
-
-      // STEP 1
+      // FRAME 1
       .to(".anim__frame-1", {
         y: "+=0",
         opacity: 1,
       })
-      .add("step1")
+      .add("frame1")
 
-      // STEP 2
+      // FRAME 2
       .to(".anim__frame-1", {
         y: "-=50",
         opacity: 0,
@@ -52,9 +52,9 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         rotateY: 0,
         opacity: 1,
       })
-      .add("step2")
+      .add("frame2")
 
-      // STEP 3
+      // FRAME 3
       .to(".anim__frame-2", {
         display: "none",
         rotateX: -90,
@@ -80,39 +80,42 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         ease: "back.out",
         duration: 0.5,
       })
-      .add("step3");
+      .add("frame3")
+
+      // FRAME 4
+      .to(".section__group", { x: "-=50%" })
+      .add("frame4");
+
+    // PLAY FRAME 0
+    tl.tweenTo("frame0");
 
     // ON SCROLL - TRIGGER
-    type StepKeys = 0 | 0.33 | 0.66 | 1;
-
-    const steps = {
-      map: {
-        0: "step0",
-        0.33: "step1",
-        0.66: "step2",
-        1: "step3",
-      },
-      prev: 0 as StepKeys,
-      next: 0 as StepKeys,
+    const frameCount = 5;
+    const frames = {
+      list: Array(frameCount)
+        .fill(0)
+        .map((_, index) => (index * 1) / (frameCount - 1)),
+      prev: 0,
+      next: 0,
     };
 
     ScrollTrigger.create({
       onUpdate: (self) => {
         const current = self.progress;
 
-        const { map, prev } = steps;
-        const next = current <= 0.33 ? 0.33 : current <= 0.66 ? 0.66 : 1;
+        const { list, prev } = frames;
+        const next = list.findIndex((frame) => current <= frame);
 
         if (prev === next) return;
 
         if (next > prev) {
-          tl.tweenTo(map[next]);
+          tl.tweenTo("frame" + next);
         } else {
-          tl.tweenFromTo(map[prev], map[next]);
+          tl.tweenFromTo("frame" + prev, "frame" + next);
         }
 
-        steps.prev = steps.next;
-        steps.next = next;
+        frames.prev = frames.next;
+        frames.next = next;
       },
     });
   });
