@@ -20,5 +20,6 @@
   },
   "peacock.color": "#215732",
   "postman.settings.dotenv-detection-notification-visibility": false,
-  "cSpell.ignoreWords": ["rgba"]
+  "cSpell.ignoreWords": ["rgba"],
+  "cSpell.words": ["gsap", "GSAP"]
 }

@@ -29,7 +29,6 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
       .to(".anim__frame-1", {
         y: "+=0",
         opacity: 1,
-        attr: { "aria-hidden": "false" },
       })
       .add("step1")
 
@@ -38,15 +37,13 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         y: "-=50",
         opacity: 0,
         display: "none",
-        attr: { "aria-hidden": "true" },
       })
       .to(
         ".anim__frame-2",
         {
+          display: "flex",
           y: "-=50",
           opacity: 0,
-          display: undefined,
-          attr: { "aria-hidden": "true" },
         },
         "<"
       )
@@ -55,28 +52,25 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         rotateX: 0,
         rotateY: 0,
         opacity: 1,
-        attr: { "aria-hidden": "false" },
       })
       .add("step2")
 
       // STEP 3
       .to(".anim__frame-2", {
+        display: "none",
         rotateX: -90,
         rotateY: 90,
         opacity: 0,
         ease: "back.in",
         duration: 0.5,
-        display: "none",
-        attr: { "aria-hidden": "true" },
       })
       .to(
         ".anim__frame-3",
         {
+          display: "flex",
           rotateX: 90,
           rotateY: 90,
           opacity: 0,
-          display: undefined,
-          attr: { "aria-hidden": "true" },
         },
         "<"
       )
@@ -86,7 +80,6 @@ export default function HomeAnimate({ children }: PropsWithChildren) {
         opacity: 1,
         ease: "back.out",
         duration: 0.5,
-        attr: { "aria-hidden": "false" },
       })
       .add("step3");
 

@@ -24,20 +24,20 @@ export default function Home() {
             </div>
             <div className="profile__frames">
               <div
-                className="profile__frame-item 
-                anim__frame-1"
+                className="profile__frame-item anim__frame-1"
+                style={{ display: "flex" }}
               >
                 <HeroText />
               </div>
               <div
                 className="profile__frame-item anim__frame-2"
-                style={{ opacity: 0 }}
+                style={{ display: "none", opacity: 0 }}
               >
                 <ProfileServer />
               </div>
               <div
                 className="profile__frame-item anim__frame-3"
-                style={{ opacity: 0 }}
+                style={{ display: "none", opacity: 0 }}
               >
                 <ToolsServer
                   as="table"
