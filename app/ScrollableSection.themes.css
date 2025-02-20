@@ -1,0 +1,20 @@
+section.anim__tracker {
+  min-height: 100vh;
+
+  & > .anim__wrapper {
+    width: inherit;
+    height: inherit;
+  }
+}
+
+[data-theme="default"] {
+  section.anim__tracker {
+    width: 100%;
+  }
+}
+
+[data-theme="sub-profile"] {
+  section.anim__tracker {
+    width: 50%;
+  }
+}
