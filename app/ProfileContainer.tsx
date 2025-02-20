@@ -21,12 +21,12 @@ export default function ProfileContainer() {
     <section className="w-full h-screen p-4 flex flex-col gap-4 fixed -z-10">
       <div
         className="flex-grow rounded-single flex
-        landscape:ps-[50%] landscape:items-center portrait:px-[10%] portrait:justify-center"
+        landscape:ps-[50%] landscape:items-center portrait:px-[calc(var(--spacing-single)*2] portrait:justify-center"
         style={{ background: gradient }}
       >
-        <div className="max-w-[960px] flex items-center portrait:h-[60%] portrait:items-end">
+        <div className="w-[960px] min-w-[350px] portrait:h-[60%]">
           <Image
-            className="anim__portrait"
+            className="anim__portrait h-full object-contain"
             src={portraitPic}
             alt=""
             quality={100}
