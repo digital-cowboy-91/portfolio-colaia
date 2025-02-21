@@ -7,7 +7,7 @@ import { PropsWithChildren, useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function AnimIntro({ children }: PropsWithChildren) {
+export default function AnimateIntro({ children }: PropsWithChildren) {
   const scope = useRef(null);
 
   useGSAP(

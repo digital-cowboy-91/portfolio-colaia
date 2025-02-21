@@ -1,4 +1,4 @@
-import AnimIntro from "./components/animations/AnimIntro";
+import AnimateIntro from "./components/animations/AnimateIntro";
 import ProfileIntro from "./components/ProfileIntro";
 import ProfileContainer from "./ProfileContainer";
 import ScrollableSection from "./ScrollableSection";
@@ -8,9 +8,9 @@ export default function Home() {
     <main>
       <ScrollableSection>
         <ProfileContainer />
-        <AnimIntro>
+        <AnimateIntro>
           <ProfileIntro />
-        </AnimIntro>
+        </AnimateIntro>
         {/* <ScrollableSection theme="sub-profile">
           <ProfileServer />
         </ScrollableSection>
