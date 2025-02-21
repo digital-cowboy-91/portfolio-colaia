@@ -1,5 +1,9 @@
+import AnimateAbout from "./components/animations/AnimateAbout";
 import AnimateIntro from "./components/animations/AnimateIntro";
+import AnimateToolsTable from "./components/animations/AnimateToolsTable";
 import ProfileIntro from "./components/ProfileIntro";
+import ProfileServer from "./components/ProfileServer";
+import ToolsServer from "./components/tools/ToolsServer";
 import ProfileContainer from "./ProfileContainer";
 import ScrollableSection from "./ScrollableSection";
 
@@ -11,12 +15,12 @@ export default function Home() {
         <AnimateIntro>
           <ProfileIntro />
         </AnimateIntro>
-        {/* <ScrollableSection theme="sub-profile">
+        <AnimateAbout>
           <ProfileServer />
-        </ScrollableSection>
-        <ScrollableSection theme="sub-profile">
+        </AnimateAbout>
+        <AnimateToolsTable>
           <ToolsServer as="table" className="g-card tools__table" />
-        </ScrollableSection> */}
+        </AnimateToolsTable>
       </ScrollableSection>
       {/* <ScrollableSection>
         <ActivityServer />
