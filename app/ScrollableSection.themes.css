@@ -1,5 +1,6 @@
 section.anim__tracker {
   min-height: 100vh;
+  overflow: hidden;
 
   & > .anim__wrapper {
     width: inherit;
@@ -34,9 +35,10 @@ section[data-theme="sub-profile"] {
     flex-direction: column;
     justify-content: center;
 
+    perspective: 1500px;
+
     & > .anim__item {
       width: 100%;
-      overflow: hidden;
     }
   }
 }

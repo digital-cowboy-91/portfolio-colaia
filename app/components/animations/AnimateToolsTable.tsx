@@ -29,17 +29,19 @@ export default function AnimateToolsTable({ children }: PropsWithChildren) {
         position: "static",
       })
         .set(".anim__item", {
-          opacity: 0,
           rotateX: -90,
           rotateY: 90,
         })
         .to(".anim__wrapper", {
           position: "fixed",
+          delay: 0.2,
         })
         .to(".anim__item", {
           opacity: 1,
           rotateX: 0,
           rotateY: 0,
+          ease: "back.out",
+          duration: 0.5,
         })
         .addPause()
         .to(".anim__item", {

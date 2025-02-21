@@ -29,7 +29,6 @@ export default function AnimateAbout({ children }: PropsWithChildren) {
         position: "static",
       })
         .set(".anim__item", {
-          opacity: 0,
           y: 50,
         })
         .to(".anim__wrapper", {
@@ -41,12 +40,15 @@ export default function AnimateAbout({ children }: PropsWithChildren) {
         })
         .addPause()
         .to(".anim__item", {
-          opacity: 0,
           rotateX: 90,
           rotateY: 90,
+          opacity: 0,
+          ease: "back.in",
+          duration: 0.5,
         })
         .to(".anim__wrapper", {
           position: "static",
+          delay: 0.2,
         });
     },
     { scope }
