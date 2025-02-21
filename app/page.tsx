@@ -1,3 +1,4 @@
+import ActivityServer from "./components/ActivityServer";
 import AnimateAbout from "./components/animations/AnimateAbout";
 import AnimateIntro from "./components/animations/AnimateIntro";
 import AnimateToolsTable from "./components/animations/AnimateToolsTable";
@@ -25,9 +26,9 @@ export default function Home() {
           />
         </AnimateToolsTable>
       </ScrollableSection>
-      {/* <ScrollableSection>
+      <ScrollableSection>
         <ActivityServer />
-      </ScrollableSection> */}
+      </ScrollableSection>
     </main>
   );
 }
