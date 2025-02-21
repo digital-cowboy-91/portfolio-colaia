@@ -17,7 +17,7 @@ export default function AnimateToolsTable({ children }: PropsWithChildren) {
         scrollTrigger: {
           trigger: scope.current,
           start: "top center",
-          end: "bottom center",
+          end: "bottom bottom",
           fastScrollEnd: 10000,
           toggleActions: "play play reverse reverse",
           onEnter: (self) => {
@@ -49,11 +49,9 @@ export default function AnimateToolsTable({ children }: PropsWithChildren) {
         })
         .addPause()
         .to(".anim__item", {
-          opacity: 0,
-          y: 50,
-        })
-        .to(".anim__wrapper", {
-          position: "static",
+          x: "-100vw",
+          ease: "circ.in",
+          duration: 0.5,
         });
     },
     { scope }

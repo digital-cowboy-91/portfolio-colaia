@@ -1,7 +1,6 @@
 section.anim__tracker {
   min-height: 100vh;
   width: 100%;
-  overflow: hidden;
 
   & > .anim__wrapper {
     width: inherit;
@@ -13,6 +12,7 @@ section[data-theme="sub-profile"] {
   /* background: blue; */
 
   height: 100vh;
+  overflow: hidden;
 
   & > .anim__wrapper {
     /* background: red; */
@@ -42,6 +42,22 @@ section[data-theme="sub-profile"] {
     & > .anim__wrapper {
       width: 100%;
       right: unset;
+      & > .anim__item {
+        margin-top: 20%;
+      }
     }
   }
 }
+
+/* @media (orientation: portrait) and (min) {
+  section[data-theme="sub-profile"] {
+    justify-content: center;
+    & > .anim__wrapper {
+      width: 100%;
+      right: unset;
+      & > .anim__item {
+        margin-top: 20%;
+      }
+    }
+  }
+} */

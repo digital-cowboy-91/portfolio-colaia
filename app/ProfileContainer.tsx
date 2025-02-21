@@ -1,5 +1,6 @@
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import Image from "next/image";
+import { RefObject } from "react";
 import ToolsServer from "./components/tools/ToolsServer";
 import "./ProfileContainer.theme.css";
 
@@ -16,15 +17,26 @@ const gradient = `radial-gradient(
     rgba(255, 0, 126, 0) 75%
   )`;
 
-export default function ProfileContainer() {
+export default function ProfileContainer({
+  ref,
+}: {
+  ref?: RefObject<HTMLDivElement | null>;
+}) {
   return (
-    <section className="w-full h-screen p-4 flex flex-col gap-4 fixed -z-10">
+    <section
+      ref={ref}
+      className="w-full h-screen p-4 flex flex-col gap-4 fixed -z-10"
+    >
       <div
+        id="hero__row1"
         className="flex-grow rounded-single flex
         landscape:ps-[50%] landscape:items-center portrait:px-[calc(var(--spacing-single)*2] portrait:justify-center"
-        style={{ background: gradient }}
+        style={{ background: gradient, opacity: 0 }}
       >
-        <div className="w-[960px] min-w-[350px] portrait:h-[60%]">
+        <div
+          id="hero__image"
+          className="w-[960px] min-w-[350px] portrait:h-[60%]"
+        >
           <Image
             className="anim__portrait h-full object-contain"
             src={portraitPic}
@@ -36,8 +48,10 @@ export default function ProfileContainer() {
         </div>
       </div>
       <ToolsServer
+        id="hero__row2"
         as="bar"
         className="g-card h-[var(--tools-h)] p-[var(--tools-p)] flex justify-center gap-[var(--tools-gap)]"
+        style={{ opacity: 0 }}
       />
     </section>
   );
