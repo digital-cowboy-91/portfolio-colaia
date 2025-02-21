@@ -7,7 +7,7 @@ import useWindowSize from "../hooks/useWindowSize";
 
 gsap.registerPlugin(useGSAP);
 
-export default function HeroText() {
+export default function ProfileIntro() {
   const scope = useRef(null);
   const namesRef = useRef<null | HTMLDivElement>(null);
   const [namesScale, setNamesScale] = useState(1);
@@ -24,7 +24,7 @@ export default function HeroText() {
   useGSAP(
     () => {
       gsap
-        .timeline({ id: "intro", paused: true })
+        .timeline({ id: "profile-intro", paused: true })
         // ANIMATION
         .to("#hero__names", {
           opacity: 1,
@@ -99,25 +99,12 @@ export default function HeroText() {
   );
 
   return (
-    <div ref={scope} className="flex flex-col gap-single">
-      <div
-        className={`
-          col-row-2
-          col-start-2
-          w-full
-          flex place-content-center
-          relative
-        `}
-      >
+    <div ref={scope} className="w-full flex flex-col gap-single">
+      <div className="w-full flex justify-center relative">
         <div
           ref={namesRef}
           id="hero__names"
-          className={`
-            text-9xl leading-[0.75] font-black
-            flex flex-col justify-center
-            px-10
-            relative
-          `}
+          className="text-9xl leading-[0.75] font-black flex flex-col justify-center px-10 relative"
           style={{
             scale: namesScale,
             margin: `${calculateMargin(namesRef.current, namesScale)}px 0`,
@@ -148,10 +135,7 @@ export default function HeroText() {
       </div>
       <div
         id="hero__subheading"
-        className={`
-            w-max self-end
-            text-2xl sm:text-4xl
-          `}
+        className="w-max self-end text-2xl sm:text-4xl"
         style={{
           perspective: "200px",
         }}

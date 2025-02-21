@@ -26,7 +26,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      style={{ scrollBehavior: "smooth", scrollbarGutter: "stable" }}
+      style={{ scrollBehavior: "smooth", scrollbarGutter: "both-edges" }}
     >
       <head>
         <script
