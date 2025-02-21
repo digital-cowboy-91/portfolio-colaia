@@ -20,6 +20,10 @@ export default function AnimateToolsTable({ children }: PropsWithChildren) {
           end: "bottom center",
           fastScrollEnd: 10000,
           toggleActions: "play play reverse reverse",
+          onEnter: (self) => {
+            if (self.progress < 1) return;
+            self.animation?.pause().progress(1);
+          },
         },
         defaults: { duration: 0.3 },
       });

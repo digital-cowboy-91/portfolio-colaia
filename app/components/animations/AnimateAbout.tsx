@@ -20,6 +20,10 @@ export default function AnimateAbout({ children }: PropsWithChildren) {
           end: "bottom center",
           fastScrollEnd: 10000,
           toggleActions: "play play reverse reverse",
+          onEnter: (self) => {
+            if (self.progress < 1) return;
+            self.animation?.pause().progress(1);
+          },
         },
         defaults: { duration: 0.3 },
       });
@@ -50,6 +54,58 @@ export default function AnimateAbout({ children }: PropsWithChildren) {
           position: "static",
           delay: 0.2,
         });
+
+      // const fixInView = (isInView: boolean = false) => {
+      //   gsap.set(".anim__wrapper", {
+      //     top: 0,
+      //     position: isInView ? "fixed" : "static",
+      //   });
+      // };
+
+      // const tl = gsap
+      //   .timeline({ paused: true, defaults: { duration: 0.3 } })
+      //   .set(".anim__item", {
+      //     y: 50,
+      //   })
+      //   .addLabel("init")
+      //   .to(".anim__item", {
+      //     opacity: 1,
+      //     y: 0,
+      //   })
+      //   .addLabel("enter")
+      //   .to(".anim__item", {
+      //     rotateX: 90,
+      //     rotateY: 90,
+      //     opacity: 0,
+      //     ease: "back.in",
+      //     duration: 0.5,
+      //   })
+      //   .addLabel("leave");
+
+      // ScrollTrigger.create({
+      //   trigger: scope.current,
+      //   start: "top center",
+      //   end: "bottom center",
+      //   fastScrollEnd: 10000,
+      //   onEnter: (self) => {
+      //     if (self.progress === 1) return;
+
+      //     tl.tweenTo("enter", { onStart: fixInView, onStartParams: [true] });
+      //   },
+      //   onLeave: (self) => {
+      //     tl.tweenTo("leave", { onComplete: fixInView });
+      //   },
+      //   onEnterBack: () => {
+      //     tl.tweenFromTo("leave", "enter", {
+      //       onStart: fixInView,
+      //       onStartParams: [true],
+      //       delay: 0.5,
+      //     });
+      //   },
+      //   onLeaveBack: () => {
+      //     tl.tweenFromTo("enter", "init", { onComplete: fixInView });
+      //   },
+      // });
     },
     { scope }
   );
