@@ -55,7 +55,10 @@ export default function ProgressBar({ points, activePoint, fill }: Props) {
   }, [activePoint]);
 
   return (
-    <div ref={scope} className="flex justify-between relative">
+    <div
+      ref={scope}
+      className="flex justify-between items-center relative h-[28px]"
+    >
       {points.map((val) => (
         <svg
           key={val}

@@ -19,7 +19,10 @@ export default function Home() {
           <ProfileServer />
         </AnimateAbout>
         <AnimateToolsTable>
-          <ToolsServer as="table" className="g-card tools__table" />
+          <ToolsServer
+            as="table"
+            className="g-card p-single drop-shadow-massive"
+          />
         </AnimateToolsTable>
       </ScrollableSection>
       {/* <ScrollableSection>
