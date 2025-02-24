@@ -27,7 +27,7 @@ export default function AnimateAbout({ children }: PropsWithChildren) {
           snap: [0.5],
           fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
-          markers: true,
+          // markers: true,
         },
         defaults: { duration: 0.3 },
       });

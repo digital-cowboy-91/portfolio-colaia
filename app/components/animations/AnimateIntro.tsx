@@ -38,7 +38,7 @@ export default function AnimateIntro({ children }: PropsWithChildren) {
             if (self.progress < 1) return;
             self.animation?.pause().progress(1);
           },
-          markers: true,
+          // markers: true,
         },
         defaults: { duration: 0.3 },
       });
