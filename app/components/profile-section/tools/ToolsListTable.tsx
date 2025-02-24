@@ -1,10 +1,10 @@
 "use client";
 
+import useBoxSize from "@/app/hooks/useBoxSize";
 import { Tool } from "@/app/types/tools";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { AnimatePresence, motion } from "motion/react";
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
-import useBoxSize from "../../hooks/useBoxSize";
 import ProgressBar from "./ProgressBar";
 
 const experience = {

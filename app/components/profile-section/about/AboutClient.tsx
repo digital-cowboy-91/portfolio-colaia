@@ -2,8 +2,8 @@
 
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { HTMLAttributes } from "react";
-import { Profile } from "../types/profile";
-import Code from "./Code";
+import { Profile } from "../../../types/profile";
+import Code from "../../Code";
 
 type Props = {
   data: Profile[];

@@ -1,5 +1,5 @@
 "use client";
-import ScrollableSection from "@/app/ScrollableSection";
+import ScrollableSection from "@/app/components/layout/animate-scroll/ScrollableSection";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -7,7 +7,7 @@ import { PropsWithChildren, useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function AnimateToolsTable({ children }: PropsWithChildren) {
+export default function ToolsScrollTimeline({ children }: PropsWithChildren) {
   const scope = useRef(null);
 
   useGSAP(
@@ -36,7 +36,7 @@ export default function AnimateToolsTable({ children }: PropsWithChildren) {
         .set(target, { autoAlpha: 0, rotateX: -90, rotateY: 90 })
         .to(target, { autoAlpha: 1, rotateX: 0, rotateY: 0, delay: 0.3 })
         .addPause()
-        .to(target, { autoAlpha: 0, y: 50 })
+        .to(target, { x: "-100vw", ease: "circ.in", duration: 0.75 })
         .to(target, { delay: 0 })
         .set(wrapper, { display: "none" });
     },

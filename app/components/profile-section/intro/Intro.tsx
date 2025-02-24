@@ -1,105 +1,21 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { useEffect, useRef, useState } from "react";
-import useWindowSize from "../hooks/useWindowSize";
+import { useLayoutEffect, useRef, useState } from "react";
+import useWindowSize from "../../../hooks/useWindowSize";
 
-gsap.registerPlugin(useGSAP);
-
-export default function ProfileIntro() {
-  const scope = useRef(null);
+export default function Intro() {
   const namesRef = useRef<null | HTMLDivElement>(null);
   const [namesScale, setNamesScale] = useState(1);
   const { width } = useWindowSize();
 
-  //   Rescale
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!namesRef.current) return;
 
     setNamesScale(scaleToParent(namesRef.current));
   }, [width]);
 
-  //   Animate
-  useGSAP(
-    () => {
-      gsap
-        .timeline({ id: "profile-intro", paused: true })
-        // ANIMATION
-        .to("#hero__names", {
-          opacity: 1,
-          duration: 1,
-        })
-        .to(
-          "#hero__name-1",
-          {
-            scale: 1,
-            duration: 1,
-          },
-          "<"
-        )
-        .to(
-          "#hero__name-2",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: "back.out",
-          },
-          "-=0.5"
-        )
-        .to(
-          "#hero__name-3",
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: "back.out",
-          },
-          "<"
-        )
-        .to("#hero__name-1", {
-          x: "-2.5rem",
-          duration: 0.75,
-          ease: "back.out",
-        })
-        .to(
-          "#hero__name-3",
-          {
-            x: "2.5rem",
-            duration: 0.75,
-            ease: "back.out",
-          },
-          "<"
-        )
-        .to(
-          "#hero__name-2",
-          {
-            opacity: 0.5,
-            filter: "blur(3px)",
-          },
-          "<"
-        )
-        .to(
-          "#hero__name-3",
-          {
-            opacity: 0.25,
-            filter: "blur(6px)",
-          },
-          "<"
-        )
-        .to("#hero__subheading>span", {
-          rotateX: 0,
-          opacity: 1,
-          ease: "elastic.out(1,0.5)",
-          duration: 1,
-        });
-    },
-    { scope }
-  );
-
   return (
-    <div ref={scope} className="w-full flex flex-col gap-single">
+    <div className="w-full flex flex-col gap-single">
       <div className="w-full flex justify-center relative">
         <div
           ref={namesRef}

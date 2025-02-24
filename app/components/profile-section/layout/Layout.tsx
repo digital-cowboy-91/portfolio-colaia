@@ -1,7 +1,6 @@
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import Image from "next/image";
-import { RefObject } from "react";
-import ToolsServer from "./components/tools/ToolsServer";
+import ToolsServer from "../tools";
 
 const gradient = `radial-gradient(
     circle at top left,
@@ -16,16 +15,9 @@ const gradient = `radial-gradient(
     rgba(255, 0, 126, 0) 75%
   )`;
 
-export default function ProfileContainer({
-  ref,
-}: {
-  ref?: RefObject<HTMLDivElement | null>;
-}) {
+export default function Layout() {
   return (
-    <section
-      ref={ref}
-      className="w-full h-screen p-4 flex flex-col gap-4 fixed -z-10"
-    >
+    <section className="w-full h-screen p-4 flex flex-col gap-4 fixed -z-10">
       <div
         id="hero__row1"
         className="flex-grow rounded-single flex
