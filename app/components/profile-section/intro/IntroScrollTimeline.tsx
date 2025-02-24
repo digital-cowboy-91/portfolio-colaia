@@ -29,7 +29,7 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
           trigger: scope.current,
           start: "-1% center",
           end: "bottom center",
-          snap: [0.5],
+          // snap: [0.5],
           fastScrollEnd: 5000,
           toggleActions: "play play reverse none",
           onUpdate: (self) => setProgress(self.progress),

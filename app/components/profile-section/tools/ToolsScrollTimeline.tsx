@@ -29,7 +29,7 @@ export default function ToolsScrollTimeline({ children }: PropsWithChildren) {
           trigger: scope.current,
           start: "top center",
           end: "bottom center",
-          snap: [0.5],
+          // snap: [0.5],
           fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
           onUpdate: (self) => setProgress(self.progress),
