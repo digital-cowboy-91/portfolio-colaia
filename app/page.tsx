@@ -15,18 +15,20 @@ export default function Home() {
         <AnimateProfileLayout>
           <ProfileContainer />
         </AnimateProfileLayout>
-        <AnimateIntro>
-          <ProfileIntro />
-        </AnimateIntro>
-        <AnimateAbout>
-          <ProfileServer />
-        </AnimateAbout>
-        <AnimateToolsTable>
-          <ToolsServer
-            as="table"
-            className="g-card p-single drop-shadow-massive"
-          />
-        </AnimateToolsTable>
+        <div className="py-[50vh]">
+          <AnimateIntro>
+            <ProfileIntro />
+          </AnimateIntro>
+          <AnimateAbout>
+            <ProfileServer />
+          </AnimateAbout>
+          <AnimateToolsTable>
+            <ToolsServer
+              as="table"
+              className="g-card p-single drop-shadow-massive"
+            />
+          </AnimateToolsTable>
+        </div>
       </AnimateProfileSection>
       {/* <AnimateActivitySection>
         <ActivityServer />

@@ -10,39 +10,45 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export default function AnimateIntro({ children }: PropsWithChildren) {
   const scope = useRef(null);
 
+  // const { contextSafe } = useGSAP();
+
   useGSAP(
     () => {
+      // const setGlobalOverflow = contextSafe((overflow: "hidden" | "unset") =>
+      //   gsap.set("html", { overflow })
+      // );
       const introTl = gsap.getById("profile-intro") ?? gsap.timeline();
+
+      const wrapper = ".anim__wrapper";
+      const target = ".anim__item";
+
+      const h = Number(gsap.getProperty(target, "height"));
+      gsap.set(scope.current, { height: h * 1.5 });
 
       const tl = gsap.timeline({
         paused: true,
         scrollTrigger: {
           trigger: scope.current,
-          start: "top center",
+          start: "-1% center",
           end: "bottom center",
-          fastScrollEnd: 10000,
-          toggleActions: "play play reverse reverse",
+          snap: [0.5],
+          fastScrollEnd: 5000,
+          toggleActions: "play play reverse none",
           onEnter: (self) => {
             if (self.progress < 1) return;
             self.animation?.pause().progress(1);
           },
+          markers: true,
         },
         defaults: { duration: 0.3 },
       });
 
-      tl.set(".anim__wrapper", {
-        top: 0,
-        position: "fixed",
-      })
+      tl.set(wrapper, { display: "block" })
         .add(introTl.play())
         .addPause()
-        .to(".anim__item", {
-          opacity: 0,
-          y: 50,
-        })
-        .to(".anim__wrapper", {
-          position: "static",
-        });
+        .to(target, { autoAlpha: 0, y: 50 })
+        .to(target, { delay: 0 })
+        .set(wrapper, { display: "none" });
     },
     { scope }
   );

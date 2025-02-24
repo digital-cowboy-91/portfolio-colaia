@@ -12,100 +12,39 @@ export default function AnimateAbout({ children }: PropsWithChildren) {
 
   useGSAP(
     () => {
+      const wrapper = ".anim__wrapper";
+      const target = ".anim__item";
+
+      const h = Number(gsap.getProperty(target, "height"));
+      gsap.set(scope.current, { height: h * 1.5 });
+
       const tl = gsap.timeline({
         paused: true,
         scrollTrigger: {
           trigger: scope.current,
           start: "top center",
           end: "bottom center",
-          fastScrollEnd: 10000,
+          snap: [0.5],
+          fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
-          onEnter: (self) => {
-            if (self.progress < 1) return;
-            self.animation?.pause().progress(1);
-          },
+          markers: true,
         },
         defaults: { duration: 0.3 },
       });
 
-      tl.set(".anim__wrapper", {
-        top: 0,
-        position: "static",
-      })
-        .set(".anim__item", {
+      tl.set(wrapper, { display: "block" })
+        .set(target, {
+          autoAlpha: 0,
           y: 50,
+          rotateX: 0,
+          rotateY: 0,
+          delay: 0.3,
         })
-        .to(".anim__wrapper", {
-          position: "fixed",
-        })
-        .to(".anim__item", {
-          opacity: 1,
-          y: 0,
-        })
+        .to(target, { autoAlpha: 1, y: 0 })
         .addPause()
-        .to(".anim__item", {
-          rotateX: 90,
-          rotateY: 90,
-          opacity: 0,
-          ease: "back.in",
-          duration: 0.5,
-        })
-        .to(".anim__wrapper", {
-          position: "static",
-          delay: 0.2,
-        });
-
-      // const fixInView = (isInView: boolean = false) => {
-      //   gsap.set(".anim__wrapper", {
-      //     top: 0,
-      //     position: isInView ? "fixed" : "static",
-      //   });
-      // };
-
-      // const tl = gsap
-      //   .timeline({ paused: true, defaults: { duration: 0.3 } })
-      //   .set(".anim__item", {
-      //     y: 50,
-      //   })
-      //   .addLabel("init")
-      //   .to(".anim__item", {
-      //     opacity: 1,
-      //     y: 0,
-      //   })
-      //   .addLabel("enter")
-      //   .to(".anim__item", {
-      //     rotateX: 90,
-      //     rotateY: 90,
-      //     opacity: 0,
-      //     ease: "back.in",
-      //     duration: 0.5,
-      //   })
-      //   .addLabel("leave");
-
-      // ScrollTrigger.create({
-      //   trigger: scope.current,
-      //   start: "top center",
-      //   end: "bottom center",
-      //   fastScrollEnd: 10000,
-      //   onEnter: (self) => {
-      //     if (self.progress === 1) return;
-
-      //     tl.tweenTo("enter", { onStart: fixInView, onStartParams: [true] });
-      //   },
-      //   onLeave: (self) => {
-      //     tl.tweenTo("leave", { onComplete: fixInView });
-      //   },
-      //   onEnterBack: () => {
-      //     tl.tweenFromTo("leave", "enter", {
-      //       onStart: fixInView,
-      //       onStartParams: [true],
-      //       delay: 0.5,
-      //     });
-      //   },
-      //   onLeaveBack: () => {
-      //     tl.tweenFromTo("enter", "init", { onComplete: fixInView });
-      //   },
-      // });
+        .to(target, { autoAlpha: 0, rotateX: 90, rotateY: 90 })
+        .to(target, { delay: 0 })
+        .set(wrapper, { display: "none" });
     },
     { scope }
   );

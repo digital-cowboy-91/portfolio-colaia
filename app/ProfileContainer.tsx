@@ -2,7 +2,6 @@ import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import Image from "next/image";
 import { RefObject } from "react";
 import ToolsServer from "./components/tools/ToolsServer";
-import "./ProfileContainer.theme.css";
 
 const gradient = `radial-gradient(
     circle at top left,

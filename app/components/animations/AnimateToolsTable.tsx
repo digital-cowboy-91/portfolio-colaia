@@ -12,47 +12,33 @@ export default function AnimateToolsTable({ children }: PropsWithChildren) {
 
   useGSAP(
     () => {
+      const wrapper = ".anim__wrapper";
+      const target = ".anim__item";
+
+      const h = Number(gsap.getProperty(target, "height"));
+      gsap.set(scope.current, { height: h * 1.5 });
+
       const tl = gsap.timeline({
         paused: true,
         scrollTrigger: {
           trigger: scope.current,
           start: "top center",
-          end: "bottom bottom",
-          fastScrollEnd: 10000,
+          end: "bottom center",
+          snap: [0.5],
+          fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
-          onEnter: (self) => {
-            if (self.progress < 1) return;
-            self.animation?.pause().progress(1);
-          },
+          markers: true,
         },
         defaults: { duration: 0.3 },
       });
 
-      tl.set(".anim__wrapper", {
-        top: 0,
-        position: "static",
-      })
-        .set(".anim__item", {
-          rotateX: -90,
-          rotateY: 90,
-        })
-        .to(".anim__wrapper", {
-          position: "fixed",
-          delay: 0.2,
-        })
-        .to(".anim__item", {
-          opacity: 1,
-          rotateX: 0,
-          rotateY: 0,
-          ease: "back.out",
-          duration: 0.5,
-        })
+      tl.set(wrapper, { display: "block" })
+        .set(target, { autoAlpha: 0, rotateX: -90, rotateY: 90 })
+        .to(target, { autoAlpha: 1, rotateX: 0, rotateY: 0, delay: 0.3 })
         .addPause()
-        .to(".anim__item", {
-          x: "-100vw",
-          ease: "circ.in",
-          duration: 0.5,
-        });
+        .to(target, { autoAlpha: 0, y: 50 })
+        .to(target, { delay: 0 })
+        .set(wrapper, { display: "none" });
     },
     { scope }
   );
