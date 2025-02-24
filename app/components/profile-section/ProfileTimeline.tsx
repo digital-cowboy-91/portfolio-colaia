@@ -26,8 +26,6 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
 
       const layout_tl = profileLayout_tl();
 
-      console.log(layout_tl);
-
       // const subsections = "#profile__subsections";
 
       tl.add("start")
