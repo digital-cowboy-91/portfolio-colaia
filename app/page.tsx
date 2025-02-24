@@ -10,10 +10,10 @@ import ToolsServer, {
 
 export default function Home() {
   return (
-    <main className="pb-[25vh]">
+    <main className="pb-4">
       <ProfileTimeline>
         <ProfileLayout />
-        <div id="profile__subsections" className="py-[50vh]">
+        <div id="profile__subsections" className="pb-[50vh]">
           <IntroScrollTimeline>
             <Intro />
           </IntroScrollTimeline>

@@ -1,5 +1,6 @@
 "use client";
 
+import debounce from "@/app/utils/debounce";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { HTMLAttributes, useRef } from "react";
@@ -15,6 +16,8 @@ export default function ProgressBar({
   direction = "horizontal",
   ...rest
 }: Props) {
+  const debouncer = useRef(debounce());
+
   const scope = useRef<null | SVGLineElement>(null);
   const coords =
     direction === "horizontal"
@@ -35,12 +38,16 @@ export default function ProgressBar({
     () => {
       if (!scope.current) return;
 
-      gsap.to(scope.current, {
-        strokeDasharray: `${progress}px 1px`,
-        strokeDashoffset: "0px",
-        // duration: 0.2,
-        ease: "linear",
+      debouncer.current.set(() => {
+        gsap.to(scope.current, {
+          strokeDasharray: `${progress}px 1px`,
+          ease: "ease",
+        });
       });
+
+      return () => {
+        debouncer.current.clear();
+      };
     },
     { dependencies: [progress], scope }
   );
@@ -55,6 +62,8 @@ export default function ProgressBar({
           pathLength="1"
           strokeWidth="2"
           stroke="var(--primary)"
+          strokeDashoffset="0px"
+          strokeDasharray="0px 1px"
         />
       </svg>
     </div>

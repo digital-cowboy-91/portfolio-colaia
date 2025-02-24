@@ -20,8 +20,8 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
       const wrapper = ".anim__wrapper";
       const target = ".anim__item";
 
-      const h = Number(gsap.getProperty(target, "height"));
-      gsap.set(scope.current, { height: h * 1 });
+      // const h = Number(gsap.getProperty(target, "height"));
+      // gsap.set(scope.current, { height: h * 1 });
 
       const tl = gsap.timeline({
         paused: true,
@@ -33,6 +33,7 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
           fastScrollEnd: 5000,
           toggleActions: "play play reverse none",
           onUpdate: (self) => setProgress(self.progress),
+          onEnter: (self) => self.progress === 1 && tl.progress(1),
           // markers: true,
         },
         defaults: { duration: 0.3 },

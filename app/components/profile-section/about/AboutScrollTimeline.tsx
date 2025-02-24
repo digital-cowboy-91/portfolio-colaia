@@ -32,6 +32,7 @@ export default function AboutScrollTimeline({ children }: PropsWithChildren) {
           // snap: [0.5],
           fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
+          onEnter: (self) => self.progress === 1 && tl.progress(1),
           onUpdate: (self) => setProgress(self.progress),
           // markers: true,
         },
