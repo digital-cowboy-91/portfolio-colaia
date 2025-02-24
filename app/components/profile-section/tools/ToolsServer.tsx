@@ -1,3 +1,5 @@
+"use server";
+
 import { readFile } from "@/app/utils/persistantJSON";
 import { HTMLAttributes } from "react";
 import ToolsListBar from "./ToolsListBar";

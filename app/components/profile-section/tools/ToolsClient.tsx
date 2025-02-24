@@ -1,5 +1,6 @@
 "use client";
 
+import useBoxSize from "@/app/hooks/useBoxSize";
 import { Tool } from "@/app/types/tools";
 import {
   AnimatePresence,
@@ -8,7 +9,6 @@ import {
   useScroll,
 } from "motion/react";
 import { useRef, useState } from "react";
-import useBoxSize from "../../hooks/useBoxSize";
 import ToolsListBar from "./ToolsListBar";
 import ToolsListTable from "./ToolsListTable";
 
