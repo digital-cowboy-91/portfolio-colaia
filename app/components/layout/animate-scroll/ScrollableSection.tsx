@@ -2,11 +2,13 @@ import { HTMLAttributes, RefObject } from "react";
 import "./ScrollableSection.themes.css";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
+  bookmarkId?: string;
   ref?: RefObject<HTMLDivElement | null>;
   theme?: string;
 }
 
 export default function ScrollableSection({
+  bookmarkId,
   ref,
   theme = "default",
   children,
@@ -14,7 +16,12 @@ export default function ScrollableSection({
   ...rest
 }: Props) {
   return (
-    <section ref={ref} className="anim__tracker" data-theme={theme}>
+    <section
+      id={bookmarkId}
+      ref={ref}
+      className="anim__tracker"
+      data-theme={theme}
+    >
       <div className="anim__wrapper">
         <div
           className={`anim__item ${className ? className : ""}`.trim()}

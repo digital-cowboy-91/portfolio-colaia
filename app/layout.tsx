@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
+import Navigation, { BookmarkProvider } from "./components/layout/navigation";
 import "./globals.css";
 
 const redHat = Red_Hat_Display({
@@ -34,13 +35,16 @@ export default async function RootLayout({
           async
         />
       </head>
-      <body
-        className={`
+      <BookmarkProvider>
+        <body
+          className={`
           ${redHat.variable} antialiased
         `}
-      >
-        {children}
-      </body>
+        >
+          <Navigation />
+          {children}
+        </body>
+      </BookmarkProvider>
     </html>
   );
 }

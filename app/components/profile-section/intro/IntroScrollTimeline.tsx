@@ -4,11 +4,16 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { PropsWithChildren, useRef } from "react";
+import { useRegisterBookmark } from "../../layout/navigation";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function IntroScrollTimeline({ children }: PropsWithChildren) {
   const scope = useRef(null);
+  const { bookmarkId, setProgress } = useRegisterBookmark({
+    id: "intro",
+    title: "Intro",
+  });
 
   useGSAP(
     () => {
@@ -27,6 +32,7 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
           snap: [0.5],
           fastScrollEnd: 5000,
           toggleActions: "play play reverse none",
+          onUpdate: (self) => setProgress(self.progress),
           // markers: true,
         },
         defaults: { duration: 0.3 },
@@ -43,7 +49,7 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
   );
 
   return (
-    <ScrollableSection ref={scope} theme="sub-profile">
+    <ScrollableSection bookmarkId={bookmarkId} ref={scope} theme="sub-profile">
       {children}
     </ScrollableSection>
   );

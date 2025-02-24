@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Navbar, { ActiveBookmark, Bookmark } from "../navbar";
+import Navbar, { ActiveBookmark, Bookmark } from "../navigation";
 
 import { Section } from "./Section";
 

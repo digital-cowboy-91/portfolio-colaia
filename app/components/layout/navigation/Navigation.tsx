@@ -1,14 +1,13 @@
+"use client";
+
 import useWindowSize from "@/app/hooks/useWindowSize";
-import { useEffect, useState } from "react";
-import { ActiveBookmark, Bookmark } from ".";
+import { useContext, useEffect, useState } from "react";
+import { BookmarkContext } from ".";
 import NavbarHorizontal from "./NavbarHorizontal";
 import NavbarVertical from "./NavbarVertical";
 
-interface Props {
-  bookmarks: Bookmark[];
-  activeBookmark: ActiveBookmark;
-}
-export default function Navbar({ bookmarks, activeBookmark }: Props) {
+export default function Navigation() {
+  const { list, active } = useContext(BookmarkContext);
   const [screenSmall, setScreenSmall] = useState<boolean | null>(null);
   const size = useWindowSize();
 
@@ -21,8 +20,8 @@ export default function Navbar({ bookmarks, activeBookmark }: Props) {
   if (screenSmall === null) return null;
 
   return screenSmall ? (
-    <NavbarHorizontal bookmarks={bookmarks} activeBookmark={activeBookmark} />
+    <NavbarHorizontal bookmarks={list} activeBookmark={active} />
   ) : (
-    <NavbarVertical bookmarks={bookmarks} activeBookmark={activeBookmark} />
+    <NavbarVertical bookmarks={list} activeBookmark={active} />
   );
 }
