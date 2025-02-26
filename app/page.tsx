@@ -1,3 +1,4 @@
+import ActivityScroller from "./components/activity-section/ActivityScroller";
 import ActivityServer from "./components/ActivityServer";
 import AboutServer, {
   AboutScrollTimeline,
@@ -29,8 +30,9 @@ export default function Home() {
           </ToolsScrollTimeline>
         </div>
       </ProfileTimeline>
-
-      <ActivityServer />
+      <ActivityScroller>
+        <ActivityServer />
+      </ActivityScroller>
     </main>
   );
 }
