@@ -1,9 +1,9 @@
 "use client";
-import ScrollableSection from "@/app/components/layout/animate-scroll/ScrollableSection";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { PropsWithChildren, useRef } from "react";
+import GSAPSection from "../../layout/animate-scroll/GSAPSection";
 import { useRegisterBookmark } from "../../layout/navigation";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -17,41 +17,36 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
 
   useGSAP(
     () => {
-      const wrapper = ".anim__wrapper";
-      const target = ".anim__item";
-
-      // const h = Number(gsap.getProperty(target, "height"));
-      // gsap.set(scope.current, { height: h * 1 });
+      const target = "[data-gsap='item']";
 
       const tl = gsap.timeline({
-        paused: true,
         scrollTrigger: {
           trigger: scope.current,
-          start: "-1% center",
+          start: "top center",
           end: "bottom center",
-          // snap: [0.5],
+          scrub: 1,
           fastScrollEnd: 5000,
-          toggleActions: "play play reverse none",
-          onUpdate: (self) => setProgress(self.progress),
-          onEnter: (self) => self.progress === 1 && tl.progress(1),
           // markers: true,
+          onUpdate: (self) => setProgress(self.progress),
         },
-        defaults: { duration: 0.3 },
       });
 
-      tl.set(wrapper, { display: "block" })
-        .to(target, { delay: 0 })
-        .addPause()
-        .to(target, { autoAlpha: 0, y: 50 })
-        .to(target, { delay: 0 })
-        .set(wrapper, { display: "none" });
+      tl.set(target, { autoAlpha: 0, scale: 1 })
+        .to(target, { autoAlpha: 1, duration: 0.5 }, "+=0.5")
+        .to(
+          target,
+          { autoAlpha: 0, scale: 0.8, ease: "back.in", duration: 0.5 },
+          "+=3"
+        );
     },
     { scope }
   );
 
+  console.log("rerender");
+
   return (
-    <ScrollableSection bookmarkId={bookmarkId} ref={scope} theme="sub-profile">
+    <GSAPSection bookmarkId={bookmarkId} ref={scope} theme="profileContent">
       {children}
-    </ScrollableSection>
+    </GSAPSection>
   );
 }

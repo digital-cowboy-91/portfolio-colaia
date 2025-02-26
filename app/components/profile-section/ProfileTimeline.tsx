@@ -1,9 +1,9 @@
 "use client";
 
-import ScrollableSection from "@/app/components/layout/animate-scroll/ScrollableSection";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { PropsWithChildren, useRef } from "react";
+import GSAPSection from "../layout/animate-scroll/GSAPSection";
 import { profileLayout_tl } from "./layout";
 
 gsap.registerPlugin(useGSAP);
@@ -39,5 +39,5 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
     { scope }
   );
 
-  return <ScrollableSection ref={scope}>{children}</ScrollableSection>;
+  return <GSAPSection ref={scope}>{children}</GSAPSection>;
 }

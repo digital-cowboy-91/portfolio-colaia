@@ -13,7 +13,7 @@ export default function Home() {
     <main className="pb-4">
       <ProfileTimeline>
         <ProfileLayout />
-        <div id="profile__subsections" className="pb-[50vh]">
+        <div>
           <IntroScrollTimeline>
             <Intro />
           </IntroScrollTimeline>
