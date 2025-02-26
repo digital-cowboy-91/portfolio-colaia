@@ -1,0 +1,12 @@
+.tracker {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.wrapper {
+  width: inherit;
+  height: inherit;
+}
+
+.item {
+}

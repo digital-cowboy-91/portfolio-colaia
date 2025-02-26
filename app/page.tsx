@@ -1,3 +1,4 @@
+import ActivityServer from "./components/ActivityServer";
 import AboutServer, {
   AboutScrollTimeline,
 } from "./components/profile-section/about";
@@ -29,9 +30,7 @@ export default function Home() {
         </div>
       </ProfileTimeline>
 
-      {/* <AnimateActivitySection>
-        <ActivityServer />
-      </AnimateActivitySection> */}
+      <ActivityServer />
     </main>
   );
 }
