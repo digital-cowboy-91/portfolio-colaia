@@ -1,7 +1,7 @@
 "use client";
 
-import GSAPSection from "@/app/components/layout/animate-scroll/GSAPSection";
 import { useRegisterBookmark } from "@/app/components/layout/navigation";
+import ScrollerWrapper from "@/app/components/layout/scroller/ScrollerWrapper";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
@@ -30,8 +30,8 @@ export default function ActivityScroller({ children }: PropsWithChildren) {
   );
 
   return (
-    <GSAPSection bookmarkId={bookmarkId} ref={scope}>
+    <ScrollerWrapper bookmarkId={bookmarkId} ref={scope}>
       {children}
-    </GSAPSection>
+    </ScrollerWrapper>
   );
 }

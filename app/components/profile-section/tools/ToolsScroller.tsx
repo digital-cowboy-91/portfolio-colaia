@@ -3,16 +3,16 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { PropsWithChildren, useRef } from "react";
-import GSAPSection from "../../layout/animate-scroll/GSAPSection";
 import { useRegisterBookmark } from "../../layout/navigation";
+import ScrollerWrapper from "../../layout/scroller/ScrollerWrapper";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function AboutScrollTimeline({ children }: PropsWithChildren) {
+export default function ToolsScroller({ children }: PropsWithChildren) {
   const scope = useRef(null);
   const { bookmarkId, setProgress } = useRegisterBookmark({
-    id: "about",
-    title: "About",
+    id: "toolbox",
+    title: "Toolbox",
   });
 
   useGSAP(
@@ -24,7 +24,7 @@ export default function AboutScrollTimeline({ children }: PropsWithChildren) {
         scrollTrigger: {
           trigger: scope.current,
           start: "top center",
-          end: "bottom center",
+          end: "bottom bottom",
           // snap: [0.5],
           fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
@@ -35,23 +35,17 @@ export default function AboutScrollTimeline({ children }: PropsWithChildren) {
         defaults: { duration: 0.3 },
       });
 
-      tl.set(item, {
-        autoAlpha: 0,
-        y: 50,
-        rotateX: 0,
-        rotateY: 0,
-        delay: 0.3,
-      })
-        .to(item, { autoAlpha: 1, y: 0 })
+      tl.set(item, { autoAlpha: 0, rotateX: -90, rotateY: 90 })
+        .to(item, { autoAlpha: 1, rotateX: 0, rotateY: 0, delay: 0.3 })
         .addPause()
-        .to(item, { autoAlpha: 0, rotateX: 90, rotateY: 90 });
+        .to(item, { x: "-100vw", ease: "circ.in", duration: 0.75 });
     },
     { scope }
   );
 
   return (
-    <GSAPSection bookmarkId={bookmarkId} ref={scope} theme="profileContent">
+    <ScrollerWrapper bookmarkId={bookmarkId} ref={scope} theme="profileContent">
       {children}
-    </GSAPSection>
+    </ScrollerWrapper>
   );
 }

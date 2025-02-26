@@ -1,5 +1,5 @@
-import AboutScrollTimeline from "./AboutScrollTimeline";
+import AboutScroller from "./AboutScroller";
 import AboutServer from "./AboutServer";
 
 export default AboutServer;
-export { AboutScrollTimeline };
+export { AboutScroller };

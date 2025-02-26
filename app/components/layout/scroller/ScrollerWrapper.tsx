@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   theme?: "default" | "profileContent";
 }
 
-export default function GSAPSection({
+export default function ScrollerWrapper({
   bookmarkId,
   ref,
   children,

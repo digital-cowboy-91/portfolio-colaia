@@ -1,6 +1,6 @@
 import Intro from "./Intro";
 import introLayout_tl from "./introLayout.timeline";
-import IntroScrollTimeline from "./IntroScrollTimeline";
+import IntroScroller from "./IntroScroller";
 
 export default Intro;
-export { introLayout_tl, IntroScrollTimeline };
+export { introLayout_tl, IntroScroller };

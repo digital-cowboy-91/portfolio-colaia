@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { PropsWithChildren, useRef } from "react";
-import GSAPSection from "../layout/animate-scroll/GSAPSection";
+import ScrollerWrapper from "../layout/scroller/ScrollerWrapper";
 import { profileLayout_tl } from "./layout";
 
 gsap.registerPlugin(useGSAP);
@@ -15,12 +15,15 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
     () => {
       const tl = gsap.timeline({
         scrollTrigger: {
+          trigger: scope.current,
           start: "top bottom",
           end: "bottom bottom",
           fastScrollEnd: 5000,
           onEnter: () => tl.tweenFromTo("start", "leave"),
           onLeave: () => tl.tweenFromTo("leave", "end"),
           onEnterBack: () => tl.tweenFromTo("end", "leave"),
+          onUpdate: (self) => console.log(self.progress),
+          markers: true,
         },
       });
 
@@ -39,5 +42,9 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
     { scope }
   );
 
-  return <GSAPSection ref={scope}>{children}</GSAPSection>;
+  return (
+    <ScrollerWrapper ref={scope} bookmarkId="profile">
+      {children}
+    </ScrollerWrapper>
+  );
 }

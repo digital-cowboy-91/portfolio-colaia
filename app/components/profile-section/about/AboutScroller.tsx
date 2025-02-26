@@ -3,16 +3,16 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { PropsWithChildren, useRef } from "react";
-import GSAPSection from "../../layout/animate-scroll/GSAPSection";
 import { useRegisterBookmark } from "../../layout/navigation";
+import ScrollerWrapper from "../../layout/scroller/ScrollerWrapper";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function IntroScrollTimeline({ children }: PropsWithChildren) {
+export default function AboutScroller({ children }: PropsWithChildren) {
   const scope = useRef(null);
   const { bookmarkId, setProgress } = useRegisterBookmark({
-    id: "intro",
-    title: "Intro",
+    id: "about",
+    title: "About",
   });
 
   useGSAP(
@@ -23,28 +23,35 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
         paused: true,
         scrollTrigger: {
           trigger: scope.current,
-          start: "-1% center",
+          start: "top center",
           end: "bottom center",
           // snap: [0.5],
           fastScrollEnd: 5000,
-          toggleActions: "play play reverse none",
-          onUpdate: (self) => setProgress(self.progress),
+          toggleActions: "play play reverse reverse",
           onEnter: (self) => self.progress === 1 && tl.progress(1),
+          onUpdate: (self) => setProgress(self.progress),
           // markers: true,
         },
         defaults: { duration: 0.3 },
       });
 
-      tl.to(item, { autoAlpha: 1 })
+      tl.set(item, {
+        autoAlpha: 0,
+        y: 50,
+        rotateX: 0,
+        rotateY: 0,
+        delay: 0.3,
+      })
+        .to(item, { autoAlpha: 1, y: 0 })
         .addPause()
-        .to(item, { autoAlpha: 0, y: 50 });
+        .to(item, { autoAlpha: 0, rotateX: 90, rotateY: 90 });
     },
     { scope }
   );
 
   return (
-    <GSAPSection bookmarkId={bookmarkId} ref={scope} theme="profileContent">
+    <ScrollerWrapper bookmarkId={bookmarkId} ref={scope} theme="profileContent">
       {children}
-    </GSAPSection>
+    </ScrollerWrapper>
   );
 }
