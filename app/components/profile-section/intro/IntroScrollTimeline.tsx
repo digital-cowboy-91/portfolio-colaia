@@ -17,7 +17,6 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
 
   useGSAP(
     () => {
-      const wrapper = "[data-gsap='wrapper']";
       const item = "[data-gsap='item']";
 
       const tl = gsap.timeline({
@@ -38,8 +37,7 @@ export default function IntroScrollTimeline({ children }: PropsWithChildren) {
 
       tl.to(item, { autoAlpha: 1 })
         .addPause()
-        .to(item, { autoAlpha: 0, y: 50 })
-        .to(item, { delay: 0 });
+        .to(item, { autoAlpha: 0, y: 50 });
     },
     { scope }
   );

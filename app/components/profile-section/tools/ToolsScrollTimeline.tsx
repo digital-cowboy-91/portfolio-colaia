@@ -17,7 +17,6 @@ export default function ToolsScrollTimeline({ children }: PropsWithChildren) {
 
   useGSAP(
     () => {
-      const wrapper = "[data-gsap='wrapper']";
       const item = "[data-gsap='item']";
 
       const tl = gsap.timeline({
@@ -39,8 +38,7 @@ export default function ToolsScrollTimeline({ children }: PropsWithChildren) {
       tl.set(item, { autoAlpha: 0, rotateX: -90, rotateY: 90 })
         .to(item, { autoAlpha: 1, rotateX: 0, rotateY: 0, delay: 0.3 })
         .addPause()
-        .to(item, { x: "-100vw", ease: "circ.in", duration: 0.75 })
-        .to(item, { delay: 0 });
+        .to(item, { x: "-100vw", ease: "circ.in", duration: 0.75 });
     },
     { scope }
   );
