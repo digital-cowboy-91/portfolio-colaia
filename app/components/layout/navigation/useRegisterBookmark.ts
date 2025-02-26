@@ -1,14 +1,18 @@
 "use client";
 
-import { useContext, useEffect, useRef } from "react";
-import { Bookmark, BookmarkContext } from ".";
+import { useSignal } from "@preact/signals-react";
+import { useEffect, useRef } from "react";
+import { Bookmark } from ".";
+import { activeBookmarkSignal, bookmarkListSignal } from "./Navigation";
 
 export default function useRegisterBookmark(bookmark: Bookmark) {
+  useSignal();
+
   const prevProgress = useRef(0);
-  const { setList, setActive } = useContext(BookmarkContext);
 
   useEffect(() => {
-    setList((prev) => [...prev, bookmark]);
+    const prev = bookmarkListSignal.value;
+    bookmarkListSignal.value = [...prev, bookmark];
   }, []);
 
   const setProgress = (progress: number) => {
@@ -16,7 +20,8 @@ export default function useRegisterBookmark(bookmark: Bookmark) {
 
     if (prevProgress.current === _progress) return;
 
-    setActive({ id: bookmark.id, progress: _progress });
+    activeBookmarkSignal.value = { id: bookmark.id, progress: _progress };
+
     prevProgress.current = _progress;
   };
 
