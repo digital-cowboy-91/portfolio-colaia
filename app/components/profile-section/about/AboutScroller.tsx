@@ -29,7 +29,10 @@ export default function AboutScroller({ children }: PropsWithChildren) {
           fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
           onEnter: (self) => self.progress === 1 && tl.progress(1),
-          onUpdate: (self) => setProgress(self.progress),
+          onUpdate: (self) => {
+            console.log(self.animation?.isActive());
+            setProgress(self.progress);
+          },
           // markers: true,
         },
         defaults: { duration: 0.3 },

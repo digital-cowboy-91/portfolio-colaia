@@ -19,10 +19,8 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
           start: "top bottom",
           end: "bottom bottom",
           fastScrollEnd: 5000,
-          onEnter: () => tl.tweenFromTo("start", "leave"),
-          onLeave: () => tl.tweenFromTo("leave", "end"),
-          onEnterBack: () => tl.tweenFromTo("end", "leave"),
-          onUpdate: (self) => console.log(self.progress),
+          toggleActions: "play play reverse reverse",
+          onEnter: (self) => self.progress === 1 && tl.progress(1),
           markers: true,
         },
       });
@@ -31,13 +29,11 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
 
       // const subsections = "#profile__subsections";
 
-      tl.add("start")
-        .delay(0.3)
+      tl.delay(0.3)
         .add(layout_tl.tweenFromTo("start", "leave"))
-        .add("leave")
+        .addPause()
         // .to(subsections, { x: "-100vw" })
-        .add(layout_tl.tweenFromTo("leave", "end"))
-        .add("end");
+        .add(layout_tl.tweenFromTo("leave", "end"));
     },
     { scope }
   );
