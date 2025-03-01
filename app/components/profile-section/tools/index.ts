@@ -1,5 +1,5 @@
-import ToolsScrollTimeline from "./ToolsScrollTimeline";
+import ToolsScroller from "./ToolsScroller";
 import ToolsServer from "./ToolsServer";
 
 export default ToolsServer;
-export { ToolsScrollTimeline };
+export { ToolsScroller };

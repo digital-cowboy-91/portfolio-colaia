@@ -5,7 +5,7 @@ export default function layoutTimeline() {
   const tl = gsap.timeline({
     id: "profile-layout",
     paused: true,
-    defaults: { duration: 0.75, ease: "ease.in" },
+    defaults: { duration: 0.5, ease: "ease.in" },
   });
 
   const intro_tl = introLayout_tl();

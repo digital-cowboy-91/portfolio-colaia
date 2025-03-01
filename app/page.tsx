@@ -1,37 +1,38 @@
+import ActivityScroller from "@/app/components/activity-section/ActivityScroller";
+import ActivityServer from "@/app/components/ActivityServer";
 import AboutServer, {
-  AboutScrollTimeline,
-} from "./components/profile-section/about";
-import Intro, { IntroScrollTimeline } from "./components/profile-section/intro";
-import ProfileLayout from "./components/profile-section/layout";
-import ProfileTimeline from "./components/profile-section/ProfileTimeline";
+  AboutScroller,
+} from "@/app/components/profile-section/about";
+import Intro, { IntroScroller } from "@/app/components/profile-section/intro";
+import ProfileLayout from "@/app/components/profile-section/layout";
+import ProfileScroller from "@/app/components/profile-section/ProfileScroller";
 import ToolsServer, {
-  ToolsScrollTimeline,
-} from "./components/profile-section/tools";
+  ToolsScroller,
+} from "@/app/components/profile-section/tools";
 
 export default function Home() {
   return (
     <main className="pb-4">
-      <ProfileTimeline>
+      <ProfileScroller>
         <ProfileLayout />
         <div>
-          <IntroScrollTimeline>
+          <IntroScroller>
             <Intro />
-          </IntroScrollTimeline>
-          <AboutScrollTimeline>
+          </IntroScroller>
+          <AboutScroller>
             <AboutServer />
-          </AboutScrollTimeline>
-          <ToolsScrollTimeline>
+          </AboutScroller>
+          <ToolsScroller>
             <ToolsServer
               as="table"
               className="g-card p-single drop-shadow-massive"
             />
-          </ToolsScrollTimeline>
+          </ToolsScroller>
         </div>
-      </ProfileTimeline>
-
-      {/* <AnimateActivitySection>
+      </ProfileScroller>
+      <ActivityScroller>
         <ActivityServer />
-      </AnimateActivitySection> */}
+      </ActivityScroller>
     </main>
   );
 }
