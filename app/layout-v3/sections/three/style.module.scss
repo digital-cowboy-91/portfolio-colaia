@@ -1,0 +1,33 @@
+@use "../../debug.scss";
+
+.tracker {
+  height: 150vh;
+
+  @include debug.outline(red);
+}
+
+.wrapper {
+  left: 0;
+  right: 0;
+  top: calc(100vh - 100px / 2);
+
+  transform: translate(0%, -50%);
+
+  height: 100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include debug.outline;
+}
+
+.toolbox {
+  width: 100%;
+  height: 100%;
+
+  @include debug.placeholder("Toolbox");
+}

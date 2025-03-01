@@ -26,8 +26,8 @@ export default function Navigation() {
   const [_, rerender] = useState(0);
 
   useSignalEffect(() => {
-    bookmarkListSignal.value;
-    activeBookmarkSignal.value;
+    const _trigger1 = bookmarkListSignal.value;
+    const _trigger2 = activeBookmarkSignal.value;
 
     rerender((prev) => prev + 1);
   });

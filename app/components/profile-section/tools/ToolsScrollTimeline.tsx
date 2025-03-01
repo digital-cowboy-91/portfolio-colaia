@@ -31,7 +31,7 @@ export default function ToolsScrollTimeline({ children }: PropsWithChildren) {
         },
       });
 
-      tl.delay(1)
+      tl.delay(2)
         .set(target, { autoAlpha: 0, rotateX: -90 })
         .to(target, {
           autoAlpha: 1,

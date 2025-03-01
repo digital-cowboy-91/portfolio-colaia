@@ -18,7 +18,6 @@ export default function ProfileClient({ data }: Props) {
           bg-[#1e1e1e]
           border border-contour rounded-single
           overflow-hidden 
-          max-w-[900px] mx-auto
           drop-shadow-massive
           `}
       aria-label="Mock Visual Studio Code window"

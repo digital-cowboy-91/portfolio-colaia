@@ -1,0 +1,23 @@
+@mixin outline($color: black, $indent: 1) {
+  outline: dashed 2px $color;
+  outline-offset: calc(-5px * $indent);
+}
+
+@mixin placeholder($title: "Placeholder", $level: 1) {
+  background-color: hsl(0, 0%, calc(100% - (10% * $level)));
+  border-radius: 10px;
+  padding: 10px;
+
+  &::before {
+    content: $title;
+
+    position: relative;
+
+    top: 0;
+    left: 0;
+
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
