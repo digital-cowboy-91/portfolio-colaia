@@ -99,6 +99,8 @@ export default function ToolboxDetail({
       </div>
       <ul key={activePage} className={css.tools}>
         {pages.current[activePage].map((item) => {
+          if (!item) return null;
+
           const { icon, title } = item;
 
           return (
