@@ -1,20 +1,23 @@
 @use "../../debug.scss";
+@use "../../layout.scss";
 
 .tracker {
   height: 150vh;
 }
 
 .wrapper {
+  @include debug.outline(red, 0);
+
   left: 0;
   right: 0;
-  top: calc(100vh - 100px / 2);
+  top: calc(100vh - layout.$bottom-bar-height / 2);
 
   transform: translate(0%, -50%);
 
-  height: 100px;
+  height: layout.$bottom-bar-height;
   width: 100%;
   margin: 0 auto;
-  padding: 10px;
+  padding: layout.$spacing;
 
   display: flex;
   justify-content: center;
@@ -24,4 +27,9 @@
 .toolbox {
   width: 100%;
   height: 100%;
+
+  background-color: white;
+  border-radius: layout.$radius;
+
+  color: black;
 }

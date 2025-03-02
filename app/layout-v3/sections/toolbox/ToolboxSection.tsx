@@ -3,12 +3,13 @@
 import css from "./style.module.scss";
 
 import { useRegisterBookmark } from "@/app/components/layout/navigation";
-import ToolsClient from "@/app/components/profile-section/tools/ToolsClient";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import useDataResolver from "../../data-provider/useDataResolver";
+import ToolboxBar from "./ToolboxBar";
+import ToolboxDetail from "./ToolboxDetail";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -23,6 +24,8 @@ export default function ToolboxSection() {
   useGSAP(
     () => {
       const wrapper = '[data-anim="wrapper"]';
+      const bar = '[data-anim="bar"]';
+      const table = '[data-anim="table"]';
 
       const onFirstLoad = () => {
         gsap
@@ -53,11 +56,14 @@ export default function ToolboxSection() {
           });
 
           tl.set(wrapper, { autoAlpha: 1 })
+            .set(table, { autoAlpha: 0, display: "none" })
+            .to(bar, { autoAlpha: 0, display: "none" })
             .to(wrapper, {
               height: 300,
               top: "50%",
               width: isSmall ? "auto" : 720,
             })
+            .to(table, { autoAlpha: 1, display: "block" })
             .to(wrapper, { autoAlpha: 0 }, "+=1.5")
             .duration(2);
         }
@@ -70,7 +76,12 @@ export default function ToolboxSection() {
     <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper} data-anim="wrapper">
         <div className={css.toolbox} data-anim="item">
-          <ToolsClient items={toolsData} />
+          <div data-anim="bar">
+            <ToolboxBar items={toolsData} />
+          </div>
+          <div data-anim="table">
+            <ToolboxDetail items={toolsData} />
+          </div>
         </div>
       </div>
     </section>

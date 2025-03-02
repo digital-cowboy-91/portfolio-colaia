@@ -18,6 +18,8 @@
   --tools-p: calc(var(--tools-h) * 0.25);
   --tools-gap: calc(var(--tools-h) * 0.5);
   --shadow-massive: 20px 20px 30px rgba(0, 0, 0, 0.5);
+
+  --bottom-bar-height: 100px;
 }
 
 @media (max-width: 576px) and (orientation: portrait),

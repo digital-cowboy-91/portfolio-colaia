@@ -1,0 +1,16 @@
+@use "../../layout.scss";
+
+.list {
+  margin: layout.$spacing;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: layout.$icon-size;
+
+  & > li {
+    height: layout.$icon-size;
+    aspect-ratio: 1 / 1;
+  }
+}

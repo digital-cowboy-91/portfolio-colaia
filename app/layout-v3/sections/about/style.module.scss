@@ -1,4 +1,5 @@
 @use "../../debug.scss";
+@use "../../layout.scss";
 
 .tracker {
   height: 300vh;
@@ -8,7 +9,7 @@
   position: sticky;
   top: 0;
 
-  height: calc(100vh - 100px);
+  height: calc(100vh - layout.$bottom-bar-height);
 
   display: flex;
   justify-content: center;
@@ -28,7 +29,7 @@
   flex-direction: column;
   gap: 20px;
 
-  padding: 10px;
+  padding: layout.$spacing;
 
   & > * {
     position: relative;
