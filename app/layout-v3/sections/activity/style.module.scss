@@ -1,16 +1,13 @@
 @use "../../debug.scss";
 
 .tracker {
-  height: 300vh;
-  @include debug.outline(red);
+  min-height: 100vh;
 }
 
-.articles__wrapper {
+.wrapper {
   height: 100%;
   width: 100%;
   max-width: 960px;
 
   margin: 0 auto;
-
-  @include debug.placeholder("Articles");
 }

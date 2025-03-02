@@ -41,8 +41,6 @@
 
 .git {
   height: 150px;
-
-  @include debug.placeholder("Git", 2);
 }
 
 @media (min-height: 920px) and (min-width: 960px) {

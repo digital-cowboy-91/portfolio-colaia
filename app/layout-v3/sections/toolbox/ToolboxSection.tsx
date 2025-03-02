@@ -2,18 +2,23 @@
 
 import css from "./style.module.scss";
 
+import { useRegisterBookmark } from "@/app/components/layout/navigation";
 import ToolsClient from "@/app/components/profile-section/tools/ToolsClient";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import useDataResolver from "../data-provider/useDataResolver";
+import useDataResolver from "../../data-provider/useDataResolver";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function component() {
+export default function ToolboxSection() {
   const scope = useRef(null);
   const toolsData = useDataResolver("tools");
+  const { bookmarkId, setProgress } = useRegisterBookmark({
+    id: "toolbox",
+    title: "Toolbox",
+  });
 
   useGSAP(
     () => {
@@ -42,6 +47,7 @@ export default function component() {
               start: "top 75%",
               end: "bottom bottom",
               scrub: true,
+              onUpdate: (self) => setProgress(self.progress),
               // markers: true,
             },
           });
@@ -61,7 +67,7 @@ export default function component() {
   );
 
   return (
-    <section ref={scope} className={css.tracker}>
+    <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper} data-anim="wrapper">
         <div className={css.toolbox} data-anim="item">
           <ToolsClient items={toolsData} />

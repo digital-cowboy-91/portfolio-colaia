@@ -2,18 +2,24 @@
 
 import css from "./style.module.scss";
 
+import { useRegisterBookmark } from "@/app/components/layout/navigation";
 import AboutClient from "@/app/components/profile-section/about/AboutClient";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import useDataResolver from "../data-provider/useDataResolver";
+import Contributions from "../../Contributions";
+import useDataResolver from "../../data-provider/useDataResolver";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function component() {
+export default function AboutSection() {
   const scope = useRef(null);
   const profileData = useDataResolver("profile");
+  const { bookmarkId, setProgress } = useRegisterBookmark({
+    id: "about",
+    title: "About",
+  });
 
   useGSAP(
     () => {
@@ -30,6 +36,7 @@ export default function component() {
             start: "top center",
             end: "bottom 75%",
             scrub: true,
+            onUpdate: (self) => setProgress(self.progress),
           },
         });
 
@@ -47,6 +54,7 @@ export default function component() {
             start: "top center",
             end: "bottom center",
             scrub: true,
+            onUpdate: (self) => setProgress(self.progress),
           },
         });
 
@@ -65,13 +73,15 @@ export default function component() {
   );
 
   return (
-    <section ref={scope} className={css.tracker}>
+    <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper}>
         <div className={css.items} data-anim="items">
           <div className={css.code} data-anim="code">
             <AboutClient data={profileData} />
           </div>
-          <div className={css.git} data-anim="git" />
+          <div className={css.git} data-anim="git">
+            <Contributions />
+          </div>
         </div>
       </div>
     </section>

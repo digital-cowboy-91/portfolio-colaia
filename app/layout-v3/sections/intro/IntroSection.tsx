@@ -3,6 +3,7 @@
 import css from "./style.module.scss";
 
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
+import { useRegisterBookmark } from "@/app/components/layout/navigation";
 import Intro, { introLayout_tl } from "@/app/components/profile-section/intro";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -12,8 +13,12 @@ import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function component() {
+export default function IntroSection() {
   const ref = useRef(null);
+  const { bookmarkId, setProgress } = useRegisterBookmark({
+    id: "intro",
+    title: "Intro",
+  });
 
   useGSAP(() => {
     const scope = ref.current;
@@ -38,6 +43,7 @@ export default function component() {
         end: "150% bottom",
         scrub: true,
         onEnter: (self) => self.progress !== 1 && onFirstLoad(),
+        onUpdate: (self) => setProgress(self.progress),
         // markers: true,
       },
     });
@@ -48,7 +54,7 @@ export default function component() {
   });
 
   return (
-    <section ref={ref} className={css.tracker}>
+    <section id={bookmarkId} ref={ref} className={css.tracker}>
       <div className={css.wrapper} data-anim="wrapper">
         <div className={css.content}>
           <div className={css.intro}>

@@ -1,18 +1,18 @@
 import LenisWrapper from "./LenisWrapper";
-import DataProvider from "./sections/data-provider";
-import First from "./sections/first";
-import Four from "./sections/four";
-import Second from "./sections/second";
-import Three from "./sections/three";
+import DataProvider from "./data-provider";
+import AboutSection from "./sections/about/AboutSection";
+import ActivitySection from "./sections/activity/ActivitySection";
+import IntroSection from "./sections/intro/IntroSection";
+import ToolboxSection from "./sections/toolbox/ToolboxSection";
 
 export default function page() {
   return (
     <DataProvider>
       <LenisWrapper>
-        <First />
-        <Second />
-        <Three />
-        <Four />
+        <IntroSection />
+        <AboutSection />
+        <ToolboxSection />
+        <ActivitySection />
       </LenisWrapper>
     </DataProvider>
   );
