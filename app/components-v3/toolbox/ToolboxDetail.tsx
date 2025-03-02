@@ -55,16 +55,11 @@ const experience = {
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   items: Tool[];
-  onHeightChange?: (height: number) => void;
 }
 
 gsap.registerPlugin(useGSAP);
 
-export default function ToolboxDetail({
-  items,
-  onHeightChange,
-  ...rest
-}: Props) {
+export default function ToolboxDetail({ items }: Props) {
   const scope = useRef(null);
   const pages = useRef(splitToPages(items, 12));
   const [activePage, setActivePage] = useState(0);

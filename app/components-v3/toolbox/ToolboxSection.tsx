@@ -89,7 +89,7 @@ export default function ToolboxSection() {
     { scope }
   );
 
-  if (!toolsData) return null;
+  console.log(toolsData);
 
   return (
     <section id={bookmarkId} ref={scope} className={css.tracker}>
