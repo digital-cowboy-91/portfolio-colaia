@@ -5,7 +5,7 @@ export default function Contributions() {
   const contributionsData = useDataResolver("contributions");
 
   const theme = {
-    light: ["#ebedf020", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+    light: ["#ebedf010", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
   };
 
   return (

@@ -6,12 +6,13 @@ import { useRegisterBookmark } from "@/app/components/layout/navigation";
 import AboutClient from "@/app/components/profile-section/about/AboutClient";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { SlowMo } from "gsap/EasePack";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
 import Contributions from "../../Contributions";
 import useDataResolver from "../../data-provider/useDataResolver";
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.registerPlugin(useGSAP, ScrollTrigger, SlowMo);
 
 export default function AboutSection() {
   const scope = useRef(null);
@@ -33,18 +34,23 @@ export default function AboutSection() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: scope.current,
-            start: "top center",
-            end: "bottom 75%",
+            start: "top top",
+            end: "bottom bottom",
             scrub: true,
             onUpdate: (self) => setProgress(self.progress),
           },
         });
 
-        tl.fromTo(git, { yPercent: 0 }, { yPercent: 50, duration: 2 })
-          .to(code, { y: -25, duration: 2 }, "<")
-          .to(git, { left: "-100vw", ease: "circ.in" })
-          .to(code, { right: "-100vw", ease: "circ.in" }, "<")
-          .duration(3);
+        tl.fromTo(
+          git,
+          { x: "100vw" },
+          { x: "-100vw", ease: "slow(0.7, 0.7, false)" }
+        ).fromTo(
+          code,
+          { x: "-100vw" },
+          { x: "100vw", ease: "slow(0.7, 0.7, false)" },
+          "<"
+        );
       });
 
       mm.add("(max-height: 919px) and (max-width: 959px)", () => {
@@ -76,10 +82,10 @@ export default function AboutSection() {
     <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper}>
         <div className={css.items} data-anim="items">
-          <div className={css.code} data-anim="code">
+          <div data-anim="code">
             <AboutClient data={profileData} />
           </div>
-          <div className={css.git} data-anim="git">
+          <div data-anim="git">
             <Contributions />
           </div>
         </div>
