@@ -42,7 +42,8 @@ export default function IntroSection() {
         start: "top center",
         end: "150% bottom",
         scrub: true,
-        onEnter: (self) => self.progress !== 1 && onFirstLoad(),
+        onEnter: (self) =>
+          self.progress !== 1 ? onFirstLoad() : introLayout.progress(1),
         onUpdate: (self) => setProgress(self.progress),
         // markers: true,
       },
