@@ -3,14 +3,14 @@
 import css from "./style.module.scss";
 
 import { useRegisterBookmark } from "@/app/components/layout/navigation";
-import AboutClient from "@/app/components/profile-section/about/AboutClient";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SlowMo } from "gsap/EasePack";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef } from "react";
-import Contributions from "../../Contributions";
-import useDataResolver from "../../data-provider/useDataResolver";
+import useDataResolver from "../data-provider/useDataResolver";
+import AboutClient from "./AboutClient";
+import Contributions from "./Contributions";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SlowMo);
 

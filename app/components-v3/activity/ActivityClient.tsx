@@ -3,7 +3,7 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import { motion } from "motion/react";
 import { useMemo, useRef, useState } from "react";
-import { ActivityWithRefs } from "../types/activity";
+import { ActivityWithRefs } from "../../types/activity";
 import Article from "./Article";
 
 type Props = {

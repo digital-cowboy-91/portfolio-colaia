@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useRef, useState } from "react";
-import useWindowSize from "../../../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 
 export default function Intro() {
   const namesRef = useRef<null | HTMLDivElement>(null);

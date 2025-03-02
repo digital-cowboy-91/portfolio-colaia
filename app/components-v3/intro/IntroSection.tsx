@@ -4,12 +4,13 @@ import css from "./style.module.scss";
 
 import portraitPic from "@/app/assets/profile-turtle-neck.webp";
 import { useRegisterBookmark } from "@/app/components/layout/navigation";
-import Intro, { introLayout_tl } from "@/app/components/profile-section/intro";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { useRef } from "react";
+import Intro from "./Intro";
+import introLayoutTimeline from "./introLayout.timeline";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -25,7 +26,7 @@ export default function IntroSection() {
       const wrapper = '[data-anim="wrapper"]';
 
       const onFirstLoad = () => {
-        const introLayout = introLayout_tl().pause();
+        const introLayout = introLayoutTimeline().pause();
         gsap
           .timeline()
           .delay(0.3)

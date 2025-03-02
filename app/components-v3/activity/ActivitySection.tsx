@@ -1,11 +1,12 @@
 "use client";
-import ActivityClient from "@/app/components/ActivityClient";
+
 import { useRegisterBookmark } from "@/app/components/layout/navigation";
 import { ActivityWithRefs } from "@/app/types/activity";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useRef } from "react";
-import useDataResolver from "../../data-provider/useDataResolver";
+import useDataResolver from "../data-provider/useDataResolver";
+import ActivityClient from "./ActivityClient";
 import css from "./style.module.scss";
 
 gsap.registerPlugin(useGSAP);

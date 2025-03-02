@@ -1,7 +1,7 @@
+import CoverImage from "@/app/components-v3/activity/CoverImage";
+import MarkdownContent from "@/app/components-v3/activity/MarkdownContent";
+import { ActivityWithRefs } from "@/app/types/activity";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
-import { ActivityWithRefs } from "../types/activity";
-import CoverImage from "./CoverImage";
-import MarkdownContent from "./MarkdownContent";
 
 export default function Article({ data }: { data: ActivityWithRefs }) {
   const {

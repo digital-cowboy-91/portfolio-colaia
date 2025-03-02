@@ -1,6 +1,6 @@
 "use client";
 
-import ProgressBar from "@/app/components/profile-section/tools/ProgressBar";
+import ProgressBar from "@/app/components-v3/toolbox/ProgressBar";
 import { Tool } from "@/app/types/tools";
 import { useGSAP } from "@gsap/react";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";

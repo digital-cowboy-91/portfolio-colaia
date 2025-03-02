@@ -1,38 +1,19 @@
-import ActivityScroller from "@/app/components/activity-section/ActivityScroller";
-import ActivityServer from "@/app/components/ActivityServer";
-import AboutServer, {
-  AboutScroller,
-} from "@/app/components/profile-section/about";
-import Intro, { IntroScroller } from "@/app/components/profile-section/intro";
-import ProfileLayout from "@/app/components/profile-section/layout";
-import ProfileScroller from "@/app/components/profile-section/ProfileScroller";
-import ToolsServer, {
-  ToolsScroller,
-} from "@/app/components/profile-section/tools";
+import AboutSection from "./components-v3/about/AboutSection";
+import ActivitySection from "./components-v3/activity/ActivitySection";
+import DataProvider from "./components-v3/data-provider";
+import IntroSection from "./components-v3/intro/IntroSection";
+import LenisWrapper from "./components-v3/LenisWrapper";
+import ToolboxSection from "./components-v3/toolbox/ToolboxSection";
 
-export default function Home() {
+export default function page() {
   return (
-    <main className="pb-4">
-      <ProfileScroller>
-        <ProfileLayout />
-        <div>
-          <IntroScroller>
-            <Intro />
-          </IntroScroller>
-          <AboutScroller>
-            <AboutServer />
-          </AboutScroller>
-          <ToolsScroller>
-            <ToolsServer
-              as="table"
-              className="g-card p-single drop-shadow-massive"
-            />
-          </ToolsScroller>
-        </div>
-      </ProfileScroller>
-      <ActivityScroller>
-        <ActivityServer />
-      </ActivityScroller>
-    </main>
+    <DataProvider>
+      <LenisWrapper>
+        <IntroSection />
+        <AboutSection />
+        <ToolboxSection />
+        <ActivitySection />
+      </LenisWrapper>
+    </DataProvider>
   );
 }
