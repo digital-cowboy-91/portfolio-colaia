@@ -26,13 +26,13 @@ export default function ToolboxSection() {
       const wrapper = '[data-anim="wrapper"]';
       const items = '[data-anim="items"]';
       const bar = '[data-anim="bar"]';
-      const table = '[data-anim="table"]';
+      const detail = '[data-anim="detail"]';
 
       const onFirstLoad = () => {
         gsap
           .timeline()
           .set(wrapper, { autoAlpha: 0, y: 100, position: "fixed" })
-          .set(table, { autoAlpha: 0, display: "none" })
+          .set(detail, { autoAlpha: 0, display: "none" })
           .to(wrapper, { autoAlpha: 1, y: 0 })
           .duration(1);
       };
@@ -59,7 +59,7 @@ export default function ToolboxSection() {
 
           tl.set(wrapper, { autoAlpha: 1 })
             .to(bar, { autoAlpha: 0, display: "none" })
-            .set(table, { display: "block" })
+            .set(detail, { display: "block" })
             .to(wrapper, {
               top: "50%",
               width: isSmall ? "auto" : 720,
@@ -71,13 +71,13 @@ export default function ToolboxSection() {
                 height: gsap.getProperty(bar, "height", "px"),
               },
               {
-                height: gsap.getProperty(table, "height", "px"),
+                height: gsap.getProperty(detail, "height", "px"),
                 duration: 1,
               },
               "<"
             )
             .set(items, { height: "auto" })
-            .to(table, { autoAlpha: 1 })
+            .to(detail, { autoAlpha: 1 })
             .to(wrapper, { autoAlpha: 0 }, "+=1.5")
             .duration(4);
         }
@@ -93,7 +93,7 @@ export default function ToolboxSection() {
           <div className={css.bar} data-anim="bar">
             <ToolboxBar items={toolsData} />
           </div>
-          <div className={css.table} data-anim="table">
+          <div className={css.detail} data-anim="detail">
             <ToolboxDetail items={toolsData} />
           </div>
         </div>
