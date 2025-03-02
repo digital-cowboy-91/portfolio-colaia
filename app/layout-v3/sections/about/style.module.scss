@@ -27,9 +27,13 @@
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 50px;
 
   padding: layout.$spacing;
+
+  &[data-anim] {
+    visibility: hidden;
+  }
 
   & > * {
     position: relative;
@@ -40,6 +44,11 @@
 .code {
   min-height: 500px;
   flex-grow: 1;
+}
+
+.git {
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-height: 920px) and (min-width: 960px) {

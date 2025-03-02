@@ -28,19 +28,25 @@ export default function AboutSection() {
       const code = '[data-anim="code"]';
       const git = '[data-anim="git"]';
 
+      // Default state
+      gsap.set(items, { autoAlpha: 1 });
+
+      // Timeline trigger
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: scope.current,
+          start: "top 1px",
+          end: "bottom bottom",
+          scrub: true,
+          onUpdate: (self) => setProgress(self.progress),
+        },
+      });
+
+      // Responsive animations
       const mm = gsap.matchMedia();
 
       mm.add("(min-height: 920px) and (min-width: 960px)", () => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: scope.current,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
-            onUpdate: (self) => setProgress(self.progress),
-          },
-        });
-
+        tl.clear();
         tl.fromTo(
           git,
           { x: "100vw" },
@@ -54,16 +60,7 @@ export default function AboutSection() {
       });
 
       mm.add("(max-height: 919px) and (max-width: 959px)", () => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: scope.current,
-            start: "top top",
-            end: "bottom bottom",
-            scrub: true,
-            onUpdate: (self) => setProgress(self.progress),
-          },
-        });
-
+        tl.clear();
         tl.fromTo(
           items,
           { yPercent: 50, scale: 0.9 },
@@ -85,7 +82,7 @@ export default function AboutSection() {
           <div data-anim="code">
             <AboutClient data={profileData} />
           </div>
-          <div data-anim="git">
+          <div className={css.git} data-anim="git">
             <Contributions />
           </div>
         </div>
