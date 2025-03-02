@@ -13,6 +13,8 @@ export default function Article({ data }: { data: ActivityWithRefs }) {
     coverLink,
     usedTools,
   } = data;
+
+  console.log({ usedTools });
   return (
     <article className="grid gap-single p-single">
       <header className="grid grid-cols-[auto_max-content]">
@@ -45,9 +47,9 @@ export default function Article({ data }: { data: ActivityWithRefs }) {
       {usedTools?.length > 0 && (
         <footer>
           <ul className="flex gap-single h-[16px] text-subtle">
-            {usedTools.map(({ icon }) => (
-              <li key={icon} className="h-full aspect-square">
-                <Icon icon={icon} width="100%" height="100%" />
+            {usedTools.map((item) => (
+              <li key={item?.icon} className="h-full aspect-square">
+                <Icon icon={item?.icon} width="100%" height="100%" />
               </li>
             ))}
           </ul>
