@@ -14,7 +14,7 @@ export default function ToolboxBar({ items, ...rest }: Props) {
     <ul className={css.list} {...rest}>
       {items.map(({ icon }) => (
         <li key={icon}>
-          <Icon icon={icon} height="100%" width="100%" />
+          <Icon icon={icon} height="100%" width="100%" noobserver />
         </li>
       ))}
     </ul>
