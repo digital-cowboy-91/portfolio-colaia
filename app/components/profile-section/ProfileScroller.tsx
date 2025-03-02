@@ -21,7 +21,6 @@ export default function ProfileTimeline({ children }: PropsWithChildren) {
           fastScrollEnd: 5000,
           toggleActions: "play play reverse reverse",
           onEnter: (self) => self.progress === 1 && tl.progress(1),
-          markers: true,
         },
       });
 

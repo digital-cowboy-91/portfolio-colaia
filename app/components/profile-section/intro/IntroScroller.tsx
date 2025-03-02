@@ -38,8 +38,6 @@ export default function IntroScroller({ children }: PropsWithChildren) {
     { scope }
   );
 
-  console.log("rerender");
-
   return (
     <ScrollerWrapper bookmarkId={bookmarkId} ref={scope} theme="profileContent">
       {children}

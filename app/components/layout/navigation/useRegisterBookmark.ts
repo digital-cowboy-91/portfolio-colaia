@@ -18,14 +18,11 @@ export default function useRegisterBookmark(bookmark: Bookmark) {
   const setProgress = (progress: number) => {
     const _progress = Math.round(progress * 20) / 20;
 
-    console.log(1, bookmark.id, _progress);
-
     if (prevProgress.current === _progress) return;
 
     activeBookmarkSignal.value = { id: bookmark.id, progress: _progress };
 
     prevProgress.current = _progress;
-    console.log(2, bookmark.id, _progress);
   };
 
   return {

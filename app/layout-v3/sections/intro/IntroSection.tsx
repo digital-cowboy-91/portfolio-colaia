@@ -26,13 +26,11 @@ export default function IntroSection() {
 
       const onFirstLoad = () => {
         const introLayout = introLayout_tl().pause();
-        const tl = gsap.timeline();
-
-        tl.fromTo(
-          wrapper,
-          { y: -50, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1 }
-        ).add(introLayout.play());
+        gsap
+          .timeline()
+          .delay(0.3)
+          .fromTo(wrapper, { y: -50, autoAlpha: 0 }, { y: 0, autoAlpha: 1 })
+          .add(introLayout.play());
       };
 
       gsap.timeline({

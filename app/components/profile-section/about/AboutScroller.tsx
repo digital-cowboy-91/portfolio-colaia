@@ -29,7 +29,6 @@ export default function AboutScroller({ children }: PropsWithChildren) {
           toggleActions: "play play reverse reverse",
           onEnter: (self) => self.progress === 1 && tl.progress(1),
           onUpdate: (self) => {
-            console.log(self.animation?.isActive());
             setProgress(self.progress);
           },
           // markers: true,
@@ -50,8 +49,6 @@ export default function AboutScroller({ children }: PropsWithChildren) {
     },
     { scope }
   );
-
-  console.log("rerender");
 
   return (
     <ScrollerWrapper bookmarkId={bookmarkId} ref={scope} theme="profileContent">

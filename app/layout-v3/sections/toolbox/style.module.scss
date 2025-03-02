@@ -22,9 +22,13 @@
   align-items: center;
 
   overflow: hidden;
+
+  &[data-anim] {
+    visibility: hidden;
+  }
 }
 
-.toolbox {
+.items {
   width: 100%;
   height: 100%;
 
@@ -32,4 +36,14 @@
   border-radius: layout.$radius;
 
   color: black;
+}
+
+.detail {
+  width: 100%;
+}
+
+@media (min-height: 920px) and (min-width: 960px) {
+  .detail {
+    width: 720px;
+  }
 }
