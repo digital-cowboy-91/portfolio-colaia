@@ -1,7 +1,7 @@
 @use "../../layout.scss";
 
 .list {
-  margin: layout.$spacing;
+  padding: layout.$spacing;
 
   display: flex;
   justify-content: center;

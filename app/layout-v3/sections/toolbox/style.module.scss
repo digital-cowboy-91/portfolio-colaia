@@ -14,7 +14,7 @@
 
   transform: translate(0%, -50%);
 
-  height: layout.$bottom-bar-height;
+  min-height: layout.$bottom-bar-height;
   width: 100%;
   margin: 0 auto;
   padding: layout.$spacing;
@@ -22,6 +22,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 }
 
 .toolbox {

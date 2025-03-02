@@ -1,11 +1,12 @@
 "use client";
 
 import ProgressBar from "@/app/components/profile-section/tools/ProgressBar";
-import useBoxSize from "@/app/hooks/useBoxSize";
 import { Tool } from "@/app/types/tools";
+import { useGSAP } from "@gsap/react";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
-import { AnimatePresence, motion } from "motion/react";
+import gsap from "gsap";
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
+import css from "./detail.module.scss";
 
 const experience = {
   1: {
@@ -57,95 +58,70 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   onHeightChange?: (height: number) => void;
 }
 
+gsap.registerPlugin(useGSAP);
+
 export default function ToolboxDetail({
   items,
   onHeightChange,
   ...rest
 }: Props) {
+  const scope = useRef(null);
   const pages = useRef(splitToPages(items, 12));
   const [activePage, setActivePage] = useState(0);
   const [activeItem, setActiveItem] = useState(pages.current[activePage][0]);
-
-  const box = useBoxSize("height", (box) => {
-    onHeightChange?.(box.height);
-  });
 
   useEffect(() => {
     setActiveItem(() => pages.current[activePage][0]);
   }, [activePage]);
 
+  useGSAP(() => {}, { dependencies: [activePage, activeItem], scope });
+
   return (
-    <div ref={box.set} {...rest}>
-      <div className="flex justify-between items-center">
+    <div className={css.wrapper}>
+      <div className={css.controls}>
         <button
-          className="h-8 aspect-square disabled:opacity-0"
           onClick={() => setActivePage((current) => current - 1)}
           disabled={activePage === 0}
         >
           <Icon icon="codicon:arrow-small-left" width="100%" height="100%" />
         </button>
-        <div className="w-full flex place-content-center gap-2">
+        <ul className={css.indicators}>
           {pages.current.map((_val, index) => (
-            <div
-              key={index}
-              className={`h-2 aspect-square rounded-full ${
-                activePage === index ? "bg-primary" : "bg-subtle"
-              } transition-colors`}
-            />
+            <li key={index} data-is-active={activePage === index} />
           ))}
-        </div>
+        </ul>
         <button
-          className="h-8 aspect-square disabled:opacity-0"
           onClick={() => setActivePage((current) => current + 1)}
           disabled={activePage + 1 === pages.current.length}
         >
           <Icon icon="codicon:arrow-small-right" width="100%" height="100%" />
         </button>
       </div>
-      <AnimatePresence mode="popLayout">
-        <motion.ul
-          key={activePage}
-          className={`
-          grid
-          grid-cols-2
-          sm:grid-cols-3
-          md:grid-cols-4
-          p-single gap-double mx-auto
-        `}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-            transition: { delay: 0.3 },
-          }}
-          exit={{ opacity: 0, transition: { duration: 0 } }}
-          layout
-        >
-          {pages.current[activePage].map((item, index) => {
-            const { icon, title } = item;
-            return (
-              <li key={icon}>
-                <button
-                  className={`flex gap-single items-center relative ${
-                    activeItem.icon === icon ? "text-primary" : ""
-                  }`}
-                  onClick={() => setActiveItem(item)}
-                >
-                  <div className={`size-[32px] transition-colors`}>
-                    <Icon icon={icon} height="100%" width="100%" />
-                  </div>
-                  <div className="transition-colors">{title}</div>
-                </button>
-              </li>
-            );
-          })}
-        </motion.ul>
-      </AnimatePresence>
+      <ul key={activePage} className={css.tools}>
+        {pages.current[activePage].map((item, index) => {
+          const { icon, title } = item;
+
+          return (
+            <li key={icon}>
+              <button
+                onClick={() => setActiveItem(item)}
+                data-is-active={activeItem.icon === icon}
+              >
+                <div>
+                  <Icon icon={icon} height="100%" width="100%" />
+                </div>
+                <span>{title}</span>
+              </button>
+            </li>
+          );
+        })}
+      </ul>
       <ProgressBar
         points={Object.values(experience).map(({ name }) => name)}
         activePoint={activeItem.experience}
         fill={{ active: "var(--primary)", inActive: "var(--subtle)" }}
       />
-      <p className="text-center p-single pb-0">
+      <p className={css.description}>
         {experience[activeItem.experience].description[activeItem.type]}
       </p>
     </div>

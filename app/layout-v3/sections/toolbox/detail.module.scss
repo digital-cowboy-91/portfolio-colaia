@@ -1,0 +1,72 @@
+@use "../../layout.scss";
+
+.wrapper {
+  padding: layout.$spacing * 2;
+
+  display: flex;
+  flex-direction: column;
+  gap: layout.$spacing * 2;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > button {
+    height: 2rem;
+    aspect-ratio: 1 / 1;
+  }
+
+  & > .indicators {
+    $size: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $size;
+
+    & > li {
+      height: $size;
+      aspect-ratio: 1 / 1;
+
+      border-radius: 50%;
+      background-color: var(--subtle);
+
+      transition: background-color 250ms ease;
+
+      &[data-is-active="true"] {
+        background-color: var(--primary);
+      }
+    }
+  }
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: layout.$spacing * 2;
+
+  & > li > button {
+    display: flex;
+    align-items: center;
+    gap: layout.$spacing;
+
+    &[data-is-active="true"] {
+      color: var(--primary);
+    }
+
+    & > * {
+      transition: color 250ms ease;
+    }
+
+    & > div {
+      height: layout.$icon-size;
+      aspect-ratio: 1 / 1;
+    }
+  }
+}
+
+.description {
+  text-align: center;
+}

@@ -24,6 +24,7 @@ export default function ToolboxSection() {
   useGSAP(
     () => {
       const wrapper = '[data-anim="wrapper"]';
+      const items = '[data-anim="items"]';
       const bar = '[data-anim="bar"]';
       const table = '[data-anim="table"]';
 
@@ -31,6 +32,7 @@ export default function ToolboxSection() {
         gsap
           .timeline()
           .set(wrapper, { autoAlpha: 0, y: 100, position: "fixed" })
+          .set(table, { autoAlpha: 0, display: "none" })
           .to(wrapper, { autoAlpha: 1, y: 0 })
           .duration(1);
       };
@@ -56,16 +58,28 @@ export default function ToolboxSection() {
           });
 
           tl.set(wrapper, { autoAlpha: 1 })
-            .set(table, { autoAlpha: 0, display: "none" })
             .to(bar, { autoAlpha: 0, display: "none" })
+            .set(table, { display: "block" })
             .to(wrapper, {
-              height: 300,
               top: "50%",
               width: isSmall ? "auto" : 720,
+              duration: 1,
             })
-            .to(table, { autoAlpha: 1, display: "block" })
+            .fromTo(
+              items,
+              {
+                height: gsap.getProperty(bar, "height", "px"),
+              },
+              {
+                height: gsap.getProperty(table, "height", "px"),
+                duration: 1,
+              },
+              "<"
+            )
+            .set(items, { height: "auto" })
+            .to(table, { autoAlpha: 1 })
             .to(wrapper, { autoAlpha: 0 }, "+=1.5")
-            .duration(2);
+            .duration(4);
         }
       );
     },
@@ -75,11 +89,11 @@ export default function ToolboxSection() {
   return (
     <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper} data-anim="wrapper">
-        <div className={css.toolbox} data-anim="item">
-          <div data-anim="bar">
+        <div className={css.toolbox} data-anim="items">
+          <div className={css.bar} data-anim="bar">
             <ToolboxBar items={toolsData} />
           </div>
-          <div data-anim="table">
+          <div className={css.table} data-anim="table">
             <ToolboxDetail items={toolsData} />
           </div>
         </div>
