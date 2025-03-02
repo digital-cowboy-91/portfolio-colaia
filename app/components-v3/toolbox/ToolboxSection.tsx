@@ -89,6 +89,8 @@ export default function ToolboxSection() {
     { scope }
   );
 
+  if (!toolsData) return null;
+
   return (
     <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper} data-anim="wrapper">
