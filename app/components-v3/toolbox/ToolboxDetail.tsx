@@ -98,7 +98,7 @@ export default function ToolboxDetail({
         </button>
       </div>
       <ul key={activePage} className={css.tools}>
-        {pages.current[activePage].map((item, index) => {
+        {pages.current[activePage].map((item) => {
           const { icon, title } = item;
 
           return (
@@ -129,6 +129,8 @@ export default function ToolboxDetail({
 }
 
 function splitToPages<T>(arr: T[], page: number) {
+  if (!arr) return [];
+
   const _arr = [...arr];
   const result = [];
 
