@@ -74,6 +74,9 @@ export default function ToolboxSection() {
             width: gsap.getProperty(detail, "width", "px"),
             height: gsap.getProperty(detail, "height", "px"),
             duration: 1,
+            onStart: () => {
+              console.log(gsap.getProperty(detail, "width", "px"));
+            },
           },
           "<"
         )

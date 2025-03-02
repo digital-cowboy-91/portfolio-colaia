@@ -48,7 +48,7 @@
 
 .tools {
   display: grid;
-  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
   gap: layout.$spacing * 2;
 
   & > li > button {
@@ -73,4 +73,10 @@
 
 .description {
   text-align: center;
+}
+
+@media (min-height: 920px) and (min-width: 960px) {
+  .tools {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  }
 }
