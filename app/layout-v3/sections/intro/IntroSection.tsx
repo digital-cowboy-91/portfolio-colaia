@@ -14,48 +14,43 @@ import { useRef } from "react";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function IntroSection() {
-  const ref = useRef(null);
+  const scope = useRef(null);
   const { bookmarkId, setProgress } = useRegisterBookmark({
     id: "intro",
     title: "Intro",
   });
 
-  useGSAP(() => {
-    const scope = ref.current;
-    const q = gsap.utils.selector(scope);
-    const wrapper = q('[data-anim="wrapper"]');
+  useGSAP(
+    () => {
+      const wrapper = '[data-anim="wrapper"]';
 
-    const introLayout = introLayout_tl().pause();
+      const onFirstLoad = () => {
+        const introLayout = introLayout_tl().pause();
+        const tl = gsap.timeline();
 
-    const onFirstLoad = () => {
-      const tl = gsap.timeline();
+        tl.fromTo(
+          wrapper,
+          { y: -50, autoAlpha: 0 },
+          { y: 0, autoAlpha: 1 }
+        ).add(introLayout.play());
+      };
 
-      tl.set("body", { overflow: "hidden" })
-        .fromTo(wrapper, { y: -50, autoAlpha: 0 }, { y: 0, autoAlpha: 1 })
-        .add(introLayout.play())
-        .set("body", { overflow: "unset" });
-    };
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: scope,
-        start: "top center",
-        end: "150% bottom",
-        scrub: true,
-        onEnter: (self) =>
-          self.progress !== 1 ? onFirstLoad() : introLayout.progress(1),
-        onUpdate: (self) => setProgress(self.progress),
-        // markers: true,
-      },
-    });
-
-    tl.to(wrapper, { scale: 0.9, duration: 0.5 }, "+=1.5")
-      .to(wrapper, { yPercent: -50, duration: 1 })
-      .duration(3);
-  });
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: scope.current,
+          start: "top 1px",
+          end: "bottom top",
+          scrub: true,
+          onEnter: () => onFirstLoad(),
+          onUpdate: (self) => setProgress(self.progress),
+        },
+      });
+    },
+    { scope }
+  );
 
   return (
-    <section id={bookmarkId} ref={ref} className={css.tracker}>
+    <section id={bookmarkId} ref={scope} className={css.tracker}>
       <div className={css.wrapper} data-anim="wrapper">
         <div className={css.content}>
           <div className={css.intro}>

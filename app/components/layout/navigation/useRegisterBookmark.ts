@@ -8,7 +8,7 @@ import { activeBookmarkSignal, bookmarkListSignal } from "./Navigation";
 export default function useRegisterBookmark(bookmark: Bookmark) {
   useSignal();
 
-  const prevProgress = useRef(0);
+  const prevProgress = useRef(-1);
 
   useEffect(() => {
     const prev = bookmarkListSignal.value;

@@ -57,8 +57,8 @@ export default function AboutSection() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: scope.current,
-            start: "top center",
-            end: "bottom center",
+            start: "top top",
+            end: "bottom bottom",
             scrub: true,
             onUpdate: (self) => setProgress(self.progress),
           },

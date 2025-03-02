@@ -29,6 +29,8 @@ export default function Navigation() {
     const _trigger1 = bookmarkListSignal.value;
     const _trigger2 = activeBookmarkSignal.value;
 
+    console.log(_trigger2);
+
     rerender((prev) => prev + 1);
   });
 
