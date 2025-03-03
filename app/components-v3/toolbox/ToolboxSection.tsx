@@ -2,7 +2,7 @@
 
 import css from "./style.module.scss";
 
-import { useRegisterBookmark } from "@/app/components/layout/navigation";
+import { useRegisterBookmark } from "@/app/components-v3/navigation";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

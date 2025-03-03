@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
-import Navigation from "./components/layout/navigation";
+import Navigation from "./components-v3/navigation";
 import "./globals.css";
 
 const redHat = Red_Hat_Display({

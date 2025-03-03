@@ -1,6 +1,6 @@
 import { ActiveBookmark, Bookmark } from ".";
-import ProgressBar from "../ProgressBar";
 import MenuItem from "./MenuItem";
+import ProgressBar from "./ProgressBar";
 import SocialLinks from "./SocialLinks";
 
 interface Props {

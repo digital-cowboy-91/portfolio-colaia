@@ -1,9 +1,9 @@
 import { AnimatePresence, motion, stagger, useAnimate } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { ActiveBookmark, Bookmark } from ".";
-import ProgressBar from "../ProgressBar";
 import MenuItem from "./MenuItem";
 import NavbarButton from "./NavbarButton";
+import ProgressBar from "./ProgressBar";
 import SocialLinks from "./SocialLinks";
 
 interface Props {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRegisterBookmark } from "@/app/components/layout/navigation";
+import { useRegisterBookmark } from "@/app/components-v3/navigation";
 import { ActivityWithRefs } from "@/app/types/activity";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
