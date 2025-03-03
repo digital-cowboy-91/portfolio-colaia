@@ -9,6 +9,11 @@ export default function Contributions() {
   };
 
   return (
-    <ActivityCalendar data={contributionsData} blockRadius={20} theme={theme} />
+    <ActivityCalendar
+      data={contributionsData}
+      blockRadius={20}
+      theme={theme}
+      colorScheme="light"
+    />
   );
 }
