@@ -41,50 +41,58 @@ export default function ToolboxSection() {
 
       firstLoad.play();
 
-      // Timeline trigger
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: scope.current,
-          start: "top bottom",
-          end: "bottom bottom",
-          scrub: true,
-          onUpdate: (self) => {
-            setProgress(self.progress);
-
-            if (self.progress > 0.1 && firstLoad.isActive()) {
-              firstLoad.progress(1);
-            }
-          },
-          onLeave: () => {
-            gsap.set(wrapper, { autoAlpha: 0 });
-          },
+      // Responsive trigger
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          isDesktop: "(min-height: 920px) and (min-width: 960px)",
+          otherwise: "(min-width: 1px)",
         },
-      });
+        ({ conditions }) => {
+          const { isDesktop } = conditions!;
 
-      tl.set(wrapper, { autoAlpha: 1 })
-        .to(bar, { autoAlpha: 0, display: "none" })
-        .set(detail, { display: "block" })
-        .to(wrapper, {
-          top: "50%",
-          duration: 1,
-        })
-        .to(
-          items,
-          {
-            width: gsap.getProperty(detail, "width", "px"),
-            height: gsap.getProperty(detail, "height", "px"),
-            duration: 1,
-            onStart: () => {
-              console.log(gsap.getProperty(detail, "width", "px"));
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: scope.current,
+              start: isDesktop ? "top bottom" : "top center",
+              end: isDesktop ? "bottom bottom" : "bottom center",
+              scrub: true,
+              onUpdate: (self) => {
+                setProgress(self.progress);
+
+                if (self.progress > 0.1 && firstLoad.isActive()) {
+                  firstLoad.progress(1);
+                }
+              },
+              onLeave: () => {
+                gsap.set(wrapper, isDesktop ? { autoAlpha: 0 } : {});
+              },
             },
-          },
-          "<"
-        )
-        .set(items, { height: "auto" })
-        .set(wrapper, { position: "sticky" })
-        .to(detail, { autoAlpha: 1 })
-        .to(wrapper, { autoAlpha: 0 }, "+=1.5")
-        .duration(4);
+          });
+
+          tl.set(wrapper, { autoAlpha: 1 })
+            .to(bar, { autoAlpha: 0, display: "none" })
+            .set(detail, { display: "block" })
+            .to(wrapper, {
+              top: "50%",
+              duration: 1,
+            })
+            .to(
+              items,
+              {
+                width: gsap.getProperty(detail, "width", "px"),
+                height: gsap.getProperty(detail, "height", "px"),
+                duration: 1,
+              },
+              "<"
+            )
+            .set(items, { height: "auto" })
+            .set(wrapper, { position: "sticky" })
+            .to(detail, { autoAlpha: 1 })
+            .to(wrapper, isDesktop ? { autoAlpha: 0 } : {}, "+=1.5")
+            .duration(4);
+        }
+      );
     },
     { scope }
   );

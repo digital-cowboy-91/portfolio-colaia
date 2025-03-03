@@ -36,15 +36,26 @@ export default function ActivitySection() {
 
   useGSAP(
     () => {
-      gsap.timeline({
-        scrollTrigger: {
-          trigger: scope.current,
-          start: "top bottom",
-          end: "bottom bottom",
-          onUpdate: (self) => setProgress(self.progress),
-          // markers: true,
+      // Responsive trigger
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          isDesktop: "(min-height: 920px) and (min-width: 960px)",
+          otherwise: "(min-width: 1px)",
         },
-      });
+        ({ conditions }) => {
+          const { isDesktop } = conditions!;
+
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: scope.current,
+              start: isDesktop ? "top bottom" : "top center",
+              end: isDesktop ? "bottom bottom" : "bottom center",
+              onUpdate: (self) => setProgress(self.progress),
+            },
+          });
+        }
+      );
     },
     { scope }
   );

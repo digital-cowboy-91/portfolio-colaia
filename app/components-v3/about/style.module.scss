@@ -2,13 +2,10 @@
 @use "../layout.scss";
 
 .tracker {
-  height: 300vh;
+  height: 100vh;
 }
 
 .wrapper {
-  position: sticky;
-  top: 0;
-
   height: calc(100vh - layout.$bottom-bar-height);
 
   display: flex;
@@ -31,10 +28,6 @@
 
   padding: layout.$spacing;
 
-  &[data-anim] {
-    visibility: hidden;
-  }
-
   & > * {
     position: relative;
     width: 100%;
@@ -52,7 +45,20 @@
 }
 
 @media (min-height: 920px) and (min-width: 960px) {
+  .tracker {
+    height: 300vh;
+  }
+
+  .wrapper {
+    position: sticky;
+    top: 0;
+  }
+
   .items {
     height: max-content;
+
+    &[data-anim] {
+      visibility: hidden;
+    }
   }
 }

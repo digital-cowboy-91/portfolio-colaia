@@ -37,8 +37,8 @@ export default function IntroSection() {
       gsap.timeline({
         scrollTrigger: {
           trigger: scope.current,
-          start: "top 1px",
-          end: "bottom top",
+          start: "top center",
+          end: "bottom center",
           scrub: true,
           onEnter: () => onFirstLoad(),
           onUpdate: (self) => setProgress(self.progress),

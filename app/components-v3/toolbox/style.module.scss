@@ -42,6 +42,10 @@
 }
 
 @media (min-height: 920px) and (min-width: 960px) {
+  .tracker {
+    height: 150vh;
+  }
+
   .detail {
     width: 720px;
   }

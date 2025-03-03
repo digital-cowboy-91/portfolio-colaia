@@ -14,7 +14,7 @@ export default function Article({ data }: { data: ActivityWithRefs }) {
     usedTools,
   } = data;
 
-  console.log({ usedTools });
+  // TODO: Fix used tool
   return (
     <article className="grid gap-single p-single">
       <header className="grid grid-cols-[auto_max-content]">

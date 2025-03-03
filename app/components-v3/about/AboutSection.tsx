@@ -31,22 +31,20 @@ export default function AboutSection() {
       // Default state
       gsap.set(items, { autoAlpha: 1 });
 
-      // Timeline trigger
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: scope.current,
-          start: "top 1px",
-          end: "bottom bottom",
-          scrub: true,
-          onUpdate: (self) => setProgress(self.progress),
-        },
-      });
-
       // Responsive animations
       const mm = gsap.matchMedia();
 
       mm.add("(min-height: 920px) and (min-width: 960px)", () => {
-        tl.clear();
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: scope.current,
+            start: "top 1px",
+            end: "bottom bottom",
+            scrub: true,
+            onUpdate: (self) => setProgress(self.progress),
+          },
+        });
+
         tl.fromTo(
           git,
           { x: "100vw" },
@@ -60,16 +58,14 @@ export default function AboutSection() {
       });
 
       mm.add("(max-height: 919px) and (max-width: 959px)", () => {
-        tl.clear();
-        tl.fromTo(
-          items,
-          { yPercent: 50, scale: 0.9 },
-          { yPercent: 0, duration: 1 }
-        )
-          .to(items, { scale: 1, duration: 0.5 })
-          .to(items, { scale: 0.9, duration: 0.5 }, "+=1")
-          .to(items, { yPercent: -50, duration: 1 })
-          .duration(4);
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: scope.current,
+            start: "top center",
+            end: "bottom center",
+            onUpdate: (self) => setProgress(self.progress),
+          },
+        });
       });
     },
     { scope }
