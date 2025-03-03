@@ -49,6 +49,8 @@
     top: 0;
 
     height: calc(100vh - layout.$bottom-bar-height);
+
+    overflow: hidden;
   }
 
   .items {
