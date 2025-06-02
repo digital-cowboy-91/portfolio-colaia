@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "gtgwmloehjftsoyxpfhm.supabase.co",
+        hostname: "wvrligyoonnpfhinlhlw.supabase.co",
         port: "",
         pathname: "/storage/v1/object/public/colaia.dev/**",
         search: "",
