@@ -42,7 +42,7 @@ export default function Article({ data }: { data: ActivityWithRefs }) {
       </header>
       <section className="grid gap-single">
         <MarkdownContent text={description} />
-        {coverImage && <CoverImage link={coverLink} src={coverImage} />}
+        {/* {coverImage && <CoverImage link={coverLink} src={coverImage} />} */}
       </section>
       {usedTools?.length > 0 && (
         <footer>
