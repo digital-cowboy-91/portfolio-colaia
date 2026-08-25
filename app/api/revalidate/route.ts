@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
-import { authenticator } from "otplib";
+import { generateSecret, verify } from "otplib";
 
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("otp");
@@ -17,10 +17,10 @@ export async function GET(req: NextRequest) {
     return Response.json({
       status: 500,
       message: "TOTP secret is missing",
-      newSecret: authenticator.generateSecret(),
+      newSecret: generateSecret(),
     });
 
-  const isValid = authenticator.verify({ token, secret });
+  const isValid = verify({ token, secret });
 
   if (!isValid)
     return Response.json({
