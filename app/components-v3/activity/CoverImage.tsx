@@ -20,7 +20,7 @@ export default function CoverImage({
     <a
       className={`
         rounded-single
-        aspect-[10/1] hover:aspect-video
+        aspect-10/1 hover:aspect-video
         opacity-75 hover:opacity-100
         transition-all delay-300 duration-300
         overflow-hidden

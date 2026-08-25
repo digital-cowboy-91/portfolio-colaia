@@ -163,7 +163,7 @@ function CalendarItem({ label, isYear = false }: CalendarItemProps) {
         {label}
       </motion.span>
       {isYear && (
-        <div className="size-[12px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 -right-[0.5px] translate-x-1/2" />
+        <div className="size-[12px] bg-subtle rounded-full border-background border-2 absolute top-1/2 -translate-y-1/2 right-[-0.5px] translate-x-1/2" />
       )}
     </div>
   );

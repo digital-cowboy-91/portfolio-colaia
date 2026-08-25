@@ -122,7 +122,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
           grid grid-rows-[32px_auto]
           text-xl tracking-wider font-semibold
           transition-transform duration-300
-          ${showNav ? "translate-y-0" : "-translate-y-[200%]"}
+          ${showNav ? "translate-y-0" : "translate-y-[-200%]"}
           text-foreground drop-shadow-top
         `}
         style={{
@@ -146,7 +146,7 @@ export default function NavbarHorizontal({ bookmarks, activeBookmark }: Props) {
             </motion.button>
           </AnimatePresence>
           <ProgressBar
-            className="flex-grow"
+            className="grow"
             progress={activeBookmark.progress}
           />
           <SocialLinks />

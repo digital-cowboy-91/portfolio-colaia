@@ -29,7 +29,7 @@ export default function Intro() {
         >
           <span
             id="hero__name-1"
-            className="-translate-x-[2.5rem]"
+            className="-translate-x-10"
             style={{ scale: 1.2, transform: "translate(0px, 0px)" }}
           >
             COLAIA
@@ -42,7 +42,7 @@ export default function Intro() {
           </span>
           <span
             id="hero__name-3"
-            className="translate-x-[2.5rem]"
+            className="translate-x-10"
             style={{ opacity: 0, transform: "translate(0px, -12rem)" }}
           >
             COLAIA

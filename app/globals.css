@@ -1,6 +1,56 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@source './**/*.{js,ts,jsx,tsx,mdx}';
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-subtle: var(--subtle);
+  --color-contour: var(--contour);
+
+  --shadow-top: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  --shadow-massive: 20px 20px 30px rgba(0, 0, 0, 0.5);
+
+  --drop-shadow-top: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  --drop-shadow-massive: 20px 20px 30px rgba(0, 0, 0, 0.5);
+
+  --padding-single: var(--spacing-single);
+  --padding-double: var(--spacing-double);
+
+  --margin-single: var(--spacing-single);
+  --margin-double: var(--spacing-double);
+
+  --gap-single: var(--spacing-single);
+  --gap-double: var(--spacing-double);
+
+  --radius-single: var(--spacing-single);
+
+  --height-single: var(--spacing-single);
+  --height-double: var(--spacing-double);
+
+  --inset-single: var(--spacing-single);
+  --inset-double: var(--spacing-double);
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 :root {
   --background-coords: 10, 10, 10;
