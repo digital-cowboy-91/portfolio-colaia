@@ -1,4 +1,4 @@
-import ActivityCalendar from "react-activity-calendar";
+import { ActivityCalendar } from "react-activity-calendar";
 import useDataResolver from "../data-provider/useDataResolver";
 
 export default function Contributions() {

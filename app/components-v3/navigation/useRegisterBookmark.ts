@@ -12,6 +12,7 @@ export default function useRegisterBookmark(bookmark: Bookmark) {
 
   useEffect(() => {
     const prev = bookmarkListSignal.value;
+    if (prev.findIndex(item => item.id === bookmark.id) >= 0) return;
     bookmarkListSignal.value = [...prev, bookmark];
   }, []);
 
